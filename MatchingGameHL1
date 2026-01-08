@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heme-Lymph Match</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
+        }
+        .animate-shake {
+            animation: shake 0.4s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.4s ease-out;
+        }
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .animate-popIn {
+            animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-slideIn {
+            animation: slideIn 0.5s ease-out;
+        }
+        /* Pulse animation for selected item */
+        .selected-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .5; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 font-sans text-slate-800 min-h-screen flex flex-col">
+
+    <!-- HEADER -->
+    <header class="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-20">
+        <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="bg-blue-600 text-white p-2 rounded-lg">
+                    <!-- BookOpen Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                </div>
+                <h1 class="font-bold text-xl hidden sm:block">Heme-Lymph Match</h1>
+                <h1 class="font-bold text-xl sm:hidden">HL Match</h1>
+            </div>
+
+            <div id="game-stats" class="hidden flex items-center gap-6 text-sm font-semibold">
+                <div class="flex items-center gap-2 text-slate-500">
+                    <span class="hidden sm:inline">Progress</span>
+                    <span id="progress-display" class="bg-slate-100 px-2 py-1 rounded text-slate-700">0 / 0</span>
+                </div>
+                <div class="flex items-center gap-2 text-blue-600">
+                    <!-- Trophy Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+                    <span id="score-display">0</span>
+                </div>
+                <button onclick="goToMenu()" class="text-slate-400 hover:text-slate-600 p-1">
+                    <!-- XCircle Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT AREA -->
+    <main id="main-content" class="max-w-6xl mx-auto px-4 py-6 w-full flex-grow">
+        <!-- Content injected by JS -->
+    </main>
+
+    <script>
+        // --- ICONS (SVG Strings) ---
+        const ICONS = {
+            Layers: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg>`,
+            Droplet: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg>`,
+            Activity: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>`,
+            ShieldAlert: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>`,
+            Bug: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 2 1.88 1.88"/><path d="M14.12 3.88 16 2"/><path d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1"/><path d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6"/><path d="M12 20v-9"/><path d="M6.53 9C4.6 8.8 3 7.1 3 5"/><path d="M6 13H2"/><path d="M3 21c0-2.1 1.7-3.9 3.8-4"/><path d="M20.97 5c0 2.1-1.6 3.8-3.5 4"/><path d="M22 13h-4"/><path d="M17.2 17c2.1.1 3.8 1.9 3.8 4"/></svg>`,
+            FlaskConical: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2"/><path d="M8.5 2h7"/><path d="M7 16h10"/></svg>`,
+            Pill: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg>`,
+            CheckCircle: `<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg>`,
+            ArrowRight: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>`,
+            TrophyBig: `<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>`,
+            RotateCcw: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>`
+        };
+
+        // --- DATA ---
+        // Curated and Structured based on user request for "Foundational Concepts" and "Disease Modules"
+        const FULL_DATA = [
+            // --- FOUNDATIONS: LABS (Tests.csv & Labs.csv) ---
+            { category: 'Foundations: Labs', term: 'PT (Prothrombin Time)', def: 'Measures Extrinsic Pathway (Factor VII). Uses Tissue Factor.' },
+            { category: 'Foundations: Labs', term: 'aPTT', def: 'Measures Intrinsic Pathway (XII, XI, IX, VIII). Uses Silica/Kaolin.' },
+            { category: 'Foundations: Labs', term: 'Bleeding Time / PFA-100', def: 'Measures Platelet Function/Adhesion (Primary Hemostasis).' },
+            { category: 'Foundations: Labs', term: 'Thrombin Time', def: 'Measures Fibrinogen to Fibrin conversion. Prolonged by Heparin/Low Fibrinogen.' },
+            { category: 'Foundations: Labs', term: 'Mixing Study (Corrects)', def: 'Indicates a Factor Deficiency. (Replenished by normal plasma).' },
+            { category: 'Foundations: Labs', term: 'Mixing Study (No Correction)', def: 'Indicates presence of an Inhibitor (e.g., Lupus Anticoagulant, Factor VIII inhibitor).' },
+            { category: 'Foundations: Labs', term: 'D-Dimer', def: 'Measures cross-linked fibrin degradation. High in DIC, PE, DVT.' },
+            { category: 'Foundations: Labs', term: 'Ristocetin Cofactor Assay', def: 'Measures vWF activity/function. Abnormal in vWD.' },
+            { category: 'Foundations: Labs', term: 'Direct Coombs Test', def: 'Detects antibodies/complement bound directly to RBC surface (Autoimmune Hemolysis).' },
+            { category: 'Foundations: Labs', term: 'Osmotic Fragility Test', def: 'Positive in Hereditary Spherocytosis. Cells lyse easily in hypotonic saline.' },
+            { category: 'Foundations: Labs', term: 'Flow Cytometry (CD55/CD59)', def: 'Diagnostic for PNH (Paroxysmal Nocturnal Hemoglobinuria).' },
+            { category: 'Foundations: Labs', term: 'Hemoglobin Electrophoresis', def: 'Identifies Hemoglobin variants (HbS, HbC, HbF, HbA2).' },
+            
+            // --- FOUNDATIONS: RBC MORPHOLOGY (RBC.csv) ---
+            { category: 'Foundations: RBC Morphology', term: 'Microcytosis', def: 'MCV < 80. Iron Deficiency, Thalassemia, Sideroblastic Anemia.' },
+            { category: 'Foundations: RBC Morphology', term: 'Macrocytosis', def: 'MCV > 100. B12/Folate Deficiency, Liver Disease, Alcohol.' },
+            { category: 'Foundations: RBC Morphology', term: 'Target Cells', def: 'Thalassemia, Liver Disease, HbC, Post-Splenectomy.' },
+            { category: 'Foundations: RBC Morphology', term: 'Spherocytes', def: 'No central pallor. Hereditary Spherocytosis, Autoimmune Hemolysis.' },
+            { category: 'Foundations: RBC Morphology', term: 'Schistocytes', def: 'Fragmented RBCs. MAHA, TTP, HUS, DIC, Mechanical Valves.' },
+            { category: 'Foundations: RBC Morphology', term: 'Echinocytes (Burr Cells)', def: 'Regular spikes. Uremia/Renal Failure.' },
+            { category: 'Foundations: RBC Morphology', term: 'Acanthocytes (Spur Cells)', def: 'Irregular spikes. Severe Liver Disease, Abetalipoproteinemia.' },
+            { category: 'Foundations: RBC Morphology', term: 'Dacrocytes', def: 'Tear drop cells. Myelofibrosis (Marrow Infiltration).' },
+            { category: 'Foundations: RBC Morphology', term: 'Howell-Jolly Bodies', def: 'Nuclear DNA remnants. Seen in Asplenia.' },
+            { category: 'Foundations: RBC Morphology', term: 'Basophilic Stippling', def: 'Ribosome aggregation. Lead Poisoning, Thalassemia.' },
+            { category: 'Foundations: RBC Morphology', term: 'Heinz Bodies', def: 'Denatured Hemoglobin. G6PD Deficiency (Bite cells formed after spleen removal).' },
+            { category: 'Foundations: RBC Morphology', term: 'Rouleaux Formation', def: 'Stack of coins. Multiple Myeloma (High Protein/Globulins).' },
+
+            // --- MODULE: DISEASE MECHANISMS & ETIOLOGY (Diseases.csv, Anemias.csv) ---
+            { category: 'Module: Disease Mechanisms', term: 'TTP (Thrombotic Thrombocytopenic Purpura)', def: 'ADAMTS13 deficiency (cannot cleave vWF multimers).' },
+            { category: 'Module: Disease Mechanisms', term: 'HUS (Hemolytic Uremic Syndrome)', def: 'Shiga-toxin (E. coli O157:H7) damages endothelium.' },
+            { category: 'Module: Disease Mechanisms', term: 'Paroxysmal Nocturnal Hemoglobinuria', def: 'PIG-A mutation -> deficiency of GPI anchors (CD55/59).' },
+            { category: 'Module: Disease Mechanisms', term: 'Sickle Cell Anemia', def: 'Point mutation (Glu -> Val) in Beta globin chain.' },
+            { category: 'Module: Disease Mechanisms', term: 'Hereditary Spherocytosis', def: 'Defect in cytoskeleton proteins (Spectrin/Ankyrin).' },
+            { category: 'Module: Disease Mechanisms', term: 'G6PD Deficiency', def: 'Reduced NADPH -> RBC susceptibility to oxidative stress.' },
+            { category: 'Module: Disease Mechanisms', term: 'Bernard-Soulier Syndrome', def: 'Deficiency of GpIb (Platelet Adhesion defect).' },
+            { category: 'Module: Disease Mechanisms', term: 'Glanzmann Thrombasthenia', def: 'Deficiency of GpIIb/IIIa (Platelet Aggregation defect).' },
+            { category: 'Module: Disease Mechanisms', term: 'Immune Thrombocytopenia (ITP)', def: 'Autoantibodies (IgG) against Platelet GpIIb/IIIa.' },
+            { category: 'Module: Disease Mechanisms', term: 'Factor V Leiden', def: 'Factor V resistant to cleavage by Protein C.' },
+            { category: 'Module: Disease Mechanisms', term: 'Acute Intermittent Porphyria', def: 'Porphobilinogen Deaminase defect.' },
+            { category: 'Module: Disease Mechanisms', term: 'Porphyria Cutanea Tarda', def: 'Uroporphyrinogen Decarboxylase defect.' },
+            { category: 'Module: Disease Mechanisms', term: 'Pernicious Anemia', def: 'Autoantibodies against Intrinsic Factor or Parietal Cells.' },
+
+            // --- MODULE: DISEASE LAB FINDINGS (Labs.csv, Flowchart.csv) ---
+            { category: 'Module: Disease Labs', term: 'Iron Deficiency Anemia', def: 'Microcytic, Low Ferritin, High TIBC, Low Serum Iron.' },
+            { category: 'Module: Disease Labs', term: 'Anemia of Chronic Disease', def: 'Normo/Microcytic, High Ferritin, Low TIBC, High Hepcidin.' },
+            { category: 'Module: Disease Labs', term: 'Sideroblastic Anemia', def: 'High Serum Iron, Ringed Sideroblasts in marrow.' },
+            { category: 'Module: Disease Labs', term: 'B12 Deficiency', def: 'Macrocytic, High Methylmalonic Acid, High Homocysteine.' },
+            { category: 'Module: Disease Labs', term: 'Folate Deficiency', def: 'Macrocytic, Normal Methylmalonic Acid, High Homocysteine.' },
+            { category: 'Module: Disease Labs', term: 'Hemolysis (General)', def: 'High LDH, Low Haptoglobin, Increased Reticulocytes.' },
+            { category: 'Module: Disease Labs', term: 'Aplastic Anemia', def: 'Pancytopenia, Hypocellular (fatty) bone marrow.' },
+            { category: 'Module: Disease Labs', term: 'Von Willebrand Disease', def: 'High Bleeding Time, Normal/High PTT, Abnormal Ristocetin.' },
+            { category: 'Module: Disease Labs', term: 'Hemophilia A', def: 'High PTT, Normal PT, Normal Bleeding Time.' },
+            { category: 'Module: Disease Labs', term: 'DIC', def: 'High PT, High PTT, Low Fibrinogen, High D-Dimer, Low Platelets.' },
+            { category: 'Module: Disease Labs', term: 'Vitamin K Deficiency', def: 'High PT (early), High PTT (late). Normal Platelets.' },
+
+            // --- MODULE: PHARMACOLOGY (Drugs.csv) ---
+            { category: 'Module: Pharmacology', term: 'Warfarin', def: 'Vitamin K Antagonist (II, VII, IX, X, C, S). Monitor PT/INR.' },
+            { category: 'Module: Pharmacology', term: 'Unfractionated Heparin', def: 'Activates Antithrombin III. Monitor PTT. Reversal: Protamine.' },
+            { category: 'Module: Pharmacology', term: 'LMWH (Enoxaparin)', def: 'Inhibits Factor Xa > Thrombin. Renal clearance.' },
+            { category: 'Module: Pharmacology', term: 'Aspirin', def: 'Irreversible COX-1 inhibition. Blocks TXA2.' },
+            { category: 'Module: Pharmacology', term: 'Clopidogrel', def: 'Irreversible P2Y12 (ADP) receptor blocker.' },
+            { category: 'Module: Pharmacology', term: 'Abciximab/Eptifibatide', def: 'GpIIb/IIIa inhibitors (prevent fibrinogen binding).' },
+            { category: 'Module: Pharmacology', term: 'tPA / Alteplase', def: 'Fibrinolytic. Converts Plasminogen to Plasmin.' },
+            { category: 'Module: Pharmacology', term: 'Dabigatran', def: 'Direct Thrombin Inhibitor.' },
+            { category: 'Module: Pharmacology', term: 'Rivaroxaban / Apixaban', def: 'Direct Factor Xa Inhibitors.' },
+
+            // --- MODULE: PARASITES (Parasites.csv) ---
+            { category: 'Module: Parasites', term: 'Babesiosis', def: 'Maltese Cross in RBC. Ixodes tick. Hemolytic anemia.' },
+            { category: 'Module: Parasites', term: 'P. Falciparum', def: 'Severe malaria. Banana-shaped gametocytes.' },
+            { category: 'Module: Parasites', term: 'P. Vivax / Ovale', def: 'Hypnozoites in liver (Relapse). Treat with Primaquine.' },
+            { category: 'Module: Parasites', term: 'P. Malariae', def: 'Band-form trophozoites. Quartan fever (72 hrs).' },
+            { category: 'Module: Parasites', term: 'Wuchereria bancrofti', def: 'Lymphatic Filariasis. Night blood smear. Mosquito.' },
+            { category: 'Module: Parasites', term: 'Onchocerca volvulus', def: 'River Blindness. Blackfly. Microfilariae in skin snips.' },
+        ];
+
+        // Grouped Categories for the Menu
+        const CATEGORY_GROUPS = [
+            {
+                title: "Foundations",
+                items: [
+                    { id: 'Foundations: Labs', label: 'Labs & Diagnostics', icon: 'FlaskConical', color: 'bg-blue-500' },
+                    { id: 'Foundations: RBC Morphology', label: 'RBC Morphology', icon: 'Droplet', color: 'bg-red-500' }
+                ]
+            },
+            {
+                title: "Pathology Modules",
+                items: [
+                    { id: 'Module: Disease Mechanisms', label: 'Disease: Mechanisms & Etiology', icon: 'Activity', color: 'bg-purple-600' },
+                    { id: 'Module: Disease Labs', label: 'Disease: Lab Findings', icon: 'Layers', color: 'bg-indigo-600' }
+                ]
+            },
+            {
+                title: "Treatment & Organisms",
+                items: [
+                    { id: 'Module: Pharmacology', label: 'Pharmacology', icon: 'Pill', color: 'bg-emerald-600' },
+                    { id: 'Module: Parasites', label: 'Parasites & Malaria', icon: 'Bug', color: 'bg-orange-500' }
+                ]
+            },
+            {
+                title: "Comprehensive",
+                items: [
+                    { id: 'All', label: 'Master Exam (All Content)', icon: 'TrophyBig', color: 'bg-slate-800' }
+                ]
+            }
+        ];
+
+        // --- STATE ---
+        let gameState = 'menu'; // menu, playing, round-end, game-end
+        let selectedCategory = 'All';
+        let deck = [];
+        let roundItems = [];
+        let leftCol = [];
+        let rightCol = [];
+        let selectedLeft = null;
+        let selectedRight = null;
+        let matchedIds = [];
+        let wrongPair = null; // {left: id, right: id}
+        let score = 0;
+        let mistakes = 0;
+
+        // --- DOM ELEMENTS ---
+        const mainContent = document.getElementById('main-content');
+        const gameStats = document.getElementById('game-stats');
+        const progressDisplay = document.getElementById('progress-display');
+        const scoreDisplay = document.getElementById('score-display');
+
+        // --- INITIALIZATION ---
+        function init() {
+            renderMenu();
+        }
+
+        // --- GAME LOGIC ---
+
+        function startGame(catId) {
+            selectedCategory = catId;
+            
+            // Filter Data
+            let filtered = catId === 'All' 
+                ? [...FULL_DATA] 
+                : FULL_DATA.filter(item => item.category === catId);
+            
+            // Shuffle
+            filtered.sort(() => 0.5 - Math.random());
+            deck = filtered;
+            
+            // Reset Game Stats
+            score = 0;
+            mistakes = 0;
+            
+            // Create "Single Round" with all items
+            // Assign IDs to everything
+            roundItems = deck.map((item, idx) => ({
+                ...item,
+                id: `item-${idx}`
+            }));
+            
+            // Shuffle columns independently
+            leftCol = [...roundItems].sort(() => 0.5 - Math.random());
+            rightCol = [...roundItems].sort(() => 0.5 - Math.random());
+
+            matchedIds = [];
+            selectedLeft = null;
+            selectedRight = null;
+            wrongPair = null;
+            
+            gameState = 'playing';
+            updateUI();
+        }
+
+        function handleLeftClick(id) {
+            if (matchedIds.includes(id) || wrongPair) return;
+            if (selectedLeft === id) {
+                selectedLeft = null;
+            } else {
+                selectedLeft = id;
+            }
+            checkMatch();
+            renderBoard(); // Re-render to show selection
+        }
+
+        function handleRightClick(id) {
+            if (matchedIds.includes(id) || wrongPair) return;
+            if (selectedRight === id) {
+                selectedRight = null;
+            } else {
+                selectedRight = id;
+            }
+            checkMatch();
+            renderBoard(); // Re-render to show selection
+        }
+
+        function checkMatch() {
+            if (!selectedLeft || !selectedRight) return;
+
+            const leftId = selectedLeft;
+            const rightId = selectedRight;
+
+            if (leftId === rightId) {
+                // Correct Match
+                matchedIds.push(leftId);
+                score += 100;
+                selectedLeft = null;
+                selectedRight = null;
+                updateStats();
+                
+                // Check Completion
+                if (matchedIds.length === roundItems.length) {
+                    setTimeout(renderGameEnd, 800);
+                }
+            } else {
+                // Wrong Match
+                wrongPair = { left: leftId, right: rightId };
+                mistakes++;
+                updateStats();
+                renderBoard(); // Show Error state
+                
+                setTimeout(() => {
+                    selectedLeft = null;
+                    selectedRight = null;
+                    wrongPair = null;
+                    renderBoard(); // Clear Error state
+                }, 1000);
+            }
+        }
+
+        function goToMenu() {
+            gameState = 'menu';
+            renderMenu();
+        }
+
+        // --- RENDER FUNCTIONS ---
+
+        function updateUI() {
+            if (gameState === 'menu') {
+                gameStats.classList.add('hidden');
+                renderMenu();
+            } else {
+                gameStats.classList.remove('hidden');
+                updateStats();
+                if (gameState === 'playing') renderBoard();
+                if (gameState === 'game-end') renderGameEnd();
+            }
+        }
+
+        function updateStats() {
+            progressDisplay.textContent = `${matchedIds.length} / ${roundItems.length}`;
+            scoreDisplay.textContent = score;
+        }
+
+        function renderMenu() {
+            gameStats.classList.add('hidden');
+            let html = `
+                <div class="max-w-4xl mx-auto animate-slideIn">
+                    <div class="text-center py-8">
+                        <h2 class="text-3xl font-extrabold text-slate-800 mb-2">Select Your Module</h2>
+                        <p class="text-slate-500">Structured learning from foundations to clinical application.</p>
+                    </div>
+            `;
+
+            CATEGORY_GROUPS.forEach(group => {
+                html += `
+                    <div class="mb-8">
+                        <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4 px-2">${group.title}</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                `;
+                
+                group.items.forEach(cat => {
+                    const count = cat.id === 'All' 
+                        ? FULL_DATA.length 
+                        : FULL_DATA.filter(i => i.category === cat.id).length;
+                    
+                    const iconSvg = ICONS[cat.icon] || ICONS.Activity;
+
+                    html += `
+                        <button onclick="startGame('${cat.id}')" class="flex items-center p-4 bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-300 transition-all group text-left">
+                            <div class="p-3 rounded-lg ${cat.color} text-white mr-4 group-hover:scale-110 transition-transform shadow-sm shrink-0">
+                                ${iconSvg.replace('width="28"', 'width="24"').replace('height="28"', 'height="24"')}
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-slate-700">${cat.label}</h3>
+                                <div class="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wide">
+                                    ${count} Cards
+                                </div>
+                            </div>
+                        </button>
+                    `;
+                });
+                
+                html += `</div></div>`;
+            });
+
+            html += `</div>`;
+            mainContent.innerHTML = html;
+        }
+
+        function renderBoard() {
+            let html = `
+                <div class="animate-fadeIn pb-12">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-12 relative">
+                        
+                        <!-- LEFT COL -->
+                        <div class="flex flex-col gap-3">
+                            <h3 class="text-slate-400 font-bold uppercase text-xs tracking-wider mb-2 text-center md:text-left sticky top-16 bg-slate-50 py-2 z-10">Terms / Disease</h3>
+            `;
+
+            leftCol.forEach(item => {
+                const isMatched = matchedIds.includes(item.id);
+                const isSelected = selectedLeft === item.id;
+                const isError = wrongPair?.left === item.id;
+                
+                let btnClass = "w-full text-left p-4 rounded-xl border-2 transition-all relative flex items-center justify-between min-h-[4rem] ";
+                let textClass = "font-bold text-sm md:text-base ";
+
+                if (isMatched) {
+                    btnClass += "bg-slate-50 border-slate-100 text-slate-300 opacity-50 cursor-default";
+                    textClass += "line-through";
+                } else if (isError) {
+                    btnClass += "bg-red-50 border-red-500 animate-shake z-10";
+                    textClass += "text-slate-800";
+                } else if (isSelected) {
+                    btnClass += "bg-blue-50 border-blue-500 shadow-md z-10";
+                    textClass += "text-slate-800";
+                } else {
+                    btnClass += "bg-white border-slate-200 hover:border-blue-300 hover:shadow-sm";
+                    textClass += "text-slate-800";
+                }
+
+                html += `
+                    <button onclick="handleLeftClick('${item.id}')" ${isMatched ? 'disabled' : ''} class="${btnClass}">
+                        <span class="${textClass}">${item.term}</span>
+                        ${isSelected ? '<div class="w-3 h-3 bg-blue-500 rounded-full selected-pulse"></div>' : ''}
+                    </button>
+                `;
+            });
+
+            html += `</div>`; // End Left Col
+
+            // Divider (Desktop Only)
+            html += `<div class="hidden md:block absolute left-1/2 top-10 bottom-4 w-px bg-slate-200 -translate-x-1/2"></div>`;
+
+            // RIGHT COL
+            html += `<div class="flex flex-col gap-3">
+                        <h3 class="text-slate-400 font-bold uppercase text-xs tracking-wider mb-2 text-center md:text-left sticky top-16 bg-slate-50 py-2 z-10">Mechanism / Findings</h3>`;
+
+            rightCol.forEach(item => {
+                const isMatched = matchedIds.includes(item.id);
+                const isSelected = selectedRight === item.id;
+                const isError = wrongPair?.right === item.id;
+
+                let btnClass = "w-full text-left p-4 rounded-xl border-2 transition-all min-h-[4rem] flex items-center ";
+                let textClass = "text-sm leading-snug ";
+
+                if (isMatched) {
+                    btnClass += "bg-slate-50 border-slate-100 text-slate-300 opacity-50 cursor-default";
+                    textClass += "line-through";
+                } else if (isError) {
+                    btnClass += "bg-red-50 border-red-500 animate-shake z-10";
+                    textClass += "text-slate-600 font-medium";
+                } else if (isSelected) {
+                    btnClass += "bg-blue-50 border-blue-500 shadow-md z-10";
+                    textClass += "text-slate-600 font-medium";
+                } else {
+                    btnClass += "bg-white border-slate-200 hover:border-blue-300 hover:shadow-sm";
+                    textClass += "text-slate-600 font-medium";
+                }
+
+                html += `
+                    <button onclick="handleRightClick('${item.id}')" ${isMatched ? 'disabled' : ''} class="${btnClass}">
+                        <span class="${textClass}">${item.def}</span>
+                    </button>
+                `;
+            });
+
+            html += `</div></div></div>`;
+            mainContent.innerHTML = html;
+        }
+
+        function renderGameEnd() {
+            mainContent.innerHTML = `
+                <div class="flex flex-col items-center justify-center min-h-[60vh] animate-popIn">
+                    <div class="bg-yellow-100 text-yellow-600 p-6 rounded-full mb-6">
+                        ${ICONS.TrophyBig}
+                    </div>
+                    <h2 class="text-4xl font-extrabold text-slate-800 mb-4">Module Complete!</h2>
+                    
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 w-full max-w-sm mb-8">
+                        <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-4">
+                            <span class="text-slate-500 font-medium">Final Score</span>
+                            <span class="text-2xl font-bold text-blue-600">${score}</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-slate-500 font-medium">Mistakes</span>
+                            <span class="text-2xl font-bold ${mistakes === 0 ? 'text-green-500' : 'text-red-500'}">
+                                ${mistakes}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4">
+                        <button onclick="goToMenu()" class="px-6 py-3 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded-xl font-bold transition-colors">
+                            Back to Menu
+                        </button>
+                        <button onclick="startGame('${selectedCategory}')" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold transition-colors flex items-center gap-2">
+                            ${ICONS.RotateCcw} Replay
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Initialize the app
+        init();
+
+    </script>
+</body>
+</html>
