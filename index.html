@@ -384,9 +384,9 @@
         let hiddenModules = new Set(); // Track hidden modules
 
         // Flowchart State
-        let fcZoom = 0.55; 
-        let fcPanX = 50; 
-        let fcPanY = 50; 
+        let fcZoom = 0.45; // Adjusted start zoom to see more
+        let fcPanX = 0; // Adjusted Pan X
+        let fcPanY = 0; // Adjusted Pan Y
         let isDraggingChart = false;
         let lastMouseX = 0;
         let lastMouseY = 0;
@@ -489,9 +489,9 @@
 
         function startFlowchart() {
             gameState = 'flowchart';
-            fcZoom = 0.55; 
-            fcPanX = 50;
-            fcPanY = 50;
+            fcZoom = 0.45; 
+            fcPanX = 0;
+            fcPanY = 0;
             placedItems = {};
             heldItem = null;
             score = 0;
@@ -529,9 +529,9 @@
             renderFlowchart();
         }
         function resetZoom() {
-            fcZoom = 0.55;
-            fcPanX = 50;
-            fcPanY = 50;
+            fcZoom = 0.45;
+            fcPanX = 0;
+            fcPanY = 0;
             renderFlowchart();
         }
 
