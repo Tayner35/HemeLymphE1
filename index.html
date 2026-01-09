@@ -124,11 +124,14 @@
     </main>
 
     <!-- IMAGE MODAL -->
-    <div id="image-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4" onclick="closeImageModal()">
-        <div class="relative bg-transparent max-w-4xl max-h-full flex flex-col items-center justify-center" onclick="event.stopPropagation()">
-            <img id="modal-img" src="" alt="Full size" class="max-w-full max-h-[85vh] rounded-lg shadow-2xl object-contain">
-            <p id="modal-caption" class="text-white mt-4 text-lg font-semibold bg-black/50 px-4 py-2 rounded-lg"></p>
-            <button onclick="closeImageModal()" class="absolute -top-10 right-0 text-white hover:text-slate-300 p-2">
+    <div id="image-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm p-4 animate-fadeIn" onclick="closeImageModal()">
+        <div class="relative bg-transparent max-w-5xl w-full max-h-full flex flex-col items-center justify-center" onclick="event.stopPropagation()">
+            <img id="modal-img" src="" alt="Full size" class="max-w-full max-h-[80vh] rounded-lg shadow-2xl object-contain border-2 border-white/20">
+            <div class="bg-black/70 backdrop-blur-md text-white mt-4 px-6 py-4 rounded-xl text-center max-w-2xl border border-white/10">
+                <h3 id="modal-title" class="text-xl font-bold mb-1 text-white"></h3>
+                <p id="modal-caption" class="text-slate-300 text-sm leading-relaxed"></p>
+            </div>
+            <button onclick="closeImageModal()" class="absolute -top-12 right-0 text-white/70 hover:text-white p-2 transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
             </button>
         </div>
@@ -304,57 +307,33 @@
             { category: 'Foundations: RBC Morphology', term: 'Pappenheimer Bodies', def: 'Iron granules (Perls stain). Sideroblastic anemia, Post-splenectomy.' }
         ];
 
-        // --- FLOWCHART DATA ---
-        const FLOWCHART_NODES = [
-            { id: 'h1', type: 'label', text: 'Microcytic (MCV < 80)', x: 1.5, y: 0.5, w: 3, color: 'bg-red-100 border-red-300' },
-            { id: 'h2', type: 'label', text: 'Normocytic (MCV 80-100)', x: 7.5, y: 0.5, w: 5, color: 'bg-green-100 border-green-300' },
-            { id: 'h3', type: 'label', text: 'Macrocytic (MCV > 96)', x: 14.5, y: 0.5, w: 3, color: 'bg-blue-100 border-blue-300' },
-
-            // --- MICROCYTIC PATH ---
-            { id: 'micro_step1', type: 'label', text: 'Step 1: Serum Iron Studies', x: 1.5, y: 2, w: 3, color: 'bg-white border-slate-300 font-bold' },
-            { id: 'micro_low_iron', type: 'label', text: '↓ Iron', x: 0.5, y: 3.5, w: 2, color: 'bg-slate-50 text-red-600' },
-            { id: 'lbl_low_ferritin', type: 'label', text: '↓ Ferritin', x: 0, y: 5, w: 1, color: 'bg-white border-dashed text-xs' },
-            { id: 'lbl_high_ferritin', type: 'label', text: '↑ Ferritin', x: 1, y: 5, w: 1, color: 'bg-white border-dashed text-xs' },
-            { id: 'lbl_norm_ferritin', type: 'label', text: 'Normal Ferritin', x: 2, y: 5, w: 1, color: 'bg-white border-dashed text-xs' },
-            { id: 'drop_ida', type: 'drop', answer: 'Iron Deficiency Anaemia', x: 0, y: 6.5, w: 1, isFinal: true },
-            { id: 'drop_acd', type: 'drop', answer: 'Anaemia of Chronic Disease', x: 1, y: 6.5, w: 1, isFinal: true },
-            { id: 'drop_thal', type: 'drop', answer: 'Thalassemia', x: 2, y: 6.5, w: 1, isFinal: true },
-            { id: 'micro_high_iron', type: 'label', text: '↑ Iron', x: 3.5, y: 3.5, w: 1, color: 'bg-slate-50 text-red-600' },
-            { id: 'lbl_sid_ferritin', type: 'label', text: '↓ Ferritin (Chart Logic)', x: 3.5, y: 5, w: 1, color: 'bg-white border-dashed text-xs' },
-            { id: 'drop_sidero', type: 'drop', answer: 'Sideroblastic Anaemia', x: 3.5, y: 6.5, w: 1, isFinal: true },
-
-            // --- NORMOCYTIC PATH ---
-            { id: 'normo_step1', type: 'label', text: 'Step 1: Reticulocyte Count', x: 7.5, y: 2, w: 5, color: 'bg-white border-slate-300 font-bold' },
-            { id: 'normo_low_retic', type: 'label', text: '< 2% (Low Production)', x: 5.5, y: 3.5, w: 2, color: 'bg-slate-50 text-green-700' },
-            { id: 'lbl_pancyto', type: 'label', text: 'Pancytopenia Present', x: 5, y: 5, w: 1, color: 'bg-white border-dashed text-xs' },
-            { id: 'lbl_no_pancyto', type: 'label', text: 'Pancytopenia Absent', x: 6, y: 5, w: 1, color: 'bg-white border-dashed text-xs' },
-            { id: 'drop_aplastic', type: 'drop', answer: 'Aplastic Anaemia', x: 5, y: 6.5, w: 1, isFinal: true },
-            { id: 'drop_prca', type: 'drop', answer: 'Pure Red Cell Aplasia', x: 6, y: 6.5, w: 1, isFinal: true },
-            { id: 'normo_high_retic', type: 'label', text: '> 2% (Hemolytic)', x: 9, y: 3.5, w: 3.5, color: 'bg-slate-50 text-green-700' },
-            { id: 'lbl_inherited', type: 'label', text: 'Inherited Causes', x: 8, y: 5, w: 1.5, color: 'bg-green-50 border-green-200' },
-            { id: 'lbl_bite', type: 'label', text: 'Bite/Heinz Cells', x: 7.5, y: 6.5, w: 1, color: 'bg-white border-dashed text-xs' },
-            { id: 'lbl_sickle', type: 'label', text: 'Sickle Cells', x: 8.5, y: 6.5, w: 1, color: 'bg-white border-dashed text-xs' },
-            { id: 'drop_g6pd', type: 'drop', answer: 'G6PD Deficiency', x: 7.5, y: 8, w: 1, isFinal: true },
-            { id: 'drop_sickle', type: 'drop', answer: 'Sickle Cell Anaemia', x: 8.5, y: 8, w: 1, isFinal: true },
-            { id: 'lbl_acquired', type: 'label', text: 'Acquired (Direct Coombs)', x: 10.5, y: 5, w: 2, color: 'bg-green-50 border-green-200' },
-            { id: 'lbl_coombs_pos', type: 'label', text: 'Positive (+)', x: 9.75, y: 6.5, w: 1.5, color: 'bg-white border-dashed text-xs' },
-            { id: 'drop_warm', type: 'drop', answer: 'Warm AIHA (IgG)', x: 9.5, y: 8, w: 1, isFinal: true },
-            { id: 'drop_cold', type: 'drop', answer: 'Cold AIHA (IgM)', x: 10.5, y: 8, w: 1, isFinal: true },
-            { id: 'lbl_coombs_neg', type: 'label', text: 'Negative (-)', x: 11.75, y: 6.5, w: 1.5, color: 'bg-white border-dashed text-xs' },
-            { id: 'lbl_cd55', type: 'label', text: 'Test CD55/59', x: 11.75, y: 8, w: 1.5, color: 'bg-white border-slate-200' },
-            { id: 'drop_pnh', type: 'drop', answer: 'PNH (Neg CD55)', x: 11.25, y: 9.5, w: 1, isFinal: true },
-            { id: 'drop_ttp', type: 'drop', answer: 'TTP (Pos? Check ADAMTS13)', x: 12.25, y: 9.5, w: 1.2, isFinal: true },
-
-            // --- MACROCYTIC PATH ---
-            { id: 'macro_step1', type: 'label', text: 'Step 1: Check Smear', x: 14.5, y: 2, w: 3, color: 'bg-white border-slate-300 font-bold' },
-            { id: 'macro_mega', type: 'label', text: 'Megaloblastic Features Present?', x: 14.5, y: 3.5, w: 3, color: 'bg-slate-50 text-blue-700' },
-            { id: 'macro_copper', type: 'label', text: 'Step 2: Check Copper', x: 14.5, y: 5, w: 3, color: 'bg-white border-slate-300' },
-            { id: 'lbl_low_copper', type: 'label', text: '↓ Copper', x: 13.5, y: 6.5, w: 1, color: 'bg-white border-dashed text-xs' },
-            { id: 'drop_copper', type: 'drop', answer: 'Copper Deficiency', x: 13.5, y: 8, w: 1, isFinal: true },
-            { id: 'lbl_norm_copper', type: 'label', text: 'Normal Copper (Check MMA)', x: 15.5, y: 6.5, w: 2, color: 'bg-white border-dashed text-xs' },
-            { id: 'drop_b12', type: 'drop', answer: 'B12 Deficiency (↑ MMA)', x: 15, y: 8, w: 1.5, isFinal: true },
-            { id: 'drop_folate', type: 'drop', answer: 'Folate Deficiency (Norm MMA)', x: 16.5, y: 8, w: 1.5, isFinal: true },
+        // --- IMAGE BANK DATA (PLACEHOLDERS) ---
+        const IMAGE_BANK_DATA = [
+            // Module 11 (Hemopoiesis)
+            { id: 'img_ls11_01', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_11_Hemopoesis/LS11-01.jpg', title: 'Bone Marrow Section', desc: 'Histological section of hematopoietic bone marrow filled with nucleated precursors.' },
+            { id: 'img_ls11_02', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_11_Hemopoesis/LS11-02.jpg', title: 'Yellow Bone Marrow', desc: 'Section showing adipose-rich yellow marrow with large unilocular fat cells.' },
+            { id: 'img_ls11_03', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_11_Hemopoesis/LS11-03.jpg', title: 'Erythroblast Stages', desc: 'Smear with large basophilic cell (A) and smaller basophilic erythroblast (B).' },
+            { id: 'img_ls11_04', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_11_Hemopoesis/LS11-04.jpg', title: 'Erythroblast Maturation', desc: 'Progression from basophilic to polychromatophilic erythroblast.' },
+            { id: 'img_ls11_05', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_11_Hemopoesis/LS11-05.jpg', title: 'Neutrophil and RBCs', desc: 'Smear with neutrophil and surrounding erythrocytes.' },
+            { id: 'img_ls11_06', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_11_Hemopoesis/LS11-06.jpg', title: 'Band Neutrophil', desc: 'Neutrophil precursor with curved, unsegmented nucleus (band form).' },
+            { id: 'img_ls11_07', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_11_Hemopoesis/LS11-07.jpg', title: 'Myelocyte', desc: 'Granulocyte precursor with specific granules and eccentric nucleus.' },
+            { id: 'img_ls11_08', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_11_Hemopoesis/LS11-08.jpg', title: 'Metamyelocyte', desc: 'Granulocyte precursor with indented nucleus.' },
+            { id: 'img_ls11_09', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_11_Hemopoesis/LS11-09.jpg', title: 'Eosinophil', desc: 'Granulocyte with bi-lobed nucleus and red-orange granules.' },
+            // Module 9 (Vessels)
+            { id: 'img_ls9_01', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_9_Vessels/LS9-01.jpg', title: 'RBC Rouleaux', desc: 'RBCs adhering like a stack of coins.' },
+            { id: 'img_ls9_02', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_9_Vessels/LS9-02.jpg', title: 'Platelets and Neutrophil', desc: 'Platelets as small basophilic particles next to a neutrophil.' },
+            { id: 'img_ls9_03', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_9_Vessels/LS9-03.jpg', title: 'Arteriole Cross Section', desc: 'Arteriole with smooth muscle layer and internal elastic lamina.' },
+            { id: 'img_ls9_04', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_9_Vessels/LS9-04.jpg', title: 'Venule', desc: 'Thin-walled venule accompanying an arteriole.' },
+            { id: 'img_ls9_05', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_9_Vessels/LS9-05.jpg', title: 'Capillary Bed', desc: 'Network of capillaries perfusing tissue.' },
+            { id: 'img_ls9_06', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_9_Vessels/LS9-06.jpg', title: 'Lymphatic Vessel', desc: 'Lymphatic vessel with thin wall and valve.' },
+            { id: 'img_ls9_07', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_9_Vessels/LS9-07.jpg', title: 'Large Vein Wall', desc: 'Tunica adventitia of a large vein with vasa vasorum.' },
+            { id: 'img_ls9_08', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_9_Vessels/LS9-08.jpg', title: 'Elastic Artery', desc: 'Aorta wall showing multiple elastic lamellae in media.' },
+             { id: 'img_ls9_09', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_9_Vessels/LS9-09.jpg', title: 'Muscular Artery', desc: 'Muscular artery with prominent internal elastic lamina.' },
         ];
+
+
+        // --- FLOWCHART NODES & CONNECTIONS ---
+        // GRID SYSTEM: Col Width 200px, Row Height 140px
         
         // --- CONNECTIONS FOR ARROWS ---
         const FLOWCHART_CONNECTIONS = [
@@ -405,28 +384,14 @@
         let hiddenModules = new Set(); // Track hidden modules
 
         // Flowchart State
-        let fcZoom = 0.45; // Adjusted start zoom to see more
-        let fcPanX = 0; // Adjusted Pan X
-        let fcPanY = 0; // Adjusted Pan Y
+        let fcZoom = 0.55; 
+        let fcPanX = 50; 
+        let fcPanY = 50; 
         let isDraggingChart = false;
         let lastMouseX = 0;
         let lastMouseY = 0;
         let heldItem = null;
         let placedItems = {}; 
-
-        // Image Bank State
-        // Placeholder images. Replace 'src' with actual file paths from your uploads.
-        const IMAGE_BANK_DATA = [
-            { id: 'img1', src: 'image1.jpg', title: 'Image 1' },
-            { id: 'img2', src: 'image2.jpg', title: 'Image 2' },
-            { id: 'img3', src: 'image3.jpg', title: 'Image 3' },
-            { id: 'img4', src: 'image4.jpg', title: 'Image 4' },
-            { id: 'img5', src: 'image5.jpg', title: 'Image 5' },
-            { id: 'img6', src: 'image6.jpg', title: 'Image 6' },
-            { id: 'img7', src: 'image7.jpg', title: 'Image 7' },
-            { id: 'img8', src: 'image8.jpg', title: 'Image 8' },
-            { id: 'img9', src: 'image9.jpg', title: 'Image 9' },
-        ];
 
 
         // --- DOM ELEMENTS ---
@@ -440,6 +405,7 @@
         const imageModal = document.getElementById('image-modal');
         const modalImg = document.getElementById('modal-img');
         const modalCaption = document.getElementById('modal-caption');
+        const modalTitle = document.getElementById('modal-title'); // Added title element
 
         // --- INITIALIZATION ---
         function init() {
@@ -523,9 +489,9 @@
 
         function startFlowchart() {
             gameState = 'flowchart';
-            fcZoom = 0.45; 
-            fcPanX = 0;
-            fcPanY = 0;
+            fcZoom = 0.55; 
+            fcPanX = 50;
+            fcPanY = 50;
             placedItems = {};
             heldItem = null;
             score = 0;
@@ -563,9 +529,9 @@
             renderFlowchart();
         }
         function resetZoom() {
-            fcZoom = 0.45;
-            fcPanX = 0;
-            fcPanY = 0;
+            fcZoom = 0.55;
+            fcPanX = 50;
+            fcPanY = 50;
             renderFlowchart();
         }
 
@@ -604,9 +570,10 @@
             updateUI();
         }
 
-        function openImageModal(src, title) {
+        function openImageModal(src, title, desc) {
             modalImg.src = src;
-            modalCaption.textContent = title;
+            modalTitle.textContent = title;
+            modalCaption.textContent = desc; // Use description if available
             imageModal.classList.remove('hidden');
         }
 
@@ -837,7 +804,7 @@
                     
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                         ${IMAGE_BANK_DATA.map(img => `
-                            <div onclick="openImageModal('${img.src}', '${img.title}')" class="group relative cursor-pointer overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all border border-slate-200 bg-white aspect-square flex items-center justify-center">
+                            <div onclick="openImageModal('${img.src}', '${img.title}', '${img.desc}')" class="group relative cursor-pointer overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all border border-slate-200 bg-white aspect-square flex items-center justify-center">
                                 <img src="${img.src}" alt="${img.title}" class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
                                     <h3 class="text-white font-bold text-lg">${img.title}</h3>
