@@ -307,33 +307,103 @@
             { category: 'Foundations: RBC Morphology', term: 'Pappenheimer Bodies', def: 'Iron granules (Perls stain). Sideroblastic anemia, Post-splenectomy.' }
         ];
 
-        // --- IMAGE BANK DATA (PLACEHOLDERS) ---
+        // --- IMAGE BANK DATA (REPLACED WITH REAL URLS FROM CSV) ---
         const IMAGE_BANK_DATA = [
-            // Module 11 (Hemopoiesis)
-            { id: 'img_ls11_01', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_11_Hemopoesis/LS11-01.jpg', title: 'Bone Marrow Section', desc: 'Histological section of hematopoietic bone marrow filled with nucleated precursors.' },
-            { id: 'img_ls11_02', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_11_Hemopoesis/LS11-02.jpg', title: 'Yellow Bone Marrow', desc: 'Section showing adipose-rich yellow marrow with large unilocular fat cells.' },
-            { id: 'img_ls11_03', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_11_Hemopoesis/LS11-03.jpg', title: 'Erythroblast Stages', desc: 'Smear with large basophilic cell (A) and smaller basophilic erythroblast (B).' },
-            { id: 'img_ls11_04', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_11_Hemopoesis/LS11-04.jpg', title: 'Erythroblast Maturation', desc: 'Progression from basophilic to polychromatophilic erythroblast.' },
-            { id: 'img_ls11_05', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_11_Hemopoesis/LS11-05.jpg', title: 'Neutrophil and RBCs', desc: 'Smear with neutrophil and surrounding erythrocytes.' },
-            { id: 'img_ls11_06', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_11_Hemopoesis/LS11-06.jpg', title: 'Band Neutrophil', desc: 'Neutrophil precursor with curved, unsegmented nucleus (band form).' },
-            { id: 'img_ls11_07', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_11_Hemopoesis/LS11-07.jpg', title: 'Myelocyte', desc: 'Granulocyte precursor with specific granules and eccentric nucleus.' },
-            { id: 'img_ls11_08', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_11_Hemopoesis/LS11-08.jpg', title: 'Metamyelocyte', desc: 'Granulocyte precursor with indented nucleus.' },
-            { id: 'img_ls11_09', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_11_Hemopoesis/LS11-09.jpg', title: 'Eosinophil', desc: 'Granulocyte with bi-lobed nucleus and red-orange granules.' },
-            // Module 9 (Vessels)
-            { id: 'img_ls9_01', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_9_Vessels/LS9-01.jpg', title: 'RBC Rouleaux', desc: 'RBCs adhering like a stack of coins.' },
-            { id: 'img_ls9_02', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_9_Vessels/LS9-02.jpg', title: 'Platelets and Neutrophil', desc: 'Platelets as small basophilic particles next to a neutrophil.' },
-            { id: 'img_ls9_03', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_9_Vessels/LS9-03.jpg', title: 'Arteriole Cross Section', desc: 'Arteriole with smooth muscle layer and internal elastic lamina.' },
-            { id: 'img_ls9_04', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_9_Vessels/LS9-04.jpg', title: 'Venule', desc: 'Thin-walled venule accompanying an arteriole.' },
-            { id: 'img_ls9_05', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_9_Vessels/LS9-05.jpg', title: 'Capillary Bed', desc: 'Network of capillaries perfusing tissue.' },
-            { id: 'img_ls9_06', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_9_Vessels/LS9-06.jpg', title: 'Lymphatic Vessel', desc: 'Lymphatic vessel with thin wall and valve.' },
-            { id: 'img_ls9_07', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_9_Vessels/LS9-07.jpg', title: 'Large Vein Wall', desc: 'Tunica adventitia of a large vein with vasa vasorum.' },
-            { id: 'img_ls9_08', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_9_Vessels/LS9-08.jpg', title: 'Elastic Artery', desc: 'Aorta wall showing multiple elastic lamellae in media.' },
-             { id: 'img_ls9_09', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_9_Vessels/LS9-09.jpg', title: 'Muscular Artery', desc: 'Muscular artery with prominent internal elastic lamina.' },
+            // --- Module 11: Hemopoiesis ---
+            { id: 'img_ls11_01', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_11_Hemopoesis/LS11-01.jpg', title: 'Bone marrow section', desc: 'Histological section of hematopoietic bone marrow filled with nucleated precursors of erythroid and myeloid lineages.' },
+            { id: 'img_ls11_02', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_11_Hemopoesis/LS11-02.jpg', title: 'Yellow bone marrow', desc: 'Section showing adipose-rich yellow marrow with large unilocular fat cells separated by thin vascular septa.' },
+            { id: 'img_ls11_03', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_11_Hemopoesis/LS11-03.jpg', title: 'Erythroblast stages', desc: 'Smear with a large basophilic cell (A) and a smaller basophilic erythroblast (B) illustrating early red-cell development.' },
+            { id: 'img_ls11_04', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_11_Hemopoesis/LS11-04.jpg', title: 'Erythroblast maturation', desc: 'Three labelled erythroblasts (A–C) demonstrating progression from basophilic to polychromatophilic erythroblast.' },
+            { id: 'img_ls11_05', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_11_Hemopoesis/LS11-05.jpg', title: 'Neutrophil among RBC', desc: 'Smear with neutrophil and surrounding erythrocytes illustrating granulocyte morphology.' },
+            { id: 'img_ls11_06', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_11_Hemopoesis/LS11-06.jpg', title: 'Band neutrophil', desc: 'Neutrophil precursor with a curved, unsegmented nucleus (band form) indicating near maturity.' },
+            { id: 'img_ls11_07', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_11_Hemopoesis/LS11-07.jpg', title: 'Myelocyte', desc: 'Granulocyte precursor with specific granules beginning to appear and an eccentric nucleus.' },
+            { id: 'img_ls11_08', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_11_Hemopoesis/LS11-08.jpg', title: 'Metamyelocyte', desc: 'Granulocyte precursor stage showing an indented (kidney-bean shaped) nucleus.' },
+            { id: 'img_ls11_09', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_11_Hemopoesis/LS11-09.jpg', title: 'Eosinophil', desc: 'Granulocyte with bi-lobed nucleus and distinct red-orange cytoplasmic granules.' },
+            { id: 'img_ls11_10', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_11_Hemopoesis/LS11-10.jpg', title: 'Basophil', desc: 'Granulocyte with dark purple/blue granules obscuring the nucleus.' },
+            { id: 'img_ls11_11', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_11_Hemopoesis/LS11-11.jpg', title: 'Lymphocyte', desc: 'Small agranulocyte with large, dense nucleus and minimal blue cytoplasm.' },
+            { id: 'img_ls11_12', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_11_Hemopoesis/LS11-12.jpg', title: 'Monocyte', desc: 'Large agranulocyte with kidney-bean shaped nucleus and grey-blue cytoplasm.' },
+            { id: 'img_ls11_13', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_11_Hemopoesis/LS11-13.jpg', title: 'Megakaryocyte', desc: 'Large bone marrow cell with multi-lobed nucleus responsible for platelet production.' },
+            { id: 'img_ls11_14', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_11_Hemopoesis/LS11-14.jpg', title: 'Platelet formation', desc: 'Megakaryocyte extending cytoplasmic processes to release platelets.' },
+            { id: 'img_ls11_15', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_11_Hemopoesis/LS11-15.jpg', title: 'Reticulocytes', desc: 'Supravital stain showing RNA filaments in immature red blood cells.' },
+            { id: 'img_ls11_16', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_11_Hemopoesis/LS11-16.jpg', title: 'Plasma cell', desc: 'Cell with eccentric nucleus, clock-face chromatin, and perinuclear hof.' },
+            { id: 'img_ls11_17', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_11_Hemopoesis/LS11-17.jpg', title: 'Mast cell', desc: 'Tissue cell filled with metachromatic granules involved in allergic reactions.' },
+            { id: 'img_ls11_18', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_11_Hemopoesis/LS11-18.jpg', title: 'Macrophage', desc: 'Large phagocytic cell with debris in cytoplasm.' },
+            { id: 'img_ls11_19', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_11_Hemopoesis/LS11-19.jpg', title: 'Osteoclast', desc: 'Large multi-nucleated cell involved in bone resorption found in marrow.' },
+            
+            // --- Module 9: Vessels ---
+            { id: 'img_ls9_01', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_9_Vessels/LS9-01.jpg', title: 'RBC Rouleaux', desc: 'Red blood cells adhering in a stack-of-coins formation.' },
+            { id: 'img_ls9_02', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_9_Vessels/LS9-02.jpg', title: 'Platelets and Neutrophil', desc: 'High mag view showing small platelets and a segmented neutrophil.' },
+            { id: 'img_ls9_03', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_9_Vessels/LS9-03.jpg', title: 'Arteriole Cross Section', desc: 'Small artery with distinct tunica media and internal elastic lamina.' },
+            { id: 'img_ls9_04', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_9_Vessels/LS9-04.jpg', title: 'Venule', desc: 'Thin-walled vessel often accompanying an arteriole, with larger lumen.' },
+            { id: 'img_ls9_05', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_9_Vessels/LS9-05.jpg', title: 'Capillary Bed', desc: 'Network of smallest vessels perfused with India ink.' },
+            { id: 'img_ls9_06', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_9_Vessels/LS9-06.jpg', title: 'Lymphatic Vessel', desc: 'Very thin-walled vessel containing lymph, often with valves.' },
+            { id: 'img_ls9_07', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_9_Vessels/LS9-07.jpg', title: 'Large Vein Wall', desc: 'Thick tunica adventitia containing vasa vasorum and smooth muscle.' },
+            { id: 'img_ls9_08', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_9_Vessels/LS9-08.jpg', title: 'Elastic Artery', desc: 'Aorta wall showing multiple concentric elastic lamellae in tunica media.' },
+            { id: 'img_ls9_09', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_9_Vessels/LS9-09.jpg', title: 'Muscular Artery', desc: 'Artery with prominent internal/external elastic laminae and smooth muscle media.' },
+            { id: 'img_ls9_10', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_9_Vessels/LS9-10.jpg', title: 'Arteriole vs Venule', desc: 'Comparison of thicker-walled arteriole and thinner-walled venule side-by-side.' },
+            { id: 'img_ls9_11', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_9_Vessels/LS9-11.jpg', title: 'Vein Valve', desc: 'Longitudinal section showing a valve leaflet within a vein.' },
+            { id: 'img_ls9_12', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_9_Vessels/LS9-12.jpg', title: 'Endothelial Cells', desc: 'High mag of vessel lining showing simple squamous endothelial nuclei.' },
+            { id: 'img_ls9_13', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_9_Vessels/LS9-13.jpg', title: 'Pericyte', desc: 'Cell wrapping around a capillary, visible in high resolution or TEM.' },
+            { id: 'img_ls9_14', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_9_Vessels/LS9-14.jpg', title: 'Continuous Capillary TEM', desc: 'Electron micrograph showing continuous endothelium and tight junctions.' },
+            { id: 'img_ls9_15', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_9_Vessels/LS9-15.jpg', title: 'Capillary Ultrastructure', desc: 'TEM showing RBC in lumen, endothelium, and basal lamina.' },
+            { id: 'img_ls9_16', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_9_Vessels/LS9-16.jpg', title: 'Microvascular TEM', desc: 'Ultrastructural details of small vessel wall components.' },
+            { id: 'img_ls9_17', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_9_Vessels/LS9-17.jpg', title: 'Fenestrated Capillary', desc: 'TEM showing pores (fenestrae) in the endothelial cytoplasm.' },
+            { id: 'img_ls9_18', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_9_Vessels/LS9-18.jpg', title: 'Medium Vein Wall', desc: 'Section showing irregular lumen and distinct layers of a medium vein.' },
+            { id: 'img_ls9_19', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_9_Vessels/LS9-19.jpg', title: 'Elastic Artery Stain', desc: 'Special stain (Verhoeff) highlighting elastic fibers in black.' },
+            { id: 'img_ls9_20', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_9_Vessels/LS9-20.jpg', title: 'Vasa Vasorum', desc: 'Small blood vessels nourishing the wall of a large artery/vein.' }
         ];
 
+        // --- FLOWCHART DATA ---
+        const FLOWCHART_NODES = [
+            { id: 'h1', type: 'label', text: 'Microcytic (MCV < 80)', x: 1.5, y: 0.5, w: 3, color: 'bg-red-100 border-red-300' },
+            { id: 'h2', type: 'label', text: 'Normocytic (MCV 80-100)', x: 7.5, y: 0.5, w: 5, color: 'bg-green-100 border-green-300' },
+            { id: 'h3', type: 'label', text: 'Macrocytic (MCV > 96)', x: 14.5, y: 0.5, w: 3, color: 'bg-blue-100 border-blue-300' },
 
-        // --- FLOWCHART NODES & CONNECTIONS ---
-        // GRID SYSTEM: Col Width 200px, Row Height 140px
+            // --- MICROCYTIC PATH ---
+            { id: 'micro_step1', type: 'label', text: 'Step 1: Serum Iron Studies', x: 1.5, y: 2, w: 3, color: 'bg-white border-slate-300 font-bold' },
+            { id: 'micro_low_iron', type: 'label', text: '↓ Iron', x: 0.5, y: 3.5, w: 2, color: 'bg-slate-50 text-red-600' },
+            { id: 'lbl_low_ferritin', type: 'label', text: '↓ Ferritin', x: 0, y: 5, w: 1, color: 'bg-white border-dashed text-xs' },
+            { id: 'lbl_high_ferritin', type: 'label', text: '↑ Ferritin', x: 1, y: 5, w: 1, color: 'bg-white border-dashed text-xs' },
+            { id: 'lbl_norm_ferritin', type: 'label', text: 'Normal Ferritin', x: 2, y: 5, w: 1, color: 'bg-white border-dashed text-xs' },
+            { id: 'drop_ida', type: 'drop', answer: 'Iron Deficiency Anaemia', x: 0, y: 6.5, w: 1, isFinal: true },
+            { id: 'drop_acd', type: 'drop', answer: 'Anaemia of Chronic Disease', x: 1, y: 6.5, w: 1, isFinal: true },
+            { id: 'drop_thal', type: 'drop', answer: 'Thalassemia', x: 2, y: 6.5, w: 1, isFinal: true },
+            { id: 'micro_high_iron', type: 'label', text: '↑ Iron', x: 3.5, y: 3.5, w: 1, color: 'bg-slate-50 text-red-600' },
+            { id: 'lbl_sid_ferritin', type: 'label', text: '↓ Ferritin (Chart Logic)', x: 3.5, y: 5, w: 1, color: 'bg-white border-dashed text-xs' },
+            { id: 'drop_sidero', type: 'drop', answer: 'Sideroblastic Anaemia', x: 3.5, y: 6.5, w: 1, isFinal: true },
+
+            // --- NORMOCYTIC PATH ---
+            { id: 'normo_step1', type: 'label', text: 'Step 1: Reticulocyte Count', x: 7.5, y: 2, w: 5, color: 'bg-white border-slate-300 font-bold' },
+            { id: 'normo_low_retic', type: 'label', text: '< 2% (Low Production)', x: 5.5, y: 3.5, w: 2, color: 'bg-slate-50 text-green-700' },
+            { id: 'lbl_pancyto', type: 'label', text: 'Pancytopenia Present', x: 5, y: 5, w: 1, color: 'bg-white border-dashed text-xs' },
+            { id: 'lbl_no_pancyto', type: 'label', text: 'Pancytopenia Absent', x: 6, y: 5, w: 1, color: 'bg-white border-dashed text-xs' },
+            { id: 'drop_aplastic', type: 'drop', answer: 'Aplastic Anaemia', x: 5, y: 6.5, w: 1, isFinal: true },
+            { id: 'drop_prca', type: 'drop', answer: 'Pure Red Cell Aplasia', x: 6, y: 6.5, w: 1, isFinal: true },
+            { id: 'normo_high_retic', type: 'label', text: '> 2% (Hemolytic)', x: 9, y: 3.5, w: 3.5, color: 'bg-slate-50 text-green-700' },
+            { id: 'lbl_inherited', type: 'label', text: 'Inherited Causes', x: 8, y: 5, w: 1.5, color: 'bg-green-50 border-green-200' },
+            { id: 'lbl_bite', type: 'label', text: 'Bite/Heinz Cells', x: 7.5, y: 6.5, w: 1, color: 'bg-white border-dashed text-xs' },
+            { id: 'lbl_sickle', type: 'label', text: 'Sickle Cells', x: 8.5, y: 6.5, w: 1, color: 'bg-white border-dashed text-xs' },
+            { id: 'drop_g6pd', type: 'drop', answer: 'G6PD Deficiency', x: 7.5, y: 8, w: 1, isFinal: true },
+            { id: 'drop_sickle', type: 'drop', answer: 'Sickle Cell Anaemia', x: 8.5, y: 8, w: 1, isFinal: true },
+            { id: 'lbl_acquired', type: 'label', text: 'Acquired (Direct Coombs)', x: 10.5, y: 5, w: 2, color: 'bg-green-50 border-green-200' },
+            { id: 'lbl_coombs_pos', type: 'label', text: 'Positive (+)', x: 9.75, y: 6.5, w: 1.5, color: 'bg-white border-dashed text-xs' },
+            { id: 'drop_warm', type: 'drop', answer: 'Warm AIHA (IgG)', x: 9.5, y: 8, w: 1, isFinal: true },
+            { id: 'drop_cold', type: 'drop', answer: 'Cold AIHA (IgM)', x: 10.5, y: 8, w: 1, isFinal: true },
+            { id: 'lbl_coombs_neg', type: 'label', text: 'Negative (-)', x: 11.75, y: 6.5, w: 1.5, color: 'bg-white border-dashed text-xs' },
+            { id: 'lbl_cd55', type: 'label', text: 'Test CD55/59', x: 11.75, y: 8, w: 1.5, color: 'bg-white border-slate-200' },
+            { id: 'drop_pnh', type: 'drop', answer: 'PNH (Neg CD55)', x: 11.25, y: 9.5, w: 1, isFinal: true },
+            { id: 'drop_ttp', type: 'drop', answer: 'TTP (Pos? Check ADAMTS13)', x: 12.25, y: 9.5, w: 1.2, isFinal: true },
+
+            // --- MACROCYTIC PATH ---
+            { id: 'macro_step1', type: 'label', text: 'Step 1: Check Smear', x: 14.5, y: 2, w: 3, color: 'bg-white border-slate-300 font-bold' },
+            { id: 'macro_mega', type: 'label', text: 'Megaloblastic Features Present?', x: 14.5, y: 3.5, w: 3, color: 'bg-slate-50 text-blue-700' },
+            { id: 'macro_copper', type: 'label', text: 'Step 2: Check Copper', x: 14.5, y: 5, w: 3, color: 'bg-white border-slate-300' },
+            { id: 'lbl_low_copper', type: 'label', text: '↓ Copper', x: 13.5, y: 6.5, w: 1, color: 'bg-white border-dashed text-xs' },
+            { id: 'drop_copper', type: 'drop', answer: 'Copper Deficiency', x: 13.5, y: 8, w: 1, isFinal: true },
+            { id: 'lbl_norm_copper', type: 'label', text: 'Normal Copper (Check MMA)', x: 15.5, y: 6.5, w: 2, color: 'bg-white border-dashed text-xs' },
+            { id: 'drop_b12', type: 'drop', answer: 'B12 Deficiency (↑ MMA)', x: 15, y: 8, w: 1.5, isFinal: true },
+            { id: 'drop_folate', type: 'drop', answer: 'Folate Deficiency (Norm MMA)', x: 16.5, y: 8, w: 1.5, isFinal: true },
+        ];
         
         // --- CONNECTIONS FOR ARROWS ---
         const FLOWCHART_CONNECTIONS = [
@@ -382,6 +452,7 @@
         let score = 0;
         let mistakes = 0;
         let hiddenModules = new Set(); // Track hidden modules
+        let isQuizMode = false; // Quiz mode toggle
 
         // Flowchart State
         let fcZoom = 0.45; // Adjusted start zoom to see more
@@ -568,6 +639,11 @@
         function startImageBank() {
             gameState = 'imagebank';
             updateUI();
+        }
+        
+        function toggleQuizMode() {
+            isQuizMode = !isQuizMode;
+            renderImageBank();
         }
 
         function openImageModal(src, title, desc) {
@@ -788,6 +864,43 @@
             });
 
             return html;
+        }
+
+        // --- RENDER IMAGE BANK ---
+        function renderImageBank() {
+            mainContent.classList.remove('bg-slate-200'); 
+            mainContent.classList.add('px-4', 'max-w-6xl', 'mx-auto', 'py-8'); 
+            
+            let html = `
+                <div class="animate-fadeIn">
+                    <div class="flex justify-between items-end mb-8">
+                         <div>
+                            <h2 class="text-3xl font-bold text-slate-800">Pathology Image Bank</h2>
+                            <p class="text-slate-500 mt-2">A curated collection of hematologic morphology.</p>
+                         </div>
+                         <div class="flex items-center gap-2">
+                             <span class="text-sm font-bold text-slate-600">Quiz Mode</span>
+                             <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" value="" class="sr-only peer toggle-checkbox" ${isQuizMode ? 'checked' : ''} onchange="toggleQuizMode()">
+                                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-emerald-300 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-emerald-600 toggle-label"></div>
+                             </label>
+                         </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                        ${IMAGE_BANK_DATA.map(img => `
+                            <div onclick="openImageModal('${img.src}', '${img.title}', '${img.desc}')" class="group relative cursor-pointer overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all border border-slate-200 bg-white aspect-square flex items-center justify-center">
+                                <img src="${img.src}" alt="${img.title}" class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                                    <h3 class="text-white font-bold text-lg">${isQuizMode ? '???' : img.title}</h3>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            
+            mainContent.innerHTML = html;
         }
 
         // --- RENDER FLOWCHART ---
