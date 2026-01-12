@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Heme-Lymph Match</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* --- Animations & UI tweaks --- */
+        @keyframes shake { 0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)} }
+        .animate-shake { animation: shake 0.4s ease-in-out; }
+        @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+        .animate-fadeIn { animation: fadeIn 0.35s ease-out; }
+        @keyframes popIn { from{opacity:0; transform:scale(.9)} to{opacity:1; transform:scale(1)} }
+        .animate-popIn { animation: popIn 0.32s cubic-bezier(.175,.885,.32,1.275); }
+        .selected-pulse { animation: pulse 2s cubic-bezier(.4,0,.6,1) infinite; }
+        @keyframes pulse { 0%,100%{opacity:1}50%{opacity:.5} }
+
+        /* Flowchart container */
+        .flowchart-container { cursor: grab; transform-origin: top left; transition: transform 0.1s ease-out; }
+        .flowchart-container:active { cursor: grabbing; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width:8px; height:8px; }
+        ::-webkit-scrollbar-track{ background:#f1f5f9; }
+        ::-webkit-scrollbar-thumb{ background:#cbd5e1;border-radius:4px; }
+        ::-webkit-scrollbar-thumb:hover{ background:#94a3b8; }
+
+        /* Toggle */
+        .toggle-checkbox:checked { right:0; border-color:#68D391; }
+        .toggle-checkbox:checked + .toggle-label { background-color:#68D391; }
+
+        /* Drag & Drop helpers */
+        .dropzone { min-height:56px; border:2px dashed transparent; display:flex; align-items:center; justify-content:center; }
+        .dropzone.active { border-color:rgba(15,23,42,0.12); background:rgba(99,102,241,0.03); }
+        .draggable { user-select:none; cursor:grab; }
+        .draggable:active { cursor:grabbing; }
+
+        /* Quiz timer */
+        .timer-bar { height:8px; background:linear-gradient(90deg,#10b981,#06b6d4); transition-width:width 0.3s linear; }
+
+        /* Simple badges */
+        .badge { display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border-radius:999px; font-weight:700; }
+    </style>
+</head>
+<body class="bg-slate-50 font-sans text-slate-800 h-screen flex flex-col overflow-hidden">
+
+<header class="bg-white border-b border-slate-200 shadow-sm z-30 flex-none h-16">
+    <div class="max-w-7xl mx-auto px-4 h-full flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <div class="bg-blue-600 text-white p-2 rounded-lg">
+                <!-- small icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4v16a1 1 0 0 0 1 1h16" stroke="currentColor"/><path d="M7 4v16" stroke="currentColor"/></svg>
+            </div>
+            <h1 class="font-bold text-xl hidden sm:block">Heme-Lymph Match</h1>
+            <h1 class="font-bold text-xl sm:hidden">HL Match</h1>
+        </div>
+
+        <div id="header-controls" class="flex items-center gap-2 sm:gap-4 text-sm font-semibold">
+            <div id="flowchart-controls" class="hidden flex items-center gap-1">
+                <button onclick="adjustZoom(-0.1)" class="p-2 bg-slate-100 hover:bg-slate-200 rounded-lg text-slate-600">-</button>
+                <button onclick="resetZoom()" class="p-2 bg-slate-100 hover:bg-slate-200 rounded-lg text-slate-600">Reset</button>
+                <button onclick="adjustZoom(0.1)" class="p-2 bg-slate-100 hover:bg-slate-200 rounded-lg text-slate-600">+</button>
+            </div>
+
+            <div id="game-stats" class="hidden flex items-center gap-4">
+                <div class="flex items-center gap-2 text-slate-500">
+                    <span id="progress-display" class="bg-slate-100 px-2 py-1 rounded text-slate-700">0 / 0</span>
+                </div>
+                <div class="flex items-center gap-2 text-blue-600">
+                    <span id="score-display">0</span>
+                </div>
+            </div>
+            <button id="close-btn" onclick="goToMenu()" class="hidden text-slate-400 hover:text-slate-600 p-1">Menu</button>
+        </div>
+    </div>
+</header>
+
+<main id="main-content" class="w-full flex-grow relative overflow-y-auto bg-slate-100">
+    <!-- Content injected by JS -->
+</main>
+
+<!-- IMAGE MODAL -->
+<div id="image-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 animate-fadeIn" onclick="closeImageModal()">
+    <div class="relative bg-transparent max-w-5xl w-full max-h-full flex flex-col items-center justify-center" onclick="event.stopPropagation()">
+        <img id="modal-img" src="" alt="Full size" class="max-w-full max-h-[80vh] rounded-lg shadow-2xl object-contain border-2 border-white/20">
+        <div class="bg-black/70 backdrop-blur-md text-white mt-4 px-6 py-4 rounded-xl text-center max-w-2xl border border-white/10">
+            <h3 id="modal-title" class="text-xl font-bold mb-1 text-white"></h3>
+            <p id="modal-caption" class="text-slate-300 text-sm leading-relaxed"></p>
+        </div>
+        <button onclick="closeImageModal()" class="absolute -top-12 right-0 text-white/70 hover:text-white p-2 transition-colors">Close</button>
+    </div>
+</div>
+
+<script>
+/* ---------------------------
+   ICONS (minimal set used)
+   --------------------------- */
+const ICONS = {
+    GitBranch: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="2"/><path d="M6 8v8"/><circle cx="18" cy="6" r="2"/><path d="M18 8v6"/><path d="M6 12a6 6 0 0 0 12 0"/></svg>`,
+    Image: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>`,
+    Eye: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>`,
+    EyeOff: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.94 10.94 0 0 1 12 20C5 20 1 12 1 12a21.46 21.46 0 0 1 5-6"/><path d="M1 1l22 22"/></svg>`,
+    Activity: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h3l3-8 4 16 3-8h4"/></svg>`,
+    Droplet: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C12 2 5 9 5 14a7 7 0 0 0 14 0c0-5-7-12-7-12z"/></svg>`,
+    ShieldAlert: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l7 4v6c0 5-3.8 9.7-7 10-3.2-.3-7-5-7-10V6l7-4z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>`,
+    Pill: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11L13 3"/><path d="M7.5 16.5a5 5 0 1 1 7 7L7.5 16.5z"/></svg>`
+};
+
+/* ---------------------------
+   EXISTING CORE DATA (shortened)
+   Keep FULL_DATA minimal here; searchable index will be separate.
+   --------------------------- */
+const FULL_DATA = [
+    { category: 'Anemias: Hypoproliferative', term: 'Iron Deficiency Anemia (IDA)', def: 'Microcytic. ↓ Ferritin, ↓ Iron, ↑ TIBC.' },
+    { category: 'Hemolytic (Non-MAHA)', term: 'Warm Autoimmune Hemolytic Anemia (AIHA)', def: 'IgG (Warm). Spherocytes. +Coombs (IgG).' },
+    { category: 'MAHAs', term: 'Thrombotic Thrombocytopenic Purpura (TTP)', def: '↓ ADAMTS13. Pentad: Fever, Neuro, Renal, MAHA, ↓ Platelets.' },
+    { category: 'Foundations: Labs', term: 'PT', def: 'Prothrombin Time — extrinsic pathway' },
+    { category: 'Pharmacology', term: 'Warfarin', def: 'Vit K Antagonist. Monitor INR.' }
+];
+
+/* ---------------------------
+   NEW MODULE DATA (matching & sorters & quizzes & index)
+   --------------------------- */
+
+const MATCH_MODULES = {
+    'Transfusion Medicine': [
+        { id: 'm-tx-1', left: 'Platelets', right: 'Thrombocytopenia with bleeding / platelet dysfunction' },
+        { id: 'm-tx-2', left: 'Cryoprecipitate', right: 'Low fibrinogen (e.g., DIC), factor XIII deficiency' },
+        { id: 'm-tx-3', left: 'Fresh Frozen Plasma (FFP)', right: 'Coagulation factor replacement, warfarin reversal with bleeding' },
+        { id: 'm-tx-4', left: 'Packed RBCs', right: 'Symptomatic anemia, acute blood loss' }
+    ],
+    'Hemostasis': [
+        { id: 'm-hs-1', left: '↑ PT only', right: 'Vitamin K deficiency, Warfarin' },
+        { id: 'm-hs-2', left: '↑ aPTT only', right: 'Hemophilia A or B (intrinsic pathway)' },
+        { id: 'm-hs-3', left: '↑ PT & ↑ aPTT', right: 'DIC, Liver failure' },
+        { id: 'm-hs-4', left: 'Normal PT/aPTT, abnormal bleeding time', right: 'von Willebrand disease, platelet dysfunction' }
+    ],
+    'Pharmacology': [
+        { id: 'm-ph-1', left: 'Desmopressin (DDAVP)', right: 'vWD (type 1), mild Hemophilia A (releases vWF)' },
+        { id: 'm-ph-2', left: 'Vitamin K (phytonadione)', right: 'Warfarin reversal, newborns' },
+        { id: 'm-ph-3', left: 'Protamine sulfate', right: 'Heparin reversal' },
+        { id: 'm-ph-4', left: 'Tranexamic acid', right: 'Anti-fibrinolytic, mucosal bleeding' }
+    ]
+};
+
+const MECHANISM_SORTERS = {
+    'Drugs→Mechanism': [
+        { id: 's-dr-1', item: 'Warfarin', target: 'Inhibits VKOR (vitamin K epoxide reductase)' },
+        { id: 's-dr-2', item: 'Heparin (UFH)', target: 'Activates antithrombin → inhibits thrombin & Xa' },
+        { id: 's-dr-3', item: 'Aspirin', target: 'Irreversible COX-1 inhibitor → ↓ TXA2' }
+    ],
+    'Mutations→Effect': [
+        { id: 's-mu-1', item: 'HbS (Glu→Val)', target: 'Polymerization under low O2 → sickling' },
+        { id: 's-mu-2', item: 'Factor V Leiden', target: 'APC resistance → hypercoagulability' }
+    ],
+    'Infections→RBC changes': [
+        { id: 's-inf-1', item: 'Plasmodium falciparum', target: 'Ring forms and trophozoites in RBCs; can infect RBCs of all ages' },
+        { id: 's-inf-2', item: 'Babesia', target: 'Maltese cross tetrads inside RBCs' }
+    ]
+};
+
+const QUIZ_QUESTIONS = [
+    // difficulty: 1 easy, 2 medium, 3 hard
+    { id: 'q1', q: 'Which product is used for low fibrinogen?', choices: ['Platelets','Packed RBCs','Cryoprecipitate','FFP'], a: 'Cryoprecipitate', difficulty: 1 },
+    { id: 'q2', q: 'What does Warfarin inhibit?', choices: ['VKOR','Thrombin','Antithrombin','Factor VIII'], a: 'VKOR', difficulty: 1 },
+    { id: 'q3', q: 'Which infection causes Maltese cross?', choices: ['Babesia','Plasmodium falciparum','Plasmodium vivax','Ehrlichia'], a: 'Babesia', difficulty: 2 },
+    { id: 'q4', q: 'An isolated prolonged aPTT corrects with mixing study — likely cause?', choices: ['Factor deficiency','Lupus anticoagulant','Hemophilia A inhibitor','DIC'], a: 'Factor deficiency', difficulty: 2 },
+    { id: 'q5', q: 'Which drug reverses heparin?', choices: ['Vitamin K','Protamine sulfate','FFP','Tranexamic acid'], a: 'Protamine sulfate', difficulty: 1 },
+    { id: 'q6', q: 'Mechanism: Desmopressin works by?', choices: ['Stimulating vWF release','Inhibiting plasmin','Inhibiting VKOR','Blocking P2Y12'], a: 'Stimulating vWF release', difficulty: 2 },
+    { id: 'q7', q: 'Which causes schistocytes on smear?', choices: ['MAHA','Sickle cell','Hereditary spherocytosis','G6PD deficiency'], a: 'MAHA', difficulty: 1 },
+    { id: 'q8', q: 'High ferritin with microcytic indices suggests?', choices: ['Sideroblastic anemia','Iron deficiency','ACD','Thalassemia'], a: 'Sideroblastic anemia', difficulty: 3 }
+];
+
+const DISEASE_INDEX = [
+    { name: 'Iron Deficiency Anemia', mechanism: 'Low iron stores', type: 'Anemia (Microcytic)', smear: ['Microcytosis','Hypochromia'], associations: ['Pica','Low ferritin'], labs: { MCV: '<80', Retic: 'low' } },
+    { name: 'Warm Autoimmune Hemolytic Anemia', mechanism: 'IgG mediated RBC destruction', type: 'Hemolysis (Extravascular)', smear: ['Spherocytes'], associations: ['SLE','Drugs'], labs: { Haptoglobin: 'low', LDH: 'high' } },
+    { name: 'TTP', mechanism: '↓ADAMTS13 causing platelet-rich thrombi', type: 'MAHA', smear: ['Schistocytes'], associations: ['Neuro symptoms','Renal impairment'], labs: { Platelets: 'low' } },
+    { name: 'Sickle Cell Disease', mechanism: 'HbS polymerization', type: 'Hemolytic anemia', smear: ['Sickle cells'], associations: ['Pain crises','Avascular necrosis'], labs: { Retic: 'high' } },
+    { name: 'Plasmodium falciparum', mechanism: 'Parasitic infection of RBCs', type: 'Infection', smear: ['Ring forms'], associations: ['Travel history','Fevers'], labs: {} }
+];
+
+/* ---------------------------
+   STATE
+   --------------------------- */
+let gameState = 'menu';
+let leaderboardKey = 'heme_leaderboard_v1';
+let currentMatching = { module: null, left: [], right: [], placed: {} };
+let mechanismState = { puzzle: null, items: [], placed: {} };
+let quizState = { difficulty: 1, timer: 30, score: 0, current: null, remaining: [], timerInterval: null };
+
+/* ---------------------------
+   DOM refs
+   --------------------------- */
+const mainContent = document.getElementById('main-content');
+const gameStats = document.getElementById('game-stats');
+const flowchartControls = document.getElementById('flowchart-controls');
+const progressDisplay = document.getElementById('progress-display');
+const scoreDisplay = document.getElementById('score-display');
+const closeBtn = document.getElementById('close-btn');
+const imageModal = document.getElementById('image-modal');
+const modalImg = document.getElementById('modal-img');
+const modalCaption = document.getElementById('modal-caption');
+const modalTitle = document.getElementById('modal-title');
+
+/* ---------------------------
+   INIT
+   --------------------------- */
+function init() { renderMenu(); }
+init();
+
+/* ---------------------------
+   NAV / UI helpers
+   --------------------------- */
+function goToMenu() { gameState='menu'; updateUI(); }
+function updateUI(){
+    if(gameState === 'menu') {
+        gameStats.classList.add('hidden'); flowchartControls.classList.add('hidden'); closeBtn.classList.add('hidden');
+        renderMenu();
+    } else {
+        closeBtn.classList.remove('hidden');
+        if(gameState === 'matching'){ gameStats.classList.remove('hidden'); flowchartControls.classList.add('hidden'); renderMatching(); }
+        else if(gameState==='mechanism'){ gameStats.classList.add('hidden'); flowchartControls.classList.add('hidden'); renderMechanismSorter(); }
+        else if(gameState==='quiz'){ gameStats.classList.remove('hidden'); flowchartControls.classList.add('hidden'); renderQuiz(); }
+        else if(gameState==='index'){ gameStats.classList.add('hidden'); flowchartControls.classList.add('hidden'); renderDiseaseIndex(); }
+    }
+}
+
+/* ---------------------------
+   MENU (adds new module buttons)
+   --------------------------- */
+function renderMenu(){
+    mainContent.innerHTML = `
+    <div class="max-w-6xl mx-auto px-6 py-8">
+        <div class="text-center mb-8">
+            <h2 class="text-3xl font-extrabold">Select Your Module</h2>
+            <p class="text-slate-500 mt-2">Matching games, mechanism sorters, adaptive quizzes, and searchable disease index.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <button onclick="startMatchingMenu()" class="p-4 bg-white rounded-xl border hover:shadow"> 
+                <div class="flex items-center gap-3"><div class="p-3 rounded bg-indigo-600 text-white">${ICONS.GitBranch}</div>
+                <div><h3 class="font-bold">Drag-and-Drop Matching</h3><div class="text-xs text-slate-400">Transfusion / Hemostasis / Pharmacology</div></div></div>
+            </button>
+
+            <button onclick="startMechanismMenu()" class="p-4 bg-white rounded-xl border hover:shadow">
+                <div class="flex items-center gap-3"><div class="p-3 rounded bg-emerald-600 text-white">${ICONS.Pill}</div>
+                <div><h3 class="font-bold">Mechanism Sorters</h3><div class="text-xs text-slate-400">Drugs → Mechanism, Mutations → Effect</div></div></div>
+            </button>
+
+            <button onclick="startQuizMenu()" class="p-4 bg-white rounded-xl border hover:shadow">
+                <div class="flex items-center gap-3"><div class="p-3 rounded bg-yellow-500 text-white">🏆</div>
+                <div><h3 class="font-bold">Adaptive Quiz & Leaderboard</h3><div class="text-xs text-slate-400">Timed questions & high scores</div></div></div>
+            </button>
+
+            <button onclick="startDiseaseIndex()" class="p-4 bg-white rounded-xl border hover:shadow col-span-2 md:col-span-1">
+                <div class="flex items-center gap-3"><div class="p-3 rounded bg-rose-500 text-white">${ICONS.Droplet}</div>
+                <div><h3 class="font-bold">Searchable Disease Index</h3><div class="text-xs text-slate-400">Filter by smear, etiology, labs</div></div></div>
+            </button>
+
+            <button onclick="startImageBank()" class="p-4 bg-white rounded-xl border hover:shadow col-span-2 md:col-span-1">
+                <div class="flex items-center gap-3"><div class="p-3 rounded bg-emerald-600 text-white">${ICONS.Image}</div>
+                <div><h3 class="font-bold">Pathology Image Bank</h3><div class="text-xs text-slate-400">Curated slides</div></div></div>
+            </button>
+        </div>
+
+        <div class="mt-6">
+            <h4 class="text-slate-600 font-semibold mb-2">Quick Links</h4>
+            <div class="flex gap-3 flex-wrap">
+                <button onclick="startMatching('Transfusion Medicine')" class="px-3 py-2 bg-white rounded border">Start Transfusion Match</button>
+                <button onclick="startMatching('Hemostasis')" class="px-3 py-2 bg-white rounded border">Start Hemostasis Match</button>
+                <button onclick="startMatching('Pharmacology')" class="px-3 py-2 bg-white rounded border">Start Pharmacology Match</button>
+            </div>
+        </div>
+    </div>
+    `;
+}
+
+/* ---------------------------
+   IMAGE BANK (simple reuse)
+   --------------------------- */
+function startImageBank(){ gameState='imagebank'; updateUI(); }
+function renderImageBank(){
+    mainContent.innerHTML = `<div class="p-12 text-center">Image Bank (placeholder)</div>`;
+}
+
+/* ---------------------------
+   DRAG AND DROP MATCHING
+   --------------------------- */
+function startMatchingMenu(){
+    gameState='matching';
+    currentMatching = { module: null, left: [], right: [], placed: {} };
+    updateUI();
+}
+
+function startMatching(moduleName){
+    const data = MATCH_MODULES[moduleName];
+    if(!data) { alert('Module not found'); return; }
+    // build left and right shuffled
+    const left = data.map(d => ({ id:d.id, text:d.left }));
+    const right = data.map(d => ({ id:d.id, text:d.right }));
+    shuffleArray(left); shuffleArray(right);
+    currentMatching = { module: moduleName, left, right, placed: {} };
+    score = 0; mistakes = 0; updateStats();
+    renderMatching();
+}
+
+function renderMatching(){
+    if(!currentMatching.module){
+        // show chooser
+        mainContent.innerHTML = `
+            <div class="max-w-4xl mx-auto p-6">
+                <h2 class="text-2xl font-bold mb-4">Choose Matching Module</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    ${Object.keys(MATCH_MODULES).map(k => `<button onclick="startMatching('${k}')" class="p-4 bg-white rounded shadow">${k}</button>`).join('')}
+                </div>
+            </div>
+        `;
+        return;
+    }
+
+    document.getElementById('progress-display')?.classList.remove('hidden');
+    mainContent.innerHTML = `
+    <div class="max-w-6xl mx-auto p-6">
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="text-2xl font-bold">${currentMatching.module} — Drag left items onto matching right cards</h2>
+            <div class="text-right">
+                <div class="text-sm text-slate-500">Score: <span id="local-score">${score}</span></div>
+                <div class="text-xs text-slate-400">Mistakes: <span id="local-mistakes">${mistakes}</span></div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6">
+            <div>
+                <h3 class="font-semibold mb-3">Terms</h3>
+                <div id="left-bank" class="space-y-3">
+                    ${currentMatching.left.map(it => `
+                        <div draggable="true" ondragstart="dragStart(event,'${it.id}')" id="left-${it.id}" class="draggable p-3 bg-white rounded shadow">${escapeHtml(it.text)}</div>
+                    `).join('')}
+                </div>
+            </div>
+
+            <div>
+                <h3 class="font-semibold mb-3">Drop Targets</h3>
+                <div id="right-bank" class="space-y-3">
+                    ${currentMatching.right.map(it => `
+                        <div id="right-${it.id}" ondragover="allowDrop(event)" ondrop="handleDrop(event,'${it.id}')" class="dropzone p-3 bg-white rounded shadow">
+                            <div class="w-full">${escapeHtml(it.text)}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-6 flex gap-3">
+            <button onclick="startMatching('${currentMatching.module}')" class="px-3 py-2 bg-slate-800 text-white rounded">Restart</button>
+            <button onclick="goToMenu()" class="px-3 py-2 bg-white rounded border">Back</button>
+        </div>
+    </div>
+    `;
+}
+
+function dragStart(ev, id){
+    ev.dataTransfer.setData('text/plain', id);
+}
+
+function allowDrop(ev){ ev.preventDefault(); ev.currentTarget.classList.add('active'); }
+function handleDrop(ev, targetId){
+    ev.preventDefault();
+    ev.currentTarget.classList.remove('active');
+    const draggedId = ev.dataTransfer.getData('text/plain');
+    if(!draggedId) return;
+    // If match
+    if(draggedId === targetId){
+        // place visually
+        const target = document.getElementById('right-'+targetId);
+        target.innerHTML = `<div class="p-2 bg-green-50 rounded text-sm">${escapeHtml(currentMatching.right.find(r=>r.id===targetId).text)}<div class="text-xs text-green-600">Matched</div></div>`;
+        const dragEl = document.getElementById('left-'+draggedId);
+        if(dragEl) dragEl.remove();
+        currentMatching.placed[targetId] = draggedId;
+        score += 100; updateStats();
+        // check completion
+        if(Object.keys(currentMatching.placed).length === currentMatching.left.length){
+            setTimeout(()=> alert('Great! All matched.'), 200);
+        }
+    } else {
+        mistakes++; updateStats();
+        // brief shake
+        const el = document.getElementById('left-'+draggedId);
+        if(el){ el.classList.add('animate-shake'); setTimeout(()=>el.classList.remove('animate-shake'),400); }
+    }
+}
+
+/* ---------------------------
+   MECHANISM SORTER
+   --------------------------- */
+function startMechanismMenu(){
+    gameState='mechanism';
+    mechanismState = { puzzle: null, items: [], placed: {} };
+    updateUI();
+}
+function startMechanism(puzzleKey){
+    const data = MECHANISM_SORTERS[puzzleKey];
+    if(!data){ alert('Puzzle not found'); return; }
+    const items = data.map(d => ({ id:d.id, item:d.item, target:d.target }));
+    shuffleArray(items);
+    mechanismState = { puzzle: puzzleKey, items, placed: {} };
+    renderMechanismSorter();
+}
+function renderMechanismSorter(){
+    if(!mechanismState.puzzle){
+        mainContent.innerHTML = `
+            <div class="max-w-4xl mx-auto p-6">
+                <h2 class="text-2xl font-bold mb-4">Choose Mechanism Sorter</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    ${Object.keys(MECHANISM_SORTERS).map(k=>`<button onclick="startMechanism('${k}')" class="p-4 bg-white rounded shadow">${k}</button>`).join('')}
+                </div>
+            </div>
+        `; return;
+    }
+
+    mainContent.innerHTML = `
+    <div class="max-w-6xl mx-auto p-6">
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="text-2xl font-bold">${mechanismState.puzzle}</h2>
+            <div class="text-sm text-slate-500">Drag items into matching mechanism cards</div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-4">
+            <div>
+                <h4 class="font-semibold mb-2">Items</h4>
+                <div id="mech-items" class="space-y-2">
+                ${mechanismState.items.map(it=>`<div id="it-${it.id}" draggable="true" ondragstart="dragStart(event,'${it.id}')" class="draggable p-3 bg-white rounded shadow">${escapeHtml(it.item)}</div>`).join('')}
+                </div>
+            </div>
+            <div class="col-span-2">
+                <h4 class="font-semibold mb-2">Targets</h4>
+                <div class="grid grid-cols-2 gap-3">
+                    ${mechanismState.items.map(it=>`
+                        <div id="target-${it.id}" ondragover="allowDrop(event)" ondrop="handleMechanismDrop(event,'${it.id}','${escapeJs(it.target)}')" class="dropzone p-4 bg-white rounded shadow text-sm">
+                            ${escapeHtml(it.target)}
+                            <div id="placed-${it.id}" class="mt-3"></div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-6">
+            <button onclick="startMechanism('${mechanismState.puzzle}')" class="px-3 py-2 bg-slate-800 text-white rounded">Restart</button>
+            <button onclick="startMechanismMenu()" class="px-3 py-2 bg-white rounded border">Back</button>
+        </div>
+    </div>
+    `;
+}
+function handleMechanismDrop(ev, zoneId, correctTarget){
+    ev.preventDefault();
+    const draggedId = ev.dataTransfer.getData('text/plain');
+    ev.currentTarget.classList.remove('active');
+    // find dragged item object
+    const draggedItem = mechanismState.items.find(i => i.id === draggedId);
+    if(!draggedItem) return;
+    if(draggedItem.target === correctTarget){
+        // place
+        mechanismState.placed[zoneId] = draggedId;
+        const placedDiv = document.getElementById('placed-'+zoneId);
+        if(placedDiv){ placedDiv.innerHTML = `<div class="p-2 bg-green-50 rounded">${escapeHtml(draggedItem.item)}</div>`; }
+        const sourceEl = document.getElementById('it-'+draggedId);
+        if(sourceEl) sourceEl.remove();
+        score += 50; updateStats();
+    } else {
+        mistakes++; updateStats();
+        const el = document.getElementById('it-'+draggedId);
+        if(el){ el.classList.add('animate-shake'); setTimeout(()=>el.classList.remove('animate-shake'),400); }
+        alert('Incorrect placement — try another target');
+    }
+}
+
+/* ---------------------------
+   ADAPTIVE QUIZ & LEADERBOARD
+   --------------------------- */
+function startQuizMenu(){
+    gameState = 'quiz';
+    quizState = { difficulty:1, timer:30, score:0, current:null, remaining:[], timerInterval:null };
+    updateUI();
+}
+function renderQuiz(){
+    if(!quizState.current){
+        // show settings
+        const board = getLeaderboard();
+        mainContent.innerHTML = `
+            <div class="max-w-3xl mx-auto p-6 text-center">
+                <h2 class="text-2xl font-bold mb-3">Adaptive Quiz</h2>
+                <p class="text-slate-500 mb-4">Choose time per question and difficulty.</p>
+                <div class="flex justify-center gap-3 mb-4">
+                    <label>Time (sec): <select id="quiz-time" class="ml-2"><option>30</option><option>45</option><option selected>60</option></select></label>
+                    <label>Start difficulty: <select id="quiz-diff" class="ml-2"><option value="1">Easy</option><option value="2" selected>Medium</option><option value="3">Hard</option></select></label>
+                </div>
+                <div class="flex justify-center gap-3">
+                    <button onclick="beginQuiz()" class="px-4 py-2 bg-slate-800 text-white rounded">Start Quiz</button>
+                    <button onclick="goToMenu()" class="px-4 py-2 bg-white rounded border">Cancel</button>
+                </div>
+
+                <div class="mt-8 text-left">
+                    <h4 class="font-semibold">Leaderboard</h4>
+                    <ol class="list-decimal pl-6 mt-2">
+                        ${board.map(b=>`<li>${escapeHtml(b.name)} — ${b.score}</li>`).join('') || '<li class="text-slate-400">No scores yet</li>'}
+                    </ol>
+                </div>
+            </div>
+        `;
+        return;
+    }
+
+    // Render active question
+    const q = quizState.current;
+    mainContent.innerHTML = `
+    <div class="max-w-3xl mx-auto p-6">
+        <div class="flex justify-between items-center mb-4">
+            <div>
+                <h3 class="font-bold">${escapeHtml(q.q)}</h3>
+                <div class="text-xs text-slate-400">Difficulty: ${['','Easy','Medium','Hard'][q.difficulty] || q.difficulty}</div>
+            </div>
+            <div class="text-right">
+                <div class="text-sm">Score: <strong id="q-score">${quizState.score}</strong></div>
+                <div class="text-xs text-slate-400">Time left: <span id="q-timer">${quizState.timer}</span>s</div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            ${q.choices.map(ch=>`<button onclick="answerQuiz('${escapeJs(ch)}')" class="p-3 bg-white shadow rounded text-left">${escapeHtml(ch)}</button>`).join('')}
+        </div>
+
+        <div class="mt-6">
+            <button onclick="endQuizEarly()" class="px-3 py-2 bg-white rounded border">Finish Quiz</button>
+        </div>
+    </div>
+    `;
+}
+
+function beginQuiz(){
+    const t = parseInt(document.getElementById('quiz-time').value || '60',10);
+    const diff = parseInt(document.getElementById('quiz-diff').value || '2',10);
+    quizState.timer = t; quizState.difficulty = diff; quizState.score = 0;
+    // seed remaining pool depending on difficulty
+    resetQuizPool();
+    nextQuizQuestion();
+}
+
+function resetQuizPool(){
+    // pick questions around difficulty +/-1
+    quizState.remaining = QUIZ_QUESTIONS.filter(q => Math.abs(q.difficulty - quizState.difficulty) <= 1).map(q=>({...q}));
+    shuffleArray(quizState.remaining);
+}
+
+function nextQuizQuestion(){
+    if(quizState.timerInterval) clearInterval(quizState.timerInterval);
+    if(quizState.remaining.length === 0){
+        finishQuiz();
+        return;
+    }
+    const q = quizState.remaining.shift();
+    quizState.current = q;
+    quizState.timerLeft = quizState.timer;
+    renderQuiz();
+    // start timer
+    const timerEl = document.getElementById('q-timer');
+    quizState.timerInterval = setInterval(()=>{
+        quizState.timerLeft--;
+        if(timerEl) timerEl.textContent = quizState.timerLeft;
+        if(quizState.timerLeft <= 0){
+            clearInterval(quizState.timerInterval);
+            // treat as wrong
+            adaptDifficulty(false);
+            nextQuizQuestion();
+        }
+    }, 1000);
+}
+
+function answerQuiz(choice){
+    if(!quizState.current) return;
+    const correct = choice === quizState.current.a;
+    if(correct){ quizState.score += (100 * quizState.current.difficulty); adaptDifficulty(true); }
+    else { adaptDifficulty(false); }
+    // show brief feedback and move on
+    if(quizState.timerInterval) clearInterval(quizState.timerInterval);
+    setTimeout(()=> nextQuizQuestion(), 350);
+}
+
+function adaptDifficulty(wasCorrect){
+    // simple adaptive: if correct, nudge towards harder, else nudge easier
+    if(wasCorrect && quizState.difficulty < 3) quizState.difficulty++;
+    if(!wasCorrect && quizState.difficulty > 1) quizState.difficulty--;
+    // refill remaining pool if low
+    if(quizState.remaining.length < 2) {
+        const extras = QUIZ_QUESTIONS.filter(q => Math.abs(q.difficulty - quizState.difficulty) <= 1 && !quizState.remaining.some(r=>r.id===q.id) && q.id !== quizState.current?.id);
+        shuffleArray(extras);
+        quizState.remaining = quizState.remaining.concat(extras.slice(0,4));
+    }
+}
+
+function finishQuiz(){
+    if(quizState.timerInterval) clearInterval(quizState.timerInterval);
+    const finalScore = quizState.score;
+    const name = prompt('Quiz complete! Enter your name for the leaderboard:', 'Student');
+    if(name){
+        saveScore({ name, score: finalScore, date: (new Date()).toISOString() });
+    }
+    showBadges(finalScore);
+    quizState = { difficulty:1, timer:30, score:0, current:null, remaining: [], timerInterval: null };
+    // go back to menu view of quiz
+    renderQuiz();
+}
+
+function endQuizEarly(){ if(confirm('Finish quiz early?')) finishQuiz(); }
+
+function saveScore(entry){
+    const board = getLeaderboard();
+    board.push(entry);
+    board.sort((a,b)=>b.score - a.score);
+    localStorage.setItem(leaderboardKey, JSON.stringify(board.slice(0,50)));
+}
+
+function getLeaderboard(){
+    try {
+        const raw = localStorage.getItem(leaderboardKey);
+        return raw ? JSON.parse(raw) : [];
+    } catch(e){ return []; }
+}
+
+function showBadges(score){
+    const badges = [];
+    if(score >= 600) badges.push({ label:'Gold', color:'bg-yellow-400' });
+    else if(score >= 350) badges.push({ label:'Silver', color:'bg-slate-300' });
+    else if(score >= 150) badges.push({ label:'Bronze', color:'bg-orange-300' });
+    if(badges.length === 0) { alert('Good attempt! Keep practicing.'); return; }
+    // show skin
+    mainContent.innerHTML = `
+        <div class="max-w-3xl mx-auto p-8 text-center">
+            <h2 class="text-2xl font-bold mb-4">Achievements</h2>
+            <div class="flex justify-center gap-4">
+                ${badges.map(b=>`<div class="badge ${b.color} text-white px-4 py-2 rounded">${escapeHtml(b.label)} Badge</div>`).join('')}
+            </div>
+            <div class="mt-6"><button onclick="startQuizMenu()" class="px-4 py-2 bg-slate-800 text-white rounded">Back</button></div>
+        </div>
+    `;
+}
+
+/* ---------------------------
+   SEARCHABLE DISEASE INDEX
+   --------------------------- */
+function startDiseaseIndex(){ gameState='index'; updateUI(); }
+
+function renderDiseaseIndex(){
+    mainContent.innerHTML = `
+    <div class="max-w-6xl mx-auto p-6">
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="text-2xl font-bold">Disease Index</h2>
+            <div class="text-sm text-slate-500">Search & filter common hematology entities</div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-3 mb-4">
+            <input id="di-search" oninput="applyDIsearch()" placeholder="Search by name/mechanism/association" class="p-2 border rounded col-span-2" />
+            <select id="di-smear" onchange="applyDIsearch()" class="p-2 border rounded">
+                <option value="">Any smear</option>
+                <option>Schistocytes</option>
+                <option>Spherocytes</option>
+                <option>Sickle cells</option>
+                <option>Ring forms</option>
+            </select>
+            <select id="di-type" onchange="applyDIsearch()" class="p-2 border rounded">
+                <option value="">Any type</option>
+                <option>Anemia (Microcytic)</option>
+                <option>Hemolysis (Extravascular)</option>
+                <option>MAHA</option>
+                <option>Infection</option>
+            </select>
+        </div>
+
+        <div id="di-results" class="space-y-3">
+            ${renderDISlice(DISEASE_INDEX)}
+        </div>
+
+        <div class="mt-6">
+            <button onclick="goToMenu()" class="px-3 py-2 bg-white rounded border">Back</button>
+        </div>
+    </div>
+    `;
+}
+
+function renderDISlice(list){
+    if(!list || list.length===0) return `<div class="p-4 bg-white rounded border text-slate-500">No results</div>`;
+    return list.map(d=>`
+        <div class="p-4 bg-white rounded border">
+            <div class="flex items-start justify-between">
+                <div>
+                    <h3 class="font-bold">${escapeHtml(d.name)}</h3>
+                    <div class="text-xs text-slate-500">${escapeHtml(d.type)} — ${escapeHtml(d.mechanism)}</div>
+                    <div class="mt-2 text-sm">
+                        <strong>Smear:</strong> ${d.smear.join(', ')}<br/>
+                        <strong>Associations:</strong> ${d.associations.join(', ')}
+                    </div>
+                </div>
+                <div class="text-right">
+                    <button onclick="showDiseaseDetail('${escapeJs(d.name)}')" class="px-2 py-1 bg-slate-100 rounded">Details</button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function applyDIsearch(){
+    const q = (document.getElementById('di-search').value || '').toLowerCase().trim();
+    const smear = document.getElementById('di-smear').value;
+    const type = document.getElementById('di-type').value;
+    const filtered = DISEASE_INDEX.filter(d => {
+        if(q){
+            const hay = (d.name + ' ' + d.mechanism + ' ' + d.associations.join(' ') ).toLowerCase();
+            if(!hay.includes(q)) return false;
+        }
+        if(smear && !d.smear.includes(smear)) return false;
+        if(type && d.type !== type) return false;
+        return true;
+    });
+    document.getElementById('di-results').innerHTML = renderDISlice(filtered);
+}
+
+function showDiseaseDetail(name){
+    const d = DISEASE_INDEX.find(x=>x.name===name);
+    if(!d) return;
+    mainContent.innerHTML = `
+        <div class="max-w-3xl mx-auto p-6">
+            <button onclick="renderDiseaseIndex()" class="mb-4 text-sm text-slate-600">← Back to results</button>
+            <h2 class="text-2xl font-bold">${escapeHtml(d.name)}</h2>
+            <div class="mt-3 text-sm text-slate-600"><strong>Type:</strong> ${escapeHtml(d.type)}</div>
+            <div class="mt-3"><strong>Mechanism:</strong><div class="p-3 bg-white rounded border mt-1">${escapeHtml(d.mechanism)}</div></div>
+            <div class="mt-3"><strong>Smear findings:</strong> ${d.smear.join(', ')}</div>
+            <div class="mt-3"><strong>Key associations:</strong> ${d.associations.join(', ')}</div>
+            <div class="mt-4"><strong>Labs:</strong><pre class="bg-slate-50 p-3 rounded">${escapeHtml(JSON.stringify(d.labs,null,2))}</pre></div>
+        </div>
+    `;
+}
+
+/* ---------------------------
+   STATS UI
+   --------------------------- */
+let score = 0, mistakes = 0;
+function updateStats(){ document.getElementById('progress-display') && (document.getElementById('progress-display').textContent = `${mistakes} mistakes`); document.getElementById('score-display') && (document.getElementById('score-display').textContent = score); document.getElementById('local-score') && (document.getElementById('local-score').textContent = score); document.getElementById('local-mistakes') && (document.getElementById('local-mistakes').textContent = mistakes); }
+
+/* ---------------------------
+   GENERAL HELPERS
+   --------------------------- */
+function shuffleArray(arr){ for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];} return arr; }
+function escapeHtml(s){ if(!s && s!==0) return ''; return String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;'); }
+function escapeJs(s){ if(!s) return ''; return String(s).replaceAll("'","\\'").replaceAll('"','\\"'); }
+
+/* ---------------------------
+   IMAGE MODAL helpers
+   --------------------------- */
+function openImageModal(src, title, desc){
+    modalImg.src = src; modalTitle.textContent = title || ''; modalCaption.textContent = desc || '';
+    imageModal.classList.remove('hidden');
+}
+function closeImageModal(){ imageModal.classList.add('hidden'); modalImg.src = ''; }
+
+/* ---------------------------
+   Small utilities & backward compat
+   --------------------------- */
+function startQuiz(){ startQuizMenu(); } // alias
+
+</script>
+</body>
+</html>
