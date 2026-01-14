@@ -128,7 +128,7 @@
               Combined
             </span>
           </div>
-          <div class="text-xs text-slate-500 font-semibold truncate">Decks • Flowchart • Images • Drag/Drop • Mechanisms • Quizzes • Index</div>
+          <div class="text-xs text-slate-500 font-semibold truncate">Decks • Flowchart • Images • Morphology Match • Drag/Drop • Mechanisms • Quizzes • Index</div>
         </div>
       </div>
 
@@ -563,6 +563,39 @@ const IMAGE_BANK_DATA = [
             { id: 'img_ls9_20', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_9_Vessels/LS9-20.jpg', title: 'Vasa Vasorum', desc: 'Small blood vessels nourishing the wall of a large artery/vein.' }
         ];
 
+const MORPH_MATCH_BASE = 'https://tayner35.github.io/HemeLymphE1-Images/RBC_Images_Unlabeled/';
+const MORPH_MATCH_DATA = [
+            { id: 'morph_acanthocytes', label: 'Acanthocytes (Spur Cells)', file: 'RBC Morphology_Acanthocytes Spur Cells.jpg' },
+            { id: 'morph_anisocytosis', label: 'Anisocytosis', file: 'RBC Morphology_Anisocytosis.jpg' },
+            { id: 'morph_banana_gametocytes', label: 'Banana-shaped Gametocytes', file: 'RBC Morphology_Banana-shaped Gametocytes.jpg' },
+            { id: 'morph_band_forms', label: 'Band Forms', file: 'RBC Morphology_Band Forms.jpg' },
+            { id: 'morph_barr_body', label: 'Barr Body', file: 'RBC Morphology_Barr Body.jpg' },
+            { id: 'morph_basophilic_stippling', label: 'Basophilic Stippling', file: 'RBC Morphology_Basophilic Stippling.jpg' },
+            { id: 'morph_dacrocytes', label: 'Dacrocytes (Teardrop Cells)', file: 'RBC Morphology_Dacrocytes.jpg' },
+            { id: 'morph_echinocytes', label: 'Echinocytes (Burr Cells)', file: 'RBC Morphology_Echinocytes Burr Cells.jpg' },
+            { id: 'morph_elliptocytes', label: 'Elliptocytes (Pencil Cells)', file: 'RBC Morphology_Elliptocytes Pencil Cells.jpg' },
+            { id: 'morph_heinz_bodies', label: 'Heinz Bodies', file: 'RBC Morphology_Heinz Bodies.jpg' },
+            { id: 'morph_howell_jolly', label: 'Howell-Jolly Bodies', file: 'RBC Morphology_Howell-Jolly Bodies.jpg' },
+            { id: 'morph_hypersegmented', label: 'Hypersegmented Neutrophils', file: 'RBC Morphology_Hypersegmented Neutrophils.jpg' },
+            { id: 'morph_large_platelets', label: 'Large Platelets', file: 'RBC Morphology_Large Platelets.jpg' },
+            { id: 'morph_macro_ovalocytes', label: 'Macrocytic Macro-ovalocytes', file: 'RBC Morphology_Macrocytic Macro-ovalocytes.jpg' },
+            { id: 'morph_microcytic_hypochromic', label: 'Microcytic Hypochromic', file: 'RBC Morphology_Microcytic Hypochromic.jpg' },
+            { id: 'morph_nucleated_rbcs', label: 'Nucleated RBCs', file: 'RBC Morphology_Nucleated RBCs.jpg' },
+            { id: 'morph_pappenheimer', label: 'Pappenheimer Bodies', file: 'RBC Morphology_Pappenheimer Bodies.jpg' },
+            { id: 'morph_ring_forms', label: 'Ring Forms', file: 'RBC Morphology_Ring Forms.jpg' },
+            { id: 'morph_rouleaux', label: 'Rouleaux Formation', file: 'RBC Morphology_Rouleaux Formation.jpg' },
+            { id: 'morph_schistocytes', label: 'Schistocytes', file: 'RBC Morphology_Schistocytes.jpg' },
+            { id: 'morph_schuffner', label: 'Schuffner Dots', file: 'RBC Morphology_Schuffner Dots.jpg' },
+            { id: 'morph_sickle_cells', label: 'Sickle Cells', file: 'RBC Morphology_Sickle Cells.jpg' },
+            { id: 'morph_spherocytes', label: 'Spherocytes', file: 'RBC Morphology_Spherocytes.jpg' },
+            { id: 'morph_stomatocytes', label: 'Stomatocytes', file: 'RBC Morphology_Stomatocytes.jpg' },
+            { id: 'morph_target_cells', label: 'Target Cells', file: 'RBC Morphology_Target Cells.jpg' }
+        ].map(({ id, label, file }) => ({
+            id,
+            label,
+            src: `${MORPH_MATCH_BASE}${encodeURIComponent(file)}`
+        }));
+
 const FLOWCHART_NODES = [
             { id: 'h1', type: 'label', text: 'Microcytic (MCV < 80)', x: 1.0, y: 0.5, w: 3, color: 'bg-red-100 border-red-300' },
             { id: 'h2', type: 'label', text: 'Normocytic (MCV 80-100)', x: 5.75, y: 0.5, w: 5, color: 'bg-green-100 border-green-300' },
@@ -768,7 +801,7 @@ const DISEASE_TABLE_INDEX = [
                 pathophysiology: 'Accumulation of ALA and PBG → neurotoxicity',
                 labs: ['↑ ALA', '↑ PBG', 'Iron N'],
                 presentation: ['Abdominal pain', 'Neuropathy', 'Psychiatric symptoms', 'Port-wine urine'],
-                smear: ['N']
+                smear: ['Normal']
             },
             {
                 name: 'Porphyria Cutanea Tarda (PCT)',
@@ -778,7 +811,7 @@ const DISEASE_TABLE_INDEX = [
                 pathophysiology: 'Porphyrin accumulation → photosensitivity',
                 labs: ['↑ Uroporphyrins', '↑ Iron'],
                 presentation: ['Photosensitivity', 'Blistering', 'Red-brown urine'],
-                smear: ['N']
+                smear: ['Normal']
             },
             {
                 name: 'Sickle Cell Disease',
@@ -818,7 +851,7 @@ const DISEASE_TABLE_INDEX = [
                 pathophysiology: 'Loss of complement regulators → complement-mediated intravascular hemolysis',
                 labs: ['Hemoglobinuria', 'Pancytopenia'],
                 presentation: ['Dark urine', 'Thrombosis'],
-                smear: ['N']
+                smear: ['Normal']
             },
             {
                 name: 'Hereditary Spherocytosis',
@@ -868,7 +901,7 @@ const DISEASE_TABLE_INDEX = [
                 pathophysiology: 'Ineffective hematopoiesis (can mimic B12 deficiency clinically)',
                 labs: ['↓ Copper', 'Anemia', 'Neutropenia'],
                 presentation: ['B12-like symptoms'],
-                smear: ['N']
+                smear: ['Normal']
             },
             {
                 name: 'Aplastic Anemia',
@@ -908,7 +941,7 @@ const DISEASE_TABLE_INDEX = [
                 pathophysiology: 'Iron sequestration and reduced availability for erythropoiesis',
                 labs: ['↑ Ferritin', '↓ Iron'],
                 presentation: ['Chronic illness symptoms'],
-                smear: ['N']
+                smear: ['Normal']
             },
             {
                 name: 'Thalassemia',
@@ -938,7 +971,7 @@ const DISEASE_TABLE_INDEX = [
                 pathophysiology: 'Reduced erythropoiesis due to inadequate erythropoietin',
                 labs: ['↓ Hb', 'MCV N'],
                 presentation: ['Fatigue'],
-                smear: ['N']
+                smear: ['Normal']
             },
             {
                 name: 'Thrombotic Thrombocytopenic Purpura (TTP)',
@@ -1318,6 +1351,33 @@ const DISEASE_BANK = (() => {
   return Array.from(byName.values());
 })();
 
+const SMEAR_IMAGE_MAP = {
+  normal: 'img_rbc_02',
+  'sickled rbcs': 'img_rbc_35',
+  'sickle cells': 'img_rbc_35',
+  'target cells': 'img_rbc_24',
+  spherocytes: 'img_rbc_27',
+  'rbc agglutination': 'img_rbc_43',
+  'bite cells': 'img_rbc_38',
+  'heinz bodies': 'img_rbc_38',
+  'hypersegmented neutrophils': 'img_rbc_16',
+  'hypocellular marrow': 'img_rbc_05',
+  'absent erythroid precursors': 'img_rbc_06',
+  'microcytic hypochromic rbcs': 'img_rbc_17',
+  'ring sideroblasts': 'img_rbc_09',
+  schistocytes: 'img_rbc_29'
+};
+
+function getImageById(id) {
+  return IMAGE_BANK_DATA.find(img => img.id === id) || MORPH_MATCH_DATA.find(img => img.id === id) || null;
+}
+
+function getSmearImage(term) {
+  const key = normalizeQuery(term);
+  const id = SMEAR_IMAGE_MAP[key];
+  return id ? getImageById(id) : null;
+}
+
 
 
 // ===== LOCAL STORAGE KEYS =====
@@ -1395,6 +1455,15 @@ let isQuizMode = false;
 let imageSearchQuery = '';
 let imageSearchFocus = null;
 let imageSearchSelection = null;
+
+// ----- Morphology Matching (Images) -----
+let morphPairs = [];
+let morphMatched = new Set();
+let morphSelectedTerm = null;
+let morphSelectedImage = null;
+let morphWrongPair = null;
+let morphTermOrder = [];
+let morphImageOrder = [];
 
 // ----- Flowchart State -----
 let fcZoom = 0.45;
@@ -1598,7 +1667,7 @@ function updateHeaderControls() {
     return;
   }
 
-  if (gameState === 'imagebank' || gameState === 'index' || gameState === 'dragdrop' || gameState === 'mechanism' || gameState === 'playing' || gameState === 'game-end' || gameState === 'quiz') {
+  if (gameState === 'imagebank' || gameState === 'morphmatch' || gameState === 'index' || gameState === 'dragdrop' || gameState === 'mechanism' || gameState === 'playing' || gameState === 'game-end' || gameState === 'quiz') {
     gameStats.classList.remove('hidden');
   }
 
@@ -1624,6 +1693,9 @@ function updateStats() {
       break;
     case 'mechanism':
       progressText = mechSelectedGame ? `${mechMatched.size} / ${mechPairs.length}` : 'Select puzzle';
+      break;
+    case 'morphmatch':
+      progressText = `${morphMatched.size} / ${morphPairs.length}`;
       break;
     case 'quiz':
       progressText = quizSession.active ? `${quizSession.index + 1} / ${quizSession.questions.length}` : 'Quiz setup';
@@ -1657,6 +1729,8 @@ function updateUI() {
       renderFlowchart(); break;
     case 'imagebank':
       renderImageBank(); break;
+    case 'morphmatch':
+      renderMorphMatch(); break;
     case 'dragdrop':
       renderDragDrop(); break;
     case 'mechanism':
@@ -1681,6 +1755,13 @@ function goToMenu() {
   ddSelectedGame = null;
   mechSelectedGame = null;
   diState.detailIdx = null;
+  morphPairs = [];
+  morphMatched = new Set();
+  morphSelectedTerm = null;
+  morphSelectedImage = null;
+  morphWrongPair = null;
+  morphTermOrder = [];
+  morphImageOrder = [];
   updateUI();
 }
 
@@ -1745,11 +1826,12 @@ function renderMenu() {
           </div>
           <h2 class="text-4xl font-extrabold text-slate-900 leading-tight">Heme-Lymph Match</h2>
           <p class="text-slate-600 mt-3 max-w-2xl">
-            Matching decks, diagnostic flowchart, image bank, drag-and-drop practice, mechanism sorters, adaptive quizzes, and a searchable disease index.
+            Matching decks, diagnostic flowchart, image bank, morphology matching, drag-and-drop practice, mechanism sorters, adaptive quizzes, and a searchable disease index.
           </p>
           <div class="mt-4 flex flex-wrap gap-2 text-xs font-bold text-slate-600">
             <span class="px-3 py-1 rounded-full bg-white border border-slate-200">${FULL_DATA.length} cards</span>
             <span class="px-3 py-1 rounded-full bg-white border border-slate-200">${IMAGE_BANK_DATA.length} images</span>
+            <span class="px-3 py-1 rounded-full bg-white border border-slate-200">${MORPH_MATCH_DATA.length} morphology images</span>
             <span class="px-3 py-1 rounded-full bg-white border border-slate-200">${Object.keys(DRAGDROP_GAMES).length} drag-drop sets</span>
             <span class="px-3 py-1 rounded-full bg-white border border-slate-200">${Object.keys(MECHANISM_GAMES).length} mechanism sets</span>
             <span class="px-3 py-1 rounded-full bg-white border border-slate-200">${QUIZ_BANK.length} quiz questions</span>
@@ -1768,6 +1850,12 @@ function renderMenu() {
             <div class="p-3 rounded-xl bg-rose-100 text-rose-700 w-fit mb-3 group-hover:scale-110 transition-transform">${ICONS.Image}</div>
             <div class="font-bold text-slate-800">Image Bank</div>
             <div class="text-xs font-semibold text-slate-500 mt-1">Morphology review</div>
+          </button>
+
+          <button onclick="startMorphMatch()" class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all text-left group">
+            <div class="p-3 rounded-xl bg-amber-100 text-amber-700 w-fit mb-3 group-hover:scale-110 transition-transform">${ICONS.Microscope}</div>
+            <div class="font-bold text-slate-800">Morphology Matching (Images)</div>
+            <div class="text-xs font-semibold text-slate-500 mt-1">Match labels to unlabeled images</div>
           </button>
 
           <button onclick="startDragDropMenu()" class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all text-left group">
@@ -2489,6 +2577,214 @@ function renderImageBank() {
   restoreImageSearchFocus();
 }
 
+// ===== MORPHOLOGY MATCHING (IMAGES) =====
+function startMorphMatch() {
+  stopQuizTimer();
+  gameState = 'morphmatch';
+  score = 0;
+  mistakes = 0;
+  morphPairs = MORPH_MATCH_DATA.map(item => ({ ...item }));
+  morphMatched = new Set();
+  morphSelectedTerm = null;
+  morphSelectedImage = null;
+  morphWrongPair = null;
+  morphTermOrder = shuffleArray([...morphPairs]);
+  morphImageOrder = shuffleArray([...morphPairs]);
+  updateUI();
+}
+
+function morphHandleTermClick(id) {
+  if (morphMatched.has(id) || morphWrongPair) return;
+  morphSelectedTerm = (morphSelectedTerm === id) ? null : id;
+  if (!morphCheckMatch()) renderMorphMatch();
+}
+
+function morphHandleImageClick(id) {
+  if (morphMatched.has(id) || morphWrongPair) return;
+  morphSelectedImage = (morphSelectedImage === id) ? null : id;
+  if (!morphCheckMatch()) renderMorphMatch();
+}
+
+function morphCheckMatch() {
+  if (!morphSelectedTerm || !morphSelectedImage) return false;
+  const termId = morphSelectedTerm;
+  const imageId = morphSelectedImage;
+
+  if (termId === imageId) {
+    morphMatched.add(termId);
+    score += 100;
+    checkAchievements();
+    morphSelectedTerm = null;
+    morphSelectedImage = null;
+    updateStats();
+    renderMorphMatch();
+    return true;
+  }
+
+  morphWrongPair = { term: termId, image: imageId };
+  mistakes += 1;
+  updateStats();
+  renderMorphMatch();
+  setTimeout(() => {
+    morphSelectedTerm = null;
+    morphSelectedImage = null;
+    morphWrongPair = null;
+    renderMorphMatch();
+  }, 1000);
+  return true;
+}
+
+function renderMorphMatch() {
+  mainContent.className = 'w-full flex-grow relative overflow-y-auto bg-gradient-to-br from-slate-50 to-amber-50 px-4 py-8';
+
+  if (!morphPairs.length) {
+    mainContent.innerHTML = `
+      <div class="max-w-3xl mx-auto animate-fadeIn">
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-8 text-center">
+          <h2 class="text-3xl font-extrabold text-slate-900 mb-2">Morphology Matching (Images)</h2>
+          <div class="text-slate-600 mb-6">No morphology images found.</div>
+          <button onclick="goToMenu()" class="px-5 py-3 rounded-xl border border-slate-200 bg-white font-bold text-slate-700 hover:bg-slate-50">Back</button>
+        </div>
+      </div>
+    `;
+    updateStats();
+    return;
+  }
+
+  const terms = morphTermOrder.length ? morphTermOrder : morphPairs;
+  const images = morphImageOrder.length ? morphImageOrder : morphPairs;
+
+  if (morphMatched.size === morphPairs.length) {
+    showAchievement('✅', 'Morphology Matched!', 'All images matched correctly.', 'morph_match_complete');
+    mainContent.innerHTML = `
+      <div class="max-w-3xl mx-auto animate-popIn">
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-8 text-center">
+          <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-emerald-100 text-emerald-700 mb-4">
+            ${ICONS.CheckCircle}
+          </div>
+          <h2 class="text-3xl font-extrabold text-slate-900 mb-2">Completed</h2>
+          <div class="text-slate-600 mb-6">Morphology Matching (Images)</div>
+
+          <div class="grid grid-cols-2 gap-3 max-w-sm mx-auto mb-6">
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+              <div class="text-xs font-bold text-slate-500 uppercase">Score</div>
+              <div class="text-2xl font-extrabold text-blue-600">${score}</div>
+            </div>
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+              <div class="text-xs font-bold text-slate-500 uppercase">Mistakes</div>
+              <div class="text-2xl font-extrabold ${mistakes === 0 ? 'text-emerald-600' : 'text-rose-600'}">${mistakes}</div>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-3 justify-center">
+            <button onclick="startMorphMatch()" class="px-5 py-3 rounded-xl bg-slate-900 text-white font-bold hover:bg-slate-800">Replay</button>
+            <button onclick="goToMenu()" class="px-5 py-3 rounded-xl border border-slate-200 bg-white font-bold text-slate-700 hover:bg-slate-50">Back to menu</button>
+          </div>
+        </div>
+      </div>
+    `;
+    updateStats();
+    return;
+  }
+
+  mainContent.innerHTML = `
+    <div class="max-w-7xl mx-auto animate-fadeIn">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+        <div>
+          <h2 class="text-3xl font-extrabold text-slate-900">Morphology Matching (Images)</h2>
+          <div class="text-sm text-slate-600 mt-1">Click a morphology term, then click the matching image. Use the magnifier to zoom.</div>
+        </div>
+        <div class="flex gap-3">
+          <button onclick="startMorphMatch()" class="px-4 py-2 rounded-xl bg-slate-900 text-white font-bold hover:bg-slate-800">Restart</button>
+          <button onclick="goToMenu()" class="px-4 py-2 rounded-xl border border-slate-200 bg-white shadow-sm font-bold text-slate-700 hover:bg-slate-50">Back</button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 lg:col-span-1">
+          <h3 class="font-extrabold text-slate-900 mb-4">Morphology Terms</h3>
+          <div class="space-y-3">
+            ${terms.map(term => {
+              const isMatched = morphMatched.has(term.id);
+              const isSelected = morphSelectedTerm === term.id;
+              const isError = morphWrongPair?.term === term.id;
+              const fadeStyle = isMatched ? ' style="opacity:0.05;"' : '';
+
+              let btnClass = "w-full text-left p-3 rounded-xl border-2 transition-all min-h-[3.25rem]";
+              let textClass = "font-bold text-sm sm:text-base";
+
+              if (isMatched) {
+                btnClass += " bg-slate-50 border-slate-100 text-slate-300 cursor-default";
+                textClass += " line-through";
+              } else if (isError) {
+                btnClass += " bg-red-50 border-red-500 animate-shake";
+                textClass += " text-slate-800";
+              } else if (isSelected) {
+                btnClass += " bg-blue-50 border-blue-500 shadow-md";
+                textClass += " text-slate-800";
+              } else {
+                btnClass += " bg-white border-slate-200 hover:border-blue-300 hover:shadow-sm";
+                textClass += " text-slate-800";
+              }
+
+              return `
+                <button onclick="morphHandleTermClick('${escapeJs(term.id)}')" ${isMatched ? 'disabled' : ''} class="${btnClass}"${fadeStyle}>
+                  <span class="${textClass}">${escapeHtml(term.label)}</span>
+                </button>
+              `;
+            }).join('')}
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 lg:col-span-2">
+          <h3 class="font-extrabold text-slate-900 mb-4">Images</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+            ${images.map(img => {
+              const placed = morphMatched.has(img.id) ? img.label : null;
+              const isMatched = morphMatched.has(img.id);
+              const isSelected = morphSelectedImage === img.id;
+              const isError = morphWrongPair?.image === img.id;
+              const fadeStyle = isMatched ? ' style="opacity:0.05;"' : '';
+
+              let cardClass = "w-full text-left rounded-2xl border-2 transition-all overflow-hidden";
+              if (isMatched) {
+                cardClass += " bg-slate-50 border-slate-100 cursor-default";
+              } else if (isError) {
+                cardClass += " bg-red-50 border-red-500 animate-shake";
+              } else if (isSelected) {
+                cardClass += " bg-blue-50 border-blue-500 shadow-md";
+              } else {
+                cardClass += " bg-white border-slate-200 hover:border-blue-300 hover:shadow-sm";
+              }
+
+              return `
+                <div class="relative"${fadeStyle}>
+                  <button onclick="morphHandleImageClick('${escapeJs(img.id)}')" ${isMatched ? 'disabled' : ''} class="${cardClass}">
+                    <div class="aspect-square bg-slate-100 overflow-hidden">
+                      <img src="${escapeHtml(img.src)}" alt="Morphology image" class="w-full h-full object-cover" />
+                    </div>
+                    <div class="p-3 min-h-[52px]">
+                      ${placed ? `<div class="placed-item">${escapeHtml(placed)}</div>` : `
+                        <div class="text-xs font-bold ${isSelected ? 'text-blue-600' : 'text-slate-400'}">
+                          ${isSelected ? 'Selected' : 'Click to match'}
+                        </div>
+                      `}
+                    </div>
+                  </button>
+                  <button type="button" onclick="event.stopPropagation(); openImageModal('${escapeJs(img.src)}', 'Morphology Image', 'Zoomed view for closer inspection.');" class="absolute bottom-2 right-2 z-10 w-9 h-9 rounded-full bg-white/90 border border-slate-200 shadow-sm flex items-center justify-center text-slate-700 hover:bg-white" title="Magnify image" aria-label="Magnify image">
+                    ${ICONS.Search}
+                  </button>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  updateStats();
+}
 
 
 // ===== DRAG & DROP PRACTICE =====
@@ -3446,6 +3742,21 @@ function renderDiseaseIndex() {
     const labsHtml = listHtml(d.labs || []);
     const presentationHtml = listHtml(d.presentation || []);
     const smearHtml = listHtml(d.smear || []);
+    const smearImages = (d.smear || [])
+      .map(term => ({ term, img: getSmearImage(term) }))
+      .filter(entry => entry.img);
+    const smearImageHtml = smearImages.length ? `
+      <div class="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-3">
+        ${smearImages.map(({ term, img }) => `
+          <button onclick="openImageModal('${escapeJs(img.src)}', '${escapeJs(img.title || term)}', '${escapeJs(term)}')" class="group bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md text-left">
+            <div class="aspect-square bg-slate-100 overflow-hidden">
+              <img src="${escapeHtml(img.src)}" alt="${escapeHtml(term)}" class="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+            </div>
+            <div class="px-3 py-2 text-xs font-bold text-slate-700">${escapeHtml(term)}</div>
+          </button>
+        `).join('')}
+      </div>
+    ` : '';
 
     mainContent.innerHTML = `
       <div class="max-w-4xl mx-auto animate-fadeIn">
@@ -3501,6 +3812,7 @@ function renderDiseaseIndex() {
               <div class="text-sm font-extrabold text-slate-800 mb-2">Peripheral smear / cellular evidence</div>
               <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-slate-700">
                 ${smearHtml}
+                ${smearImageHtml}
               </div>
             </div>
           </div>
