@@ -331,52 +331,52 @@ function highlightText(text, query) {
 
 const FULL_DATA = [
             // --- HEME SYNTHESIS DISORDERS ---
-            { category: 'Heme Synthesis', term: 'Acute Intermittent Porphyria (AIP)', def: 'AD, ↓ Porphobilinogen deaminase. Pain, Psych, Neuro, Port-wine urine. ↑ ALA/PBG.' },
-            { category: 'Heme Synthesis', term: 'Porphyria Cutanea Tarda (PCT)', def: '↓ Uroporphyrinogen decarboxylase. Photosensitivity, Blisters, Red-brown urine. ↑ Uroporphyrins.' },
-            { category: 'Heme Synthesis', term: 'Lead Poisoning', def: 'Inhibits ALA dehydratase & Ferrochelatase. Basophilic stippling, Ringed Sideroblasts. Encephalopathy.' },
+            { category: 'Heme Synthesis', term: 'Acute Intermittent Porphyria (AIP)', etiology: 'AD porphobilinogen deaminase (hydroxymethylbilane synthase) deficiency.', findings: 'Abdominal pain, psychiatric/neurologic symptoms, port-wine urine, ↑ ALA/PBG, no photosensitivity.', def: 'Abdominal pain, psychiatric/neurologic symptoms, port-wine urine, ↑ ALA/PBG, no photosensitivity.' },
+            { category: 'Heme Synthesis', term: 'Porphyria Cutanea Tarda (PCT)', etiology: 'Uroporphyrinogen decarboxylase deficiency (often acquired; assoc with Hep C, alcohol, iron overload).', findings: 'Photosensitivity with blistering, red-brown urine, ↑ uroporphyrins.', def: 'Photosensitivity with blistering, red-brown urine, ↑ uroporphyrins.' },
+            { category: 'Heme Synthesis', term: 'Lead Poisoning', etiology: 'Lead inhibits ALA dehydratase and ferrochelatase (acquired exposure).', findings: 'Microcytic anemia with basophilic stippling and ringed sideroblasts; abdominal pain, neuropathy/encephalopathy.', def: 'Microcytic anemia with basophilic stippling and ringed sideroblasts; abdominal pain, neuropathy/encephalopathy.' },
 
             // --- HYPOPROLIFERATIVE ANEMIAS ---
-            { category: 'Anemias: Hypoproliferative', term: 'Iron Deficiency Anemia (IDA)', def: 'Microcytic. ↓ Ferritin, ↓ Iron, ↑ TIBC. Pica, Spoon nails. Pencil cells.' },
-            { category: 'Anemias: Hypoproliferative', term: 'Anemia of Chronic Disease (ACD)', def: 'Normo/Microcytic. ↑ Hepcidin sequestering iron. ↑ Ferritin, ↓ Iron, ↓ TIBC.' },
-            { category: 'Anemias: Hypoproliferative', term: 'Thalassemia', def: 'Microcytic. Globin chain defect. Target cells. Normal Iron/Ferritin. ↑ HbA2/HbF (Beta).' },
-            { category: 'Anemias: Hypoproliferative', term: 'Sideroblastic Anemia', def: 'Microcytic. Heme synthesis defect (ALAS2). Ringed Sideroblasts. ↑ Iron, ↑ Ferritin.' },
-            { category: 'Anemias: Hypoproliferative', term: 'Anemia of Chronic Kidney Disease (CKD)', def: 'Normocytic. ↓ EPO production. Low Reticulocytes. Burrs cells (Echinocytes) if uremic.' },
-            { category: 'Anemias: Hypoproliferative', term: 'B12 Deficiency', def: 'Macrocytic. ↑ MMA & Homocysteine. Neuro symptoms. Hypersegmented Neutrophils.' },
-            { category: 'Anemias: Hypoproliferative', term: 'Folate Deficiency', def: 'Macrocytic. Normal MMA, ↑ Homocysteine. No neuro symptoms. Hypersegmented Neutrophils.' },
-            { category: 'Anemias: Hypoproliferative', term: 'Copper Deficiency', def: 'Macrocytic/Microcytic + Neutropenia. Mimics MDS. Low Ceruloplasmin.' },
+            { category: 'Anemias: Hypoproliferative', term: 'Iron Deficiency Anemia (IDA)', etiology: 'Iron deficiency from blood loss, low intake, or malabsorption.', findings: 'Microcytic hypochromic anemia, ↓ ferritin/iron, ↑ TIBC, pica, koilonychia, pencil cells.', def: 'Microcytic hypochromic anemia, ↓ ferritin/iron, ↑ TIBC, pica, koilonychia, pencil cells.' },
+            { category: 'Anemias: Hypoproliferative', term: 'Anemia of Chronic Disease (ACD)', etiology: 'Inflammation ↑ hepcidin causing iron sequestration and ↓ EPO response.', findings: 'Normo/microcytic anemia, ↑ ferritin, ↓ iron, ↓ TIBC.', def: 'Normo/microcytic anemia, ↑ ferritin, ↓ iron, ↓ TIBC.' },
+            { category: 'Anemias: Hypoproliferative', term: 'Thalassemia', etiology: 'Inherited ↓ globin chain synthesis (alpha or beta).', findings: 'Microcytosis with target cells, normal/high iron, ↑ HbA2/HbF in beta-thalassemia.', def: 'Microcytosis with target cells, normal/high iron, ↑ HbA2/HbF in beta-thalassemia.' },
+            { category: 'Anemias: Hypoproliferative', term: 'Sideroblastic Anemia', etiology: 'Defective heme synthesis (ALAS2 mutation, B6 deficiency, lead, drugs).', findings: 'Ringed sideroblasts, ↑ iron/↑ ferritin, basophilic stippling, microcytosis.', def: 'Ringed sideroblasts, ↑ iron/↑ ferritin, basophilic stippling, microcytosis.' },
+            { category: 'Anemias: Hypoproliferative', term: 'Anemia of Chronic Kidney Disease (CKD)', etiology: '↓ EPO production from CKD.', findings: 'Normocytic anemia with low reticulocytes; echinocytes (burr cells) if uremic.', def: 'Normocytic anemia with low reticulocytes; echinocytes (burr cells) if uremic.' },
+            { category: 'Anemias: Hypoproliferative', term: 'B12 Deficiency', etiology: 'Cobalamin deficiency (pernicious anemia, malabsorption, vegan).', findings: 'Macrocytic anemia, hypersegmented neutrophils, ↑ MMA + homocysteine, neuro symptoms.', def: 'Macrocytic anemia, hypersegmented neutrophils, ↑ MMA + homocysteine, neuro symptoms.' },
+            { category: 'Anemias: Hypoproliferative', term: 'Folate Deficiency', etiology: 'Folate deficiency (diet, alcoholism, drugs).', findings: 'Macrocytosis, hypersegmented neutrophils, ↑ homocysteine with normal MMA, no neuro deficits.', def: 'Macrocytosis, hypersegmented neutrophils, ↑ homocysteine with normal MMA, no neuro deficits.' },
+            { category: 'Anemias: Hypoproliferative', term: 'Copper Deficiency', etiology: 'Copper deficiency (malabsorption, gastric surgery, zinc excess).', findings: 'Macrocytic or microcytic anemia with neutropenia, low ceruloplasmin; can mimic MDS/neuropathy.', def: 'Macrocytic or microcytic anemia with neutropenia, low ceruloplasmin; can mimic MDS/neuropathy.' },
 
             // --- HEMOLYTIC ANEMIAS (Non-MAHA) ---
-            { category: 'Hemolytic (Non-MAHA)', term: 'Sickle Cell Disease (SCD)', def: 'HbS polymerization (Glu->Val). Pain crises, ACS. Sickle cells, Target cells. ↑ Retic.' },
-            { category: 'Hemolytic (Non-MAHA)', term: 'Warm Autoimmune Hemolytic Anemia (AIHA)', def: 'IgG (Warm). Splenic macrophage destruction. Spherocytes. +Coombs (IgG). SLE/Drugs.' },
-            { category: 'Hemolytic (Non-MAHA)', term: 'Cold Autoimmune Hemolytic Anemia (AIHA)', def: 'IgM (Cold). Complement fixation. Agglutination on smear. +Coombs (C3). Mycoplasma/Mono.' },
-            { category: 'Hemolytic (Non-MAHA)', term: 'Hereditary Spherocytosis', def: 'Cytoskeleton defect (Spectrin/Ankyrin). Spherocytes. ↑ MCHC. +Osmotic Fragility.' },
-            { category: 'Hemolytic (Non-MAHA)', term: 'Glucose-6-Phosphate Dehydrogenase Deficiency (G6PD)', def: 'X-linked. Oxidative stress -> Hemolysis. Heinz bodies -> Bite cells. Fava beans/Sulfa.' },
-            { category: 'Hemolytic (Non-MAHA)', term: 'Paroxysmal Nocturnal Hemoglobinuria (PNH)', def: 'Acquired PIG-A mutation. Loss of CD55/59 (GPI anchors). Dark urine (AM), Thrombosis.' },
-            { category: 'Hemolytic (Non-MAHA)', term: 'Pyruvate Kinase Deficiency', def: '↓ ATP -> RBC rigidity. Extravascular hemolysis. Echinocytes. Newborn jaundice.' },
+            { category: 'Hemolytic (Non-MAHA)', term: 'Sickle Cell Disease (SCD)', etiology: 'AD beta-globin Glu->Val mutation (HbS).', findings: 'Vaso-occlusive pain crises, acute chest syndrome, sickle + target cells, ↑ reticulocytes.', def: 'Vaso-occlusive pain crises, acute chest syndrome, sickle + target cells, ↑ reticulocytes.' },
+            { category: 'Hemolytic (Non-MAHA)', term: 'Warm Autoimmune Hemolytic Anemia (AIHA)', etiology: 'IgG autoantibodies (warm) causing extravascular hemolysis.', findings: 'Spherocytes, +direct Coombs (IgG), anemia with possible splenomegaly; assoc SLE/drugs.', def: 'Spherocytes, +direct Coombs (IgG), anemia with possible splenomegaly; assoc SLE/drugs.' },
+            { category: 'Hemolytic (Non-MAHA)', term: 'Cold Autoimmune Hemolytic Anemia (AIHA)', etiology: 'IgM autoantibodies (cold) with complement fixation; assoc Mycoplasma/EBV.', findings: 'RBC agglutination, +Coombs (C3), acrocyanosis with cold exposure.', def: 'RBC agglutination, +Coombs (C3), acrocyanosis with cold exposure.' },
+            { category: 'Hemolytic (Non-MAHA)', term: 'Hereditary Spherocytosis', etiology: 'AD membrane skeleton defect (spectrin/ankyrin/band 3).', findings: 'Spherocytes, ↑ MCHC, +osmotic fragility, splenomegaly/gallstones.', def: 'Spherocytes, ↑ MCHC, +osmotic fragility, splenomegaly/gallstones.' },
+            { category: 'Hemolytic (Non-MAHA)', term: 'Glucose-6-Phosphate Dehydrogenase Deficiency (G6PD)', etiology: 'X-linked G6PD enzyme deficiency → oxidative stress hemolysis.', findings: 'Heinz bodies, bite cells, episodic hemolysis after fava beans/sulfas; ↓ G6PD on assay (after episode).', def: 'Heinz bodies, bite cells, episodic hemolysis after fava beans/sulfas; ↓ G6PD on assay (after episode).' },
+            { category: 'Hemolytic (Non-MAHA)', term: 'Paroxysmal Nocturnal Hemoglobinuria (PNH)', etiology: 'Acquired PIG-A mutation → loss of GPI anchors (CD55/59).', findings: 'Hemoglobinuria (dark AM urine), thrombosis, pancytopenia; ↓ CD55/59 on flow cytometry.', def: 'Hemoglobinuria (dark AM urine), thrombosis, pancytopenia; ↓ CD55/59 on flow cytometry.' },
+            { category: 'Hemolytic (Non-MAHA)', term: 'Pyruvate Kinase Deficiency', etiology: 'AR pyruvate kinase deficiency → ↓ ATP in RBCs.', findings: 'Extravascular hemolysis, echinocytes (burr cells), neonatal jaundice, ↑ 2,3-BPG.', def: 'Extravascular hemolysis, echinocytes (burr cells), neonatal jaundice, ↑ 2,3-BPG.' },
 
             // --- MAHA (Microangiopathic Hemolytic Anemias) ---
-            { category: 'MAHAs', term: 'Thrombotic Thrombocytopenic Purpura (TTP)', def: '↓ ADAMTS13. Pentad: Fever, Neuro, Renal, MAHA, ↓ Platelets. Schistocytes.' },
-            { category: 'MAHAs', term: 'Hemolytic Uremic Syndrome (HUS)', def: 'Shiga-toxin E. coli (O157:H7). Renal failure dominant. Bloody diarrhea. Schistocytes.' },
-            { category: 'MAHAs', term: 'Disseminated Intravascular Coagulation (DIC)', def: 'Systemic activation. Consumptive coagulopathy. Bleeding + Clotting. ↑ PT/PTT, ↑ D-Dimer.' },
-            { category: 'MAHAs', term: 'HELLP Syndrome', def: 'Pregnancy complication. Hemolysis, Elevated Liver enzymes, Low Platelets. Schistocytes.' },
+            { category: 'MAHAs', term: 'Thrombotic Thrombocytopenic Purpura (TTP)', etiology: 'ADAMTS13 deficiency (often autoantibody) → large vWF multimers.', findings: 'Pentad: fever, neuro, renal, MAHA, thrombocytopenia; schistocytes; normal PT/PTT.', def: 'Pentad: fever, neuro, renal, MAHA, thrombocytopenia; schistocytes; normal PT/PTT.' },
+            { category: 'MAHAs', term: 'Hemolytic Uremic Syndrome (HUS)', etiology: 'Shiga toxin (E. coli O157:H7 or Shigella).', findings: 'Bloody diarrhea, acute renal failure predominant, MAHA with schistocytes, thrombocytopenia.', def: 'Bloody diarrhea, acute renal failure predominant, MAHA with schistocytes, thrombocytopenia.' },
+            { category: 'MAHAs', term: 'Disseminated Intravascular Coagulation (DIC)', etiology: 'Systemic activation of coagulation (sepsis, trauma, obstetric, malignancy).', findings: 'Bleeding + thrombosis, ↑ PT/PTT, ↓ fibrinogen, ↑ D-dimer, schistocytes.', def: 'Bleeding + thrombosis, ↑ PT/PTT, ↓ fibrinogen, ↑ D-dimer, schistocytes.' },
+            { category: 'MAHAs', term: 'HELLP Syndrome', etiology: 'Pregnancy complication (severe preeclampsia).', findings: 'Hemolysis, elevated LFTs, low platelets; RUQ pain; schistocytes.', def: 'Hemolysis, elevated LFTs, low platelets; RUQ pain; schistocytes.' },
 
             // --- BONE MARROW FAILURE ---
-            { category: 'Bone Marrow Failure', term: 'Aplastic Anemia', def: 'Pancytopenia. Hypocellular (fatty) marrow. Causes: Radiation, Viruses, Drugs.' },
-            { category: 'Bone Marrow Failure', term: 'Pure Red Cell Aplasia (PRCA)', def: 'Anemia with low retics. Normal WBC/Plt. Associated with Parvovirus B19, Thymoma.' },
-            { category: 'Bone Marrow Failure', term: 'Fanconi Anemia', def: 'Inherited DNA repair defect. Pancytopenia, Short stature, Thumb abnormalities.' },
-            { category: 'Bone Marrow Failure', term: 'Diamond-Blackfan Anemia', def: 'Congenital PRCA. Ribosomal defect. Macrocytic anemia, Craniofacial abnormalities.' },
+            { category: 'Bone Marrow Failure', term: 'Aplastic Anemia', etiology: 'Immune-mediated marrow failure (radiation, viruses, drugs).', findings: 'Pancytopenia with hypocellular (fatty) marrow.', def: 'Pancytopenia with hypocellular (fatty) marrow.' },
+            { category: 'Bone Marrow Failure', term: 'Pure Red Cell Aplasia (PRCA)', etiology: 'Selective erythroid aplasia (parvovirus B19, thymoma, autoimmune).', findings: 'Anemia with very low reticulocytes; normal WBC/platelets.', def: 'Anemia with very low reticulocytes; normal WBC/platelets.' },
+            { category: 'Bone Marrow Failure', term: 'Fanconi Anemia', etiology: 'AR DNA repair defect with chromosomal breakage.', findings: 'Pancytopenia, short stature, thumb/radial anomalies, hyperpigmentation.', def: 'Pancytopenia, short stature, thumb/radial anomalies, hyperpigmentation.' },
+            { category: 'Bone Marrow Failure', term: 'Diamond-Blackfan Anemia', etiology: 'Congenital ribosomal protein defect.', findings: 'Macrocytic anemia in infancy, craniofacial anomalies, triphalangeal thumbs, ↑ HbF.', def: 'Macrocytic anemia in infancy, craniofacial anomalies, triphalangeal thumbs, ↑ HbF.' },
 
             // --- COAGULATION & PLATELETS ---
-            { category: 'Coagulation & Platelets', term: 'Hemophilia A', def: 'Factor VIII deficiency. X-linked. Hemarthrosis. ↑ PTT. Mixing study corrects.' },
-            { category: 'Coagulation & Platelets', term: 'Hemophilia B', def: 'Factor IX deficiency. X-linked. Clinically identical to A. ↑ PTT.' },
-            { category: 'Coagulation & Platelets', term: 'Von Willebrand Disease (vWD)', def: 'AD. Defect in adhesion & F8 carrier. Mucosal bleeding. ↑ Bleeding Time/PFA.' },
-            { category: 'Coagulation & Platelets', term: 'Vitamin K Deficiency', def: '↓ Factors II, VII, IX, X, C, S. ↑ PT (early) and ↑ PTT. Warfarin/Malabsorption.' },
-            { category: 'Coagulation & Platelets', term: 'Immune Thrombocytopenia (ITP)', def: 'Anti-GpIIb/IIIa antibodies. Isolated ↓ Platelets. Megakaryocytes in marrow.' },
-            { category: 'Coagulation & Platelets', term: 'Bernard-Soulier Syndrome', def: 'GpIb deficiency (Adhesion). Giant Platelets. ↓ Platelets. No Ristocetin aggregation.' },
-            { category: 'Coagulation & Platelets', term: 'Glanzmann Thrombasthenia', def: 'GpIIb/IIIa deficiency (Aggregation). Normal Platelet count. No aggregation with agonists.' },
-            { category: 'Coagulation & Platelets', term: 'Factor V Leiden', def: 'Factor V resistant to Protein C cleavage. Hypercoagulable state. DVT/PE.' },
-            { category: 'Coagulation & Platelets', term: 'Antiphospholipid Syndrome (APS)', def: 'Lupus anticoagulant. Hypercoagulable but ↑ PTT (paradoxical). Recurrent miscarriages.' },
-            { category: 'Coagulation & Platelets', term: 'Heparin Induced Thrombocytopenia (HIT)', def: 'Antibodies to PF4-Heparin. Thrombosis + ↓ Platelets (50% drop). Stop Heparin.' },
+            { category: 'Coagulation & Platelets', term: 'Hemophilia A', etiology: 'Factor VIII deficiency (X-linked).', findings: 'Hemarthroses, ↑ PTT with normal bleeding time; mixing study corrects; ↓ factor VIII activity.', def: 'Hemarthroses, ↑ PTT with normal bleeding time; mixing study corrects; ↓ factor VIII activity.' },
+            { category: 'Coagulation & Platelets', term: 'Hemophilia B', etiology: 'Factor IX deficiency (X-linked).', findings: 'Hemarthroses, ↑ PTT with normal bleeding time; mixing study corrects; ↓ factor IX activity.', def: 'Hemarthroses, ↑ PTT with normal bleeding time; mixing study corrects; ↓ factor IX activity.' },
+            { category: 'Coagulation & Platelets', term: 'Von Willebrand Disease (vWD)', etiology: 'AD vWF quantitative/qualitative defect → ↓ platelet adhesion and ↓ factor VIII.', findings: 'Mucocutaneous bleeding, ↑ bleeding time/PFA, sometimes ↑ PTT, abnormal ristocetin (corrects with plasma).', def: 'Mucocutaneous bleeding, ↑ bleeding time/PFA, sometimes ↑ PTT, abnormal ristocetin (corrects with plasma).' },
+            { category: 'Coagulation & Platelets', term: 'Vitamin K Deficiency', etiology: 'Low vitamin K (warfarin, malabsorption, newborn).', findings: 'Bleeding with ↑ PT (early) and sometimes ↑ PTT; low factors II, VII, IX, X, C, S.', def: 'Bleeding with ↑ PT (early) and sometimes ↑ PTT; low factors II, VII, IX, X, C, S.' },
+            { category: 'Coagulation & Platelets', term: 'Immune Thrombocytopenia (ITP)', etiology: 'Autoantibodies to GpIIb/IIIa → splenic platelet destruction.', findings: 'Isolated thrombocytopenia, mucocutaneous bleeding, large platelets; ↑ megakaryocytes.', def: 'Isolated thrombocytopenia, mucocutaneous bleeding, large platelets; ↑ megakaryocytes.' },
+            { category: 'Coagulation & Platelets', term: 'Bernard-Soulier Syndrome', etiology: 'GpIb deficiency (platelet adhesion).', findings: 'Giant platelets, thrombocytopenia, bleeding, abnormal ristocetin not corrected by plasma.', def: 'Giant platelets, thrombocytopenia, bleeding, abnormal ristocetin not corrected by plasma.' },
+            { category: 'Coagulation & Platelets', term: 'Glanzmann Thrombasthenia', etiology: 'GpIIb/IIIa deficiency (platelet aggregation).', findings: 'Normal platelet count, bleeding, no aggregation with ADP/epinephrine; normal ristocetin.', def: 'Normal platelet count, bleeding, no aggregation with ADP/epinephrine; normal ristocetin.' },
+            { category: 'Coagulation & Platelets', term: 'Factor V Leiden', etiology: 'Factor V mutation resistant to APC cleavage.', findings: 'Hypercoagulability (DVT/PE), normal PT/PTT.', def: 'Hypercoagulability (DVT/PE), normal PT/PTT.' },
+            { category: 'Coagulation & Platelets', term: 'Antiphospholipid Syndrome (APS)', etiology: 'Antiphospholipid antibodies (lupus anticoagulant, anticardiolipin).', findings: 'Thrombosis + recurrent miscarriages, prolonged PTT (paradoxical).', def: 'Thrombosis + recurrent miscarriages, prolonged PTT (paradoxical).' },
+            { category: 'Coagulation & Platelets', term: 'Heparin Induced Thrombocytopenia (HIT)', etiology: 'IgG against PF4-heparin complex.', findings: 'Platelet drop 5-10 days after heparin, thrombosis; positive PF4 antibody.', def: 'Platelet drop 5-10 days after heparin, thrombosis; positive PF4 antibody.' },
 
             // --- FOUNDATIONS: LABS ---
             { category: 'Foundations: Labs', term: 'Hemoglobin (Hb/Hgb)', def: 'Direct measure of O2-carrying protein. Low = Anemia, High = Polycythemia.' },
@@ -445,11 +445,11 @@ const FULL_DATA = [
             { category: 'Pharmacology', term: 'Direct Oral Anticoagulants (DOACs)', def: 'Dabigatran (IIa inhibitor), Rivaroxaban/Apixaban (Xa inhibitors).' },
 
             // --- PARASITES ---
-            { category: 'Module: Parasites', term: 'Babesiosis', def: 'Maltese Cross, Ixodes tick. Hemolytic anemia. NE USA.' },
-            { category: 'Module: Parasites', term: 'Plasmodium Falciparum', def: 'Banana gametocytes. Severe malaria. Cerebral malaria.' },
-            { category: 'Module: Parasites', term: 'Plasmodium Vivax/Ovale', def: 'Hypnozoites (Relapse). Treat with Primaquine.' },
-            { category: 'Module: Parasites', term: 'Plasmodium Malariae', def: 'Band-form trophozoites. Quartan fever.' },
-            { category: 'Module: Parasites', term: 'Wuchereria bancrofti', def: 'Lymphatic Filariasis. Elephantiasis. Night blood smear.' },
+            { category: 'Module: Parasites', term: 'Babesiosis', etiology: 'Babesia microti via Ixodes tick.', findings: 'Maltese cross in RBCs, hemolytic anemia, fever; NE USA.', def: 'Maltese cross in RBCs, hemolytic anemia, fever; NE USA.' },
+            { category: 'Module: Parasites', term: 'Plasmodium Falciparum', etiology: 'Plasmodium falciparum infection.', findings: 'Banana-shaped gametocytes, severe/cerebral malaria, high parasitemia.', def: 'Banana-shaped gametocytes, severe/cerebral malaria, high parasitemia.' },
+            { category: 'Module: Parasites', term: 'Plasmodium Vivax/Ovale', etiology: 'Plasmodium vivax or ovale infection.', findings: 'Hypnozoites causing relapse, enlarged RBCs with Schuffner dots.', def: 'Hypnozoites causing relapse, enlarged RBCs with Schuffner dots.' },
+            { category: 'Module: Parasites', term: 'Plasmodium Malariae', etiology: 'Plasmodium malariae infection.', findings: 'Band-form trophozoites, quartan fever (72-hr cycle).', def: 'Band-form trophozoites, quartan fever (72-hr cycle).' },
+            { category: 'Module: Parasites', term: 'Wuchereria bancrofti', etiology: 'Filarial nematode infection transmitted by mosquitoes.', findings: 'Lymphatic filariasis with elephantiasis; microfilariae on night blood smear.', def: 'Lymphatic filariasis with elephantiasis; microfilariae on night blood smear.' },
 
             // --- FOUNDATIONS: RBC MORPHOLOGY (NEWLY ADDED) ---
             { category: 'Foundations: RBC Morphology', term: 'Normal Morphology', def: 'Biconcave disc, Normocytic (normal size), Normochromic (normal color). Flexible.' },
@@ -663,12 +663,12 @@ const FLOWCHART_CONNECTIONS = [
 // ===== IMPORTED DATASETS (Copilot + Claude) =====
 
 const CLAUDE_FULL_DATA = [
-            { category: 'Anemias', term: 'Iron Deficiency Anemia', def: 'Microcytic. ↓ Ferritin, ↓ Iron, ↑ TIBC. Pica, Spoon nails.' },
-            { category: 'Anemias', term: 'Sickle Cell Disease', def: 'HbS polymerization. Pain crises. Sickle cells, Target cells.' },
-            { category: 'Anemias', term: 'B12 Deficiency', def: 'Macrocytic. ↑ MMA & Homocysteine. Neuro symptoms.' },
-            { category: 'Coagulation', term: 'Hemophilia A', def: 'Factor VIII deficiency. X-linked. ↑ PTT.' },
-            { category: 'Coagulation', term: 'Von Willebrand Disease', def: 'Defect in adhesion. Mucosal bleeding. ↑ Bleeding Time.' },
-            { category: 'Coagulation', term: 'Factor V Leiden', def: 'Hypercoagulable state. Resistant to Protein C.' },
+            { category: 'Anemias', term: 'Iron Deficiency Anemia', etiology: 'Iron deficiency from blood loss, low intake, or malabsorption.', findings: 'Microcytic hypochromic anemia, ↓ ferritin/iron, ↑ TIBC, pica, koilonychia.', def: 'Microcytic hypochromic anemia, ↓ ferritin/iron, ↑ TIBC, pica, koilonychia.' },
+            { category: 'Anemias', term: 'Sickle Cell Disease', etiology: 'AD beta-globin Glu->Val mutation (HbS).', findings: 'Vaso-occlusive pain crises, sickle + target cells, ↑ reticulocytes.', def: 'Vaso-occlusive pain crises, sickle + target cells, ↑ reticulocytes.' },
+            { category: 'Anemias', term: 'B12 Deficiency', etiology: 'Cobalamin deficiency (pernicious anemia, malabsorption, vegan).', findings: 'Macrocytic anemia, hypersegmented neutrophils, ↑ MMA + homocysteine, neuro symptoms.', def: 'Macrocytic anemia, hypersegmented neutrophils, ↑ MMA + homocysteine, neuro symptoms.' },
+            { category: 'Coagulation', term: 'Hemophilia A', etiology: 'Factor VIII deficiency (X-linked).', findings: 'Hemarthroses, ↑ PTT with normal bleeding time; mixing study corrects; ↓ factor VIII activity.', def: 'Hemarthroses, ↑ PTT with normal bleeding time; mixing study corrects; ↓ factor VIII activity.' },
+            { category: 'Coagulation', term: 'Von Willebrand Disease', etiology: 'AD vWF quantitative/qualitative defect → ↓ platelet adhesion and ↓ factor VIII.', findings: 'Mucocutaneous bleeding, ↑ bleeding time/PFA, sometimes ↑ PTT, abnormal ristocetin (corrects with plasma).', def: 'Mucocutaneous bleeding, ↑ bleeding time/PFA, sometimes ↑ PTT, abnormal ristocetin (corrects with plasma).' },
+            { category: 'Coagulation', term: 'Factor V Leiden', etiology: 'Factor V mutation resistant to APC cleavage.', findings: 'Hypercoagulability (DVT/PE), normal PT/PTT.', def: 'Hypercoagulability (DVT/PE), normal PT/PTT.' },
         ];
 
 const CLAUDE_DRAG_DROP_GAMES = {
@@ -759,16 +759,220 @@ const CLAUDE_QUIZ_QUESTIONS = [
             { difficulty: 'hard', question: 'Which mutation is diagnostic for Polycythemia Vera?', options: ['BCR-ABL', 'JAK2 V617F', 'PML-RARA', 'c-KIT'], answer: 1, explanation: 'JAK2 V617F mutation is found in >95% of Polycythemia Vera cases.' },
         ];
 
-const CLAUDE_DISEASE_INDEX = [
-            { name: 'Iron Deficiency Anemia', mechanism: '↓ Heme synthesis (low iron)', type: 'Microcytic anemia', smear: 'Pencil cells, hypochromia', labs: '↓ Ferritin, ↓ Iron, ↑ TIBC', associations: 'GI bleed, malabsorption, pregnancy' },
-            { name: 'Sickle Cell Disease', mechanism: 'HbS polymerization (Glu→Val)', type: 'Hemolytic anemia', smear: 'Sickle cells, target cells', labs: '↑ Reticulocytes, ↑ bilirubin', associations: 'Painful crises, ACS, autosplenectomy' },
-            { name: 'B12 Deficiency', mechanism: 'Impaired DNA synthesis', type: 'Macrocytic anemia', smear: 'Hypersegmented neutrophils', labs: '↑ MMA, ↑ homocysteine', associations: 'Pernicious anemia, neurologic symptoms' },
-            { name: 'Hemophilia A', mechanism: 'Factor VIII deficiency', type: 'Coagulation disorder', smear: 'Normal', labs: '↑ PTT (corrects with mixing)', associations: 'Hemarthrosis, X-linked' },
-            { name: 'TTP', mechanism: '↓ ADAMTS13', type: 'MAHA', smear: 'Schistocytes', labs: '↓ Platelets, ↑ LDH', associations: 'Pentad: Fever, Neuro, Renal, MAHA, Thrombocytopenia' },
-            { name: 'G6PD Deficiency', mechanism: 'Oxidative stress hemolysis', type: 'Hemolytic anemia', smear: 'Bite cells, Heinz bodies', labs: '↓ G6PD enzyme activity', associations: 'X-linked, fava beans, sulfa drugs' },
-            { name: 'Hereditary Spherocytosis', mechanism: 'Spectrin/Ankyrin defect', type: 'Hemolytic anemia', smear: 'Spherocytes', labs: '↑ MCHC, ↑ osmotic fragility', associations: 'Splenomegaly, gallstones' },
-            { name: 'Polycythemia Vera', mechanism: 'JAK2 V617F mutation', type: 'Myeloproliferative', smear: '↑ RBCs', labs: '↑ Hct, low EPO', associations: 'Pruritus after shower, thrombosis risk' },
+const DISEASE_TABLE_INDEX = [
+            {
+                name: 'Acute Intermittent Porphyria (AIP)',
+                type: 'Non-hemolytic / Heme synthesis disorder',
+                etiology: 'Inherited (AD)',
+                mechanism: '↓ Porphobilinogen deaminase',
+                pathophysiology: 'Accumulation of ALA and PBG → neurotoxicity',
+                labs: ['↑ ALA', '↑ PBG', 'Iron N'],
+                presentation: ['Abdominal pain', 'Neuropathy', 'Psychiatric symptoms', 'Port-wine urine'],
+                smear: ['N']
+            },
+            {
+                name: 'Porphyria Cutanea Tarda (PCT)',
+                type: 'Non-hemolytic / Heme synthesis disorder',
+                etiology: 'Mostly acquired; some inherited',
+                mechanism: '↓ Uroporphyrinogen decarboxylase',
+                pathophysiology: 'Porphyrin accumulation → photosensitivity',
+                labs: ['↑ Uroporphyrins', '↑ Iron'],
+                presentation: ['Photosensitivity', 'Blistering', 'Red-brown urine'],
+                smear: ['N']
+            },
+            {
+                name: 'Sickle Cell Disease',
+                type: 'Hemolytic (intravascular + extravascular)',
+                etiology: 'Inherited (AR)',
+                mechanism: 'HbS polymerization (β-globin mutation)',
+                pathophysiology: 'Deoxygenation → Hb polymerization → RBC sickling → vaso-occlusion + hemolysis',
+                labs: ['↑ Retic', '↑ LDH', '↓ Haptoglobin'],
+                presentation: ['Pain crises', 'Acute chest syndrome (ACS)', 'Dactylitis', 'Infections'],
+                smear: ['Sickled RBCs', 'Target cells']
+            },
+            {
+                name: 'Autoimmune Hemolytic Anemia (Warm)',
+                type: 'Hemolytic (extravascular)',
+                etiology: 'Acquired',
+                mechanism: 'IgG-mediated RBC destruction',
+                pathophysiology: 'Splenic macrophage phagocytosis → extravascular hemolysis',
+                labs: ['↑ LDH', '↓ Haptoglobin', '+ Coombs'],
+                presentation: ['Fatigue', 'Jaundice', 'Splenomegaly'],
+                smear: ['Spherocytes']
+            },
+            {
+                name: 'Autoimmune Hemolytic Anemia (Cold)',
+                type: 'Hemolytic (intravascular)',
+                etiology: 'Acquired',
+                mechanism: 'IgM-mediated complement fixation',
+                pathophysiology: 'Complement activation → hemolysis, worsens with cold exposure',
+                labs: ['↑ LDH', '↓ Haptoglobin', '+ Coombs (C3)'],
+                presentation: ['Acrocyanosis', 'Cold-induced hemolysis'],
+                smear: ['RBC agglutination']
+            },
+            {
+                name: 'Paroxysmal Nocturnal Hemoglobinuria (PNH)',
+                type: 'Hemolytic (intravascular)',
+                etiology: 'Acquired',
+                mechanism: 'PIGA mutation → ↓ CD55/CD59',
+                pathophysiology: 'Loss of complement regulators → complement-mediated intravascular hemolysis',
+                labs: ['Hemoglobinuria', 'Pancytopenia'],
+                presentation: ['Dark urine', 'Thrombosis'],
+                smear: ['N']
+            },
+            {
+                name: 'Hereditary Spherocytosis',
+                type: 'Hemolytic (extravascular)',
+                etiology: 'Inherited (AD)',
+                mechanism: 'Spectrin/ankyrin membrane defect',
+                pathophysiology: 'Membrane loss → ↓ deformability → splenic sequestration/destruction',
+                labs: ['↑ MCHC', '↑ Retic'],
+                presentation: ['Splenomegaly', 'Jaundice'],
+                smear: ['Spherocytes']
+            },
+            {
+                name: 'G6PD Deficiency',
+                type: 'Hemolytic (intravascular)',
+                etiology: 'Inherited (X-linked)',
+                mechanism: '↓ NADPH (oxidative stress vulnerability)',
+                pathophysiology: 'Oxidant stress → Hb denaturation/membrane damage → episodic hemolysis',
+                labs: ['↑ LDH', '↓ Haptoglobin'],
+                presentation: ['Episodic jaundice', 'Trigger-related hemolysis'],
+                smear: ['Bite cells', 'Heinz bodies']
+            },
+            {
+                name: 'Vitamin B12 Deficiency',
+                type: 'Macrocytic',
+                etiology: 'Acquired',
+                mechanism: 'Impaired DNA synthesis',
+                pathophysiology: 'Megaloblastic erythropoiesis → ineffective RBC production',
+                labs: ['↑ MCV', '↑ Homocysteine'],
+                presentation: ['Neurologic deficits', 'Glossitis'],
+                smear: ['Hypersegmented neutrophils']
+            },
+            {
+                name: 'Folate Deficiency',
+                type: 'Macrocytic',
+                etiology: 'Acquired',
+                mechanism: 'Impaired DNA synthesis',
+                pathophysiology: 'Megaloblastic erythropoiesis → ineffective RBC production',
+                labs: ['↑ MCV', '↓ Folate'],
+                presentation: ['Fatigue', 'Glossitis'],
+                smear: ['Hypersegmented neutrophils']
+            },
+            {
+                name: 'Copper Deficiency',
+                type: 'Macrocytic / normocytic',
+                etiology: 'Acquired',
+                mechanism: 'Impaired iron metabolism',
+                pathophysiology: 'Ineffective hematopoiesis (can mimic B12 deficiency clinically)',
+                labs: ['↓ Copper', 'Anemia', 'Neutropenia'],
+                presentation: ['B12-like symptoms'],
+                smear: ['N']
+            },
+            {
+                name: 'Aplastic Anemia',
+                type: 'Normocytic / BM Failure',
+                etiology: 'Inherited or acquired',
+                mechanism: 'Stem cell failure',
+                pathophysiology: 'Marrow failure → pancytopenia',
+                labs: ['↓ RBC', '↓ WBC', '↓ Platelets'],
+                presentation: ['Fatigue', 'Infections', 'Bleeding'],
+                smear: ['Hypocellular marrow']
+            },
+            {
+                name: 'Pure Red Cell Aplasia (PRCA)',
+                type: 'Normocytic / BM Failure',
+                etiology: 'Inherited or acquired',
+                mechanism: 'Selective erythroid suppression',
+                pathophysiology: 'Absent RBC production with preserved other lineages',
+                labs: ['↓ Retic', 'WBC N', 'Platelets N'],
+                presentation: ['Fatigue'],
+                smear: ['Absent erythroid precursors']
+            },
+            {
+                name: 'Iron Deficiency Anemia',
+                type: 'Microcytic / hypoproliferative',
+                etiology: 'Acquired',
+                mechanism: '↓ Iron availability',
+                pathophysiology: 'Impaired hemoglobin synthesis → microcytosis/hypochromia',
+                labs: ['↓ Ferritin', '↑ TIBC'],
+                presentation: ['Fatigue', 'Pica', 'Koilonychia'],
+                smear: ['Microcytic hypochromic RBCs']
+            },
+            {
+                name: 'Anemia of Chronic Disease',
+                type: 'Microcytic / normocytic / hypoproliferative',
+                etiology: 'Acquired',
+                mechanism: '↑ Hepcidin',
+                pathophysiology: 'Iron sequestration and reduced availability for erythropoiesis',
+                labs: ['↑ Ferritin', '↓ Iron'],
+                presentation: ['Chronic illness symptoms'],
+                smear: ['N']
+            },
+            {
+                name: 'Thalassemia',
+                type: 'Microcytic / normocytic / hypoproliferative',
+                etiology: 'Inherited',
+                mechanism: 'Globin chain imbalance',
+                pathophysiology: 'Ineffective erythropoiesis ± hemolysis; severity varies',
+                labs: ['Iron N', '↑ HbA2/HbF'],
+                presentation: ['Bone deformities (severe forms)'],
+                smear: ['Target cells']
+            },
+            {
+                name: 'Sideroblastic Anemia',
+                type: 'Microcytic / normocytic / hypoproliferative',
+                etiology: 'Inherited or acquired',
+                mechanism: 'Defective heme synthesis',
+                pathophysiology: 'Iron trapped in mitochondria → ineffective erythropoiesis',
+                labs: ['↑ Iron', '↑ Ferritin'],
+                presentation: ['Fatigue'],
+                smear: ['Ring sideroblasts']
+            },
+            {
+                name: 'Anemia of Chronic Kidney Disease (CKD)',
+                type: 'Microcytic / normocytic / hypoproliferative',
+                etiology: 'Acquired',
+                mechanism: '↓ EPO production',
+                pathophysiology: 'Reduced erythropoiesis due to inadequate erythropoietin',
+                labs: ['↓ Hb', 'MCV N'],
+                presentation: ['Fatigue'],
+                smear: ['N']
+            },
+            {
+                name: 'Thrombotic Thrombocytopenic Purpura (TTP)',
+                type: 'MAHA',
+                etiology: 'Acquired',
+                mechanism: '↓ ADAMTS13',
+                pathophysiology: 'Large vWF multimers → platelet microthrombi → shear RBC injury',
+                labs: ['↓ Platelets', '↑ LDH'],
+                presentation: ['Neuro changes', 'Renal injury', 'Fever'],
+                smear: ['Schistocytes']
+            },
+            {
+                name: 'Disseminated Intravascular Coagulation (DIC)',
+                type: 'MAHA',
+                etiology: 'Acquired',
+                mechanism: 'Systemic coagulation activation',
+                pathophysiology: 'Widespread clotting → consumption of platelets/factors → bleeding + hemolysis',
+                labs: ['↑ D-dimer', '↓ Fibrinogen'],
+                presentation: ['Bleeding', 'Shock'],
+                smear: ['Schistocytes']
+            },
+            {
+                name: 'Hemolytic Uremic Syndrome (HUS)',
+                type: 'MAHA',
+                etiology: 'Acquired',
+                mechanism: 'Shiga toxin endothelial injury',
+                pathophysiology: 'Endothelial damage → platelet activation → microthrombi → renal injury + hemolysis',
+                labs: ['↑ LDH', '↓ Platelets'],
+                presentation: ['AKI', 'Diarrhea'],
+                smear: ['Schistocytes']
+            }
         ];
+
+const CLAUDE_DISEASE_INDEX = DISEASE_TABLE_INDEX;
 
 const COPILOT_MATCH_MODULES = {
     'Transfusion Medicine': [
@@ -819,13 +1023,7 @@ const COPILOT_QUIZ_QUESTIONS = [
     { id: 'q8', q: 'High ferritin with microcytic indices suggests?', choices: ['Sideroblastic anemia','Iron deficiency','ACD','Thalassemia'], a: 'Sideroblastic anemia', difficulty: 3 }
 ];
 
-const COPILOT_DISEASE_INDEX = [
-    { name: 'Iron Deficiency Anemia', mechanism: 'Low iron stores', type: 'Anemia (Microcytic)', smear: ['Microcytosis','Hypochromia'], associations: ['Pica','Low ferritin'], labs: { MCV: '<80', Retic: 'low' } },
-    { name: 'Warm Autoimmune Hemolytic Anemia', mechanism: 'IgG mediated RBC destruction', type: 'Hemolysis (Extravascular)', smear: ['Spherocytes'], associations: ['SLE','Drugs'], labs: { Haptoglobin: 'low', LDH: 'high' } },
-    { name: 'TTP', mechanism: '↓ADAMTS13 causing platelet-rich thrombi', type: 'MAHA', smear: ['Schistocytes'], associations: ['Neuro symptoms','Renal impairment'], labs: { Platelets: 'low' } },
-    { name: 'Sickle Cell Disease', mechanism: 'HbS polymerization', type: 'Hemolytic anemia', smear: ['Sickle cells'], associations: ['Pain crises','Avascular necrosis'], labs: { Retic: 'high' } },
-    { name: 'Plasmodium falciparum', mechanism: 'Parasitic infection of RBCs', type: 'Infection', smear: ['Ring forms'], associations: ['Travel history','Fevers'], labs: {} }
-];
+const COPILOT_DISEASE_INDEX = [];
 
 
 // ===== DATA NORMALIZATION / MERGE =====
@@ -1023,29 +1221,101 @@ const QUIZ_BANK = (() => {
   return out;
 })();
 
-// Normalize disease index into one list
+// Normalize disease index into one list (dedupe by name)
 const DISEASE_BANK = (() => {
-  const out = [];
+  const byName = new Map();
+
+  const normalizeName = (name) => String(name || '').toLowerCase().trim();
+  const normalizeText = (val) => String(val || '').trim();
+
+  const splitBullets = (val) => {
+    if (!val) return [];
+    const str = String(val).replace(/\r/g, '').trim();
+    if (!str) return [];
+    if (str.includes('•')) {
+      return str.replace(/\n/g, ' ').split('•').map(s => s.trim()).filter(Boolean);
+    }
+    return str.split('\n').map(s => s.trim()).filter(Boolean);
+  };
+
+  const normalizeList = (val) => {
+    if (Array.isArray(val)) return val.map(v => normalizeText(v)).filter(Boolean);
+    return splitBullets(val);
+  };
+
+  const labsToList = (val) => {
+    if (Array.isArray(val) || typeof val === 'string') return normalizeList(val);
+    if (val && typeof val === 'object') {
+      return Object.entries(val)
+        .map(([k, v]) => `${normalizeText(k)}: ${normalizeText(v)}`)
+        .filter(item => item !== ': ' && item !== '');
+    }
+    return [];
+  };
+
+  const pickDetailed = (a, b) => {
+    const aStr = normalizeText(a);
+    const bStr = normalizeText(b);
+    if (!aStr) return bStr;
+    if (!bStr) return aStr;
+    return bStr.length > aStr.length ? bStr : aStr;
+  };
+
+  const mergeList = (a, b) => {
+    const out = Array.isArray(a) ? a.slice() : [];
+    const seen = new Set(out.map(v => normalizeText(v).toLowerCase()));
+    (Array.isArray(b) ? b : []).forEach(item => {
+      const key = normalizeText(item).toLowerCase();
+      if (!key || seen.has(key)) return;
+      out.push(item);
+      seen.add(key);
+    });
+    return out;
+  };
+
+  const addOrMerge = (entry) => {
+    const key = normalizeName(entry.name);
+    if (!key) return;
+    const existing = byName.get(key);
+    if (!existing) {
+      byName.set(key, entry);
+      return;
+    }
+
+    existing.type = pickDetailed(existing.type, entry.type);
+    existing.etiology = pickDetailed(existing.etiology, entry.etiology);
+    existing.mechanism = pickDetailed(existing.mechanism, entry.mechanism);
+    existing.pathophysiology = pickDetailed(existing.pathophysiology, entry.pathophysiology);
+    existing.presentation = mergeList(existing.presentation, entry.presentation);
+    existing.smear = mergeList(existing.smear, entry.smear);
+    existing.labs = mergeList(existing.labs, entry.labs);
+
+    if (entry.source) {
+      const sources = new Set(String(existing.source || '').split(',').map(s => s.trim()).filter(Boolean));
+      sources.add(entry.source);
+      existing.source = Array.from(sources).join(', ');
+    }
+  };
 
   const pushNormalized = (d, source) => {
     if (!d || !d.name) return;
-    out.push({
+    addOrMerge({
       name: String(d.name),
-      mechanism: String(d.mechanism || ''),
       type: String(d.type || ''),
-      smear: Array.isArray(d.smear) ? d.smear.slice() : (d.smear ? [String(d.smear)] : []),
-      associations: Array.isArray(d.associations) ? d.associations.slice() : (d.associations ? [String(d.associations)] : []),
-      labs: (typeof d.labs === 'object' && d.labs !== null && !Array.isArray(d.labs))
-        ? d.labs
-        : (d.labs ? { Notes: String(d.labs) } : {}),
+      etiology: String(d.etiology || ''),
+      mechanism: String(d.mechanism || ''),
+      pathophysiology: String(d.pathophysiology || ''),
+      presentation: normalizeList(d.presentation),
+      smear: normalizeList(d.smear),
+      labs: labsToList(d.labs),
       source
     });
   };
 
   try { (COPILOT_DISEASE_INDEX || []).forEach(d => pushNormalized(d, 'copilot')); } catch (e) {}
-  try { (CLAUDE_DISEASE_INDEX || []).forEach(d => pushNormalized(d, 'claude')); } catch (e) {}
+  try { (CLAUDE_DISEASE_INDEX || []).forEach(d => pushNormalized(d, 'Disease Table')); } catch (e) {}
 
-  return out;
+  return Array.from(byName.values());
 })();
 
 
@@ -1059,6 +1329,23 @@ const LS_KEYS = {
   leaderboardClaude: 'hemeLeaderboard',
   leaderboardCopilot: 'heme_leaderboard_v1'
 };
+
+const DISORDER_MATCH_CATEGORIES = new Set([
+  'Heme Synthesis',
+  'Anemias: Hypoproliferative',
+  'Hemolytic (Non-MAHA)',
+  'MAHAs',
+  'Bone Marrow Failure',
+  'Coagulation & Platelets',
+  'Module: Parasites',
+  'Anemias',
+  'Coagulation'
+]);
+
+const DISORDER_MATCH_MODES = [
+  { id: 'etiology', label: 'Etiology' },
+  { id: 'findings', label: 'Labs / Clinical' }
+];
 
 // ===== DOM REFS =====
 const mainContent = document.getElementById('main-content');
@@ -1101,10 +1388,13 @@ let selectedLeft = null;
 let selectedRight = null;
 let matchedIds = [];
 let wrongPair = null;
+let disorderMatchMode = 'findings';
 
 // ----- Image Bank -----
 let isQuizMode = false;
 let imageSearchQuery = '';
+let imageSearchFocus = null;
+let imageSearchSelection = null;
 
 // ----- Flowchart State -----
 let fcZoom = 0.45;
@@ -1636,6 +1926,25 @@ function renderCategoryGroups(renderHidden) {
   return html || `<div class="p-4 bg-slate-50 rounded-xl border border-slate-200 text-slate-500">No decks to show.</div>`;
 }
 
+function isDisorderMatchCategory(catId) {
+  return DISORDER_MATCH_CATEGORIES.has(catId);
+}
+
+function getMatchText(item) {
+  if (isDisorderMatchCategory(selectedCategory) && (item.etiology || item.findings)) {
+    return disorderMatchMode === 'etiology'
+      ? (item.etiology || item.def || '')
+      : (item.findings || item.def || '');
+  }
+  return item.def || '';
+}
+
+function setDisorderMatchMode(mode) {
+  if (mode === disorderMatchMode) return;
+  disorderMatchMode = mode;
+  if (selectedCategory) startGame(selectedCategory);
+}
+
 
 function startGame(catId) {
             stopQuizTimer();
@@ -1716,14 +2025,34 @@ function checkMatch() {
 function renderBoard() {
              mainContent.classList.remove('bg-slate-200'); 
              mainContent.classList.add('px-4', 'max-w-6xl', 'mx-auto'); 
+            
+            const isDisorderDeck = isDisorderMatchCategory(selectedCategory);
+            const leftHeader = isDisorderDeck ? 'Disorders' : 'Terms / Disease';
+            const rightHeader = isDisorderDeck
+              ? (disorderMatchMode === 'etiology' ? 'Etiology' : 'Labs / Clinical')
+              : 'Mechanism / Findings';
+            const matchModeControls = isDisorderDeck ? `
+                <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                    <div class="text-xs font-bold text-slate-500 uppercase tracking-wider">Match to</div>
+                    <div class="flex flex-wrap gap-2">
+                        ${DISORDER_MATCH_MODES.map(mode => `
+                            <button onclick="setDisorderMatchMode('${mode.id}')"
+                                class="px-3 py-1.5 rounded-full text-xs font-bold border transition-colors ${disorderMatchMode === mode.id ? 'bg-slate-900 text-white border-slate-900' : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400'}">
+                                ${mode.label}
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            ` : '';
              
             let html = `
                 <div class="animate-fadeIn pb-12">
+                    ${matchModeControls}
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-12 relative">
                         
                         <!-- LEFT COL -->
                         <div class="flex flex-col gap-3">
-                            <h3 class="text-slate-400 font-bold uppercase text-xs tracking-wider mb-2 text-center md:text-left sticky top-0 bg-slate-50 py-2 z-10">Terms / Disease</h3>
+                            <h3 class="text-slate-400 font-bold uppercase text-xs tracking-wider mb-2 text-center md:text-left sticky top-0 bg-slate-50 py-2 z-10">${leftHeader}</h3>
             `;
 
             leftCol.forEach(item => {
@@ -1761,7 +2090,7 @@ function renderBoard() {
 
             // RIGHT COL
             html += `<div class="flex flex-col gap-3">
-                        <h3 class="text-slate-400 font-bold uppercase text-xs tracking-wider mb-2 text-center md:text-left sticky top-0 bg-slate-50 py-2 z-10">Mechanism / Findings</h3>`;
+                        <h3 class="text-slate-400 font-bold uppercase text-xs tracking-wider mb-2 text-center md:text-left sticky top-0 bg-slate-50 py-2 z-10">${rightHeader}</h3>`;
 
             rightCol.forEach(item => {
                 const isMatched = matchedIds.includes(item.id);
@@ -1787,7 +2116,7 @@ function renderBoard() {
 
                 html += `
                     <button onclick="handleRightClick('${item.id}', '${item.term}', '${item.def}')" ${isMatched ? 'disabled' : ''} class="${btnClass}">
-                        <span class="${textClass}">${item.def}</span>
+                        <span class="${textClass}">${getMatchText(item)}</span>
                     </button>
                 `;
             });
@@ -2060,6 +2389,8 @@ function startImageBank() {
   score = 0;
   mistakes = 0;
   imageSearchQuery = '';
+  imageSearchFocus = null;
+  imageSearchSelection = null;
   updateUI();
 }
 
@@ -2069,8 +2400,29 @@ function toggleQuizMode() {
 }
 
 function setImageSearch(val) {
+  const input = document.getElementById('image-search');
+  if (input) {
+    imageSearchSelection = {
+      start: input.selectionStart,
+      end: input.selectionEnd
+    };
+  }
   imageSearchQuery = String(val || '');
+  imageSearchFocus = 'search';
   renderImageBank();
+}
+
+function restoreImageSearchFocus() {
+  if (imageSearchFocus !== 'search') return;
+  const input = document.getElementById('image-search');
+  if (!input) return;
+  input.focus();
+  if (imageSearchSelection && typeof input.setSelectionRange === 'function') {
+    input.setSelectionRange(
+      Number.isInteger(imageSearchSelection.start) ? imageSearchSelection.start : input.value.length,
+      Number.isInteger(imageSearchSelection.end) ? imageSearchSelection.end : input.value.length
+    );
+  }
 }
 
 function openImageByIndex(idx) {
@@ -2101,7 +2453,7 @@ function renderImageBank() {
 
         <div class="flex flex-col sm:flex-row gap-3 sm:items-center">
           <div class="relative">
-            <input value="${escapeHtml(imageSearchQuery)}" oninput="setImageSearch(this.value)" placeholder="Search title/description…" class="w-full sm:w-80 px-4 py-2 rounded-xl border border-slate-200 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-rose-300" />
+            <input id="image-search" value="${escapeHtml(imageSearchQuery)}" oninput="setImageSearch(this.value)" placeholder="Search title/description…" class="w-full sm:w-80 px-4 py-2 rounded-xl border border-slate-200 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-rose-300" />
             <div class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400">${ICONS.Search}</div>
           </div>
 
@@ -2133,6 +2485,8 @@ function renderImageBank() {
       </div>
     </div>
   `;
+
+  restoreImageSearchFocus();
 }
 
 
@@ -2974,41 +3328,68 @@ function startDiseaseIndex() {
   gameState = 'index';
   score = 0;
   mistakes = 0;
-  diState = { query: '', smear: '', type: '', detailIdx: null, highlight: true };
+  diState = { query: '', smear: '', type: '', detailIdx: null, highlight: true, focus: null, searchSelection: null };
   updateUI();
 }
 
 function setDIQuery(val) {
+  const input = document.getElementById('di-search');
+  if (input) {
+    diState.searchSelection = {
+      start: input.selectionStart,
+      end: input.selectionEnd
+    };
+  }
   diState.query = String(val || '');
   diState.detailIdx = null;
+  diState.focus = 'search';
   renderDiseaseIndex();
 }
 
 function setDISmear(val) {
   diState.smear = String(val || '');
   diState.detailIdx = null;
+  diState.focus = null;
   renderDiseaseIndex();
 }
 
 function setDIType(val) {
   diState.type = String(val || '');
   diState.detailIdx = null;
+  diState.focus = null;
   renderDiseaseIndex();
 }
 
 function toggleDIHighlight() {
   diState.highlight = !diState.highlight;
+  diState.focus = null;
   renderDiseaseIndex();
 }
 
 function openDiseaseDetail(idx) {
   diState.detailIdx = Number(idx);
+  diState.focus = null;
   renderDiseaseIndex();
 }
 
 function backToDiseaseResults() {
   diState.detailIdx = null;
+  diState.focus = null;
   renderDiseaseIndex();
+}
+
+function restoreSearchFocus() {
+  if (diState.focus !== 'search') return;
+  const input = document.getElementById('di-search');
+  if (!input) return;
+  input.focus();
+  const sel = diState.searchSelection;
+  if (sel && typeof input.setSelectionRange === 'function') {
+    input.setSelectionRange(
+      Number.isInteger(sel.start) ? sel.start : input.value.length,
+      Number.isInteger(sel.end) ? sel.end : input.value.length
+    );
+  }
 }
 
 function getDiseaseFilters() {
@@ -3027,7 +3408,7 @@ function getDiseaseFilters() {
 function diseaseMatches(d, query) {
   const q = normalizeQuery(query);
   if (!q) return true;
-  const blob = `${d.name} ${d.type} ${d.mechanism} ${(d.smear||[]).join(' ')} ${(d.associations||[]).join(' ')} ${Object.values(d.labs||{}).join(' ')}`.toLowerCase();
+  const blob = `${d.name} ${d.type} ${d.etiology} ${d.mechanism} ${d.pathophysiology} ${(d.smear||[]).join(' ')} ${(d.presentation||[]).join(' ')} ${(d.labs||[]).join(' ')}`.toLowerCase();
   return blob.includes(q);
 }
 
@@ -3049,25 +3430,22 @@ function renderDiseaseIndex() {
 
     const nameHtml = diState.highlight ? highlightText(d.name, q) : escapeHtml(d.name);
 
-    const smearHtml = (d.smear || []).length
-      ? `<ul class="list-disc pl-5 space-y-1">${(d.smear || []).map(s => `<li>${diState.highlight ? highlightText(s, q) : escapeHtml(s)}</li>`).join('')}</ul>`
+    const listHtml = (items) => (items && items.length)
+      ? `<ul class="list-disc pl-5 space-y-1">${items.map(s => `<li>${diState.highlight ? highlightText(s, q) : escapeHtml(s)}</li>`).join('')}</ul>`
       : `<div class="text-slate-500">—</div>`;
 
-    const assocHtml = (d.associations || []).length
-      ? `<ul class="list-disc pl-5 space-y-1">${(d.associations || []).map(s => `<li>${diState.highlight ? highlightText(s, q) : escapeHtml(s)}</li>`).join('')}</ul>`
-      : `<div class="text-slate-500">—</div>`;
-
-    const labsEntries = Object.entries(d.labs || {});
-    const labsHtml = labsEntries.length
-      ? `<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          ${labsEntries.map(([k, v]) => `
-            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
-              <div class="text-xs font-bold text-slate-500 uppercase">${escapeHtml(k)}</div>
-              <div class="text-sm font-semibold text-slate-800 mt-1">${diState.highlight ? highlightText(String(v), q) : escapeHtml(String(v))}</div>
-            </div>
-          `).join('')}
-        </div>`
-      : `<div class="text-slate-500">—</div>`;
+    const etiologyHtml = d.etiology
+      ? (diState.highlight ? highlightText(d.etiology, q) : escapeHtml(d.etiology))
+      : '—';
+    const mechanismHtml = d.mechanism
+      ? (diState.highlight ? highlightText(d.mechanism, q) : escapeHtml(d.mechanism))
+      : '—';
+    const pathHtml = d.pathophysiology
+      ? (diState.highlight ? highlightText(d.pathophysiology, q) : escapeHtml(d.pathophysiology))
+      : '—';
+    const labsHtml = listHtml(d.labs || []);
+    const presentationHtml = listHtml(d.presentation || []);
+    const smearHtml = listHtml(d.smear || []);
 
     mainContent.innerHTML = `
       <div class="max-w-4xl mx-auto animate-fadeIn">
@@ -3085,30 +3463,44 @@ function renderDiseaseIndex() {
 
           <div class="mt-5 grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div>
-              <div class="text-sm font-extrabold text-slate-800 mb-2">Mechanism</div>
+              <div class="text-sm font-extrabold text-slate-800 mb-2">Etiology</div>
               <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-slate-700">
-                ${diState.highlight ? highlightText(d.mechanism || '—', q) : escapeHtml(d.mechanism || '—')}
+                ${etiologyHtml}
               </div>
             </div>
 
             <div>
-              <div class="text-sm font-extrabold text-slate-800 mb-2">Key smear findings</div>
+              <div class="text-sm font-extrabold text-slate-800 mb-2">Mechanism</div>
               <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-slate-700">
-                ${smearHtml}
+                ${mechanismHtml}
+              </div>
+            </div>
+
+            <div>
+              <div class="text-sm font-extrabold text-slate-800 mb-2">Pathophysiology</div>
+              <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-slate-700">
+                ${pathHtml}
+              </div>
+            </div>
+
+            <div>
+              <div class="text-sm font-extrabold text-slate-800 mb-2">Clinical presentation</div>
+              <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-slate-700">
+                ${presentationHtml}
               </div>
             </div>
 
             <div>
               <div class="text-sm font-extrabold text-slate-800 mb-2">Labs</div>
-              <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+              <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-slate-700">
                 ${labsHtml}
               </div>
             </div>
 
             <div>
-              <div class="text-sm font-extrabold text-slate-800 mb-2">Associations</div>
+              <div class="text-sm font-extrabold text-slate-800 mb-2">Peripheral smear / cellular evidence</div>
               <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-slate-700">
-                ${assocHtml}
+                ${smearHtml}
               </div>
             </div>
           </div>
@@ -3136,7 +3528,7 @@ function renderDiseaseIndex() {
       <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 mb-6">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div class="relative">
-            <input value="${escapeHtml(diState.query)}" oninput="setDIQuery(this.value)" placeholder="Search…" class="w-full px-4 py-2 rounded-xl border border-slate-200 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-cyan-200" />
+            <input id="di-search" value="${escapeHtml(diState.query)}" oninput="setDIQuery(this.value)" placeholder="Search…" class="w-full px-4 py-2 rounded-xl border border-slate-200 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-cyan-200" />
             <div class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400">${ICONS.Search}</div>
           </div>
 
@@ -3162,7 +3554,8 @@ function renderDiseaseIndex() {
       <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         ${filtered.map(({ d, idx }) => {
           const title = diState.highlight ? highlightText(d.name, q) : escapeHtml(d.name);
-          const mech = d.mechanism ? (diState.highlight ? highlightText(d.mechanism, q) : escapeHtml(d.mechanism)) : '—';
+          const summary = d.mechanism || d.etiology || d.pathophysiology || '—';
+          const summaryHtml = diState.highlight ? highlightText(summary, q) : escapeHtml(summary);
           const type = d.type ? escapeHtml(d.type) : '';
           return `
             <button onclick="openDiseaseDetail(${idx})" class="p-5 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all text-left">
@@ -3173,7 +3566,7 @@ function renderDiseaseIndex() {
                 </div>
                 <div class="text-slate-300">${ICONS.ArrowRight}</div>
               </div>
-              <div class="text-sm text-slate-700 mt-3">${mech}</div>
+              <div class="text-sm text-slate-700 mt-3">${summaryHtml}</div>
             </button>
           `;
         }).join('')}
@@ -3181,6 +3574,7 @@ function renderDiseaseIndex() {
     </div>
   `;
 
+  restoreSearchFocus();
   updateStats();
 }
 
