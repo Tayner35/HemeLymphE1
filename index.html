@@ -379,78 +379,71 @@ const FULL_DATA = [
             { category: 'Coagulation & Platelets', term: 'Heparin Induced Thrombocytopenia (HIT)', etiology: 'IgG against PF4-heparin complex.', findings: 'Platelet drop 5-10 days after heparin, thrombosis; positive PF4 antibody.', def: 'Platelet drop 5-10 days after heparin, thrombosis; positive PF4 antibody.' },
 
             // --- HEMOSTASIS ESSENTIALS (MATCHING MODULE) ---
-            { category: 'Hemostasis Essentials', term: 'Packed RBCs', def: 'Use for symptomatic anemia or acute blood loss; trigger Hgb <7 g/dL (often higher if ischemia/CAD/ongoing hemorrhage); goal: improve oxygen delivery, not clotting.' },
-            { category: 'Hemostasis Essentials', term: 'Platelets', def: 'Use for bleeding risk from thrombocytopenia; trigger <10k/uL prophylaxis, <50k/uL active bleeding/procedure, <100k/uL neurosurgery/eye; goal: fix platelet number.' },
-            { category: 'Hemostasis Essentials', term: 'Fresh Frozen Plasma (FFP)', def: 'Use for multiple clotting factor replacement; trigger elevated PT/INR and/or PTT with bleeding (liver disease, DIC, massive transfusion); also for warfarin major bleed if PCC unavailable; goal: replace missing factors.' },
-            { category: 'Hemostasis Essentials', term: 'Cryoprecipitate', def: 'Use for low fibrinogen replacement; trigger fibrinogen <100-150 mg/dL (DIC, massive hemorrhage, postpartum hemorrhage); contains fibrinogen, VIII, vWF, XIII; goal: restore fibrinogen for stable clot formation.' },
-            { category: 'Hemostasis Essentials', term: 'Granulocytes', def: 'Use for severe neutropenia with life-threatening infection; consider profound neutropenia with serious infection not responding to antimicrobials; goal: temporary neutrophil boost.' },
+            { category: 'Hemostasis Essentials', term: 'Packed RBCs', def: 'Use for symptomatic anemia or acute blood loss; trigger Hgb <7 g/dL (often higher if ischemia/CAD/ongoing hemorrhage); <br><br>Goal: improve oxygen delivery, not clotting.' },
+            { category: 'Hemostasis Essentials', term: 'Platelets', def: 'Use for bleeding risk from thrombocytopenia; trigger <10k/uL prophylaxis, <50k/uL active bleeding/procedure, <100k/uL neurosurgery/eye; <br><br>Goal: fix platelet number.' },
+            { category: 'Hemostasis Essentials', term: 'Fresh Frozen Plasma (FFP)', def: 'Use for multiple clotting factor replacement; trigger elevated PT/INR and/or PTT with bleeding (liver disease, DIC, massive transfusion); also for warfarin major bleed if PCC unavailable; <br><br>Goal: replace missing factors.' },
+            { category: 'Hemostasis Essentials', term: 'Cryoprecipitate', def: 'Use for low fibrinogen replacement; trigger fibrinogen <100-150 mg/dL (DIC, massive hemorrhage, postpartum hemorrhage); contains fibrinogen, VIII, vWF, XIII; <br><br>Goal: restore fibrinogen for stable clot formation.' },
+            { category: 'Hemostasis Essentials', term: 'Granulocytes', def: 'Use for severe neutropenia with life-threatening infection; consider profound neutropenia with serious infection not responding to antimicrobials; <br><br>Goal: temporary neutrophil boost.' },
             { category: 'Hemostasis Essentials', term: 'Increased PT, normal PTT', def: 'Extrinsic pathway abnormality; points to warfarin (VII drops early), factor VII deficiency, early vitamin K deficiency; clue: PT only.' },
             { category: 'Hemostasis Essentials', term: 'Increased PTT, normal PT', def: 'Intrinsic pathway abnormality; points to hemophilia A (VIII), hemophilia B (IX), or heparin effect; clue: PTT only.' },
             { category: 'Hemostasis Essentials', term: 'Increased PT and PTT', def: 'Global/common pathway deficiency; points to DIC, severe liver failure, massive transfusion (dilutional), severe vitamin K deficiency; clue: everything prolonged.' },
             { category: 'Hemostasis Essentials', term: 'Normal PT/PTT, increased bleeding time', def: 'Primary hemostasis defect; points to vWD, uremia, aspirin/NSAIDs, inherited platelet dysfunction (Glanzmann, Bernard-Soulier); clue: factors fine, bleeding persists.' },
             { category: 'Hemostasis Essentials', term: 'Increased PTT that does not correct', def: 'Inhibitor present; points to lupus anticoagulant or factor VIII inhibitor; mixing rule: corrects = deficiency, no correction = inhibitor.' },
-            { category: 'Hemostasis Essentials', term: 'Desmopressin (DDAVP)', def: 'Boosts endogenous vWF + factor VIII; best for vWD type 1 and mild hemophilia A; use for minor bleeding/procedural prophylaxis; goal: rapid temporary factor/adhesion boost.' },
-            { category: 'Hemostasis Essentials', term: 'Protamine', def: 'Heparin reversal; best for unfractionated heparin; partial reversal for LMWH; goal: neutralize heparin immediately.' },
-            { category: 'Hemostasis Essentials', term: 'Vitamin K', def: 'Reverse warfarin by restoring factor production; targets II, VII, IX, X (+ C, S); timing hours (new synthesis); major bleed: IV vitamin K + PCC (FFP if PCC unavailable); goal: restore vitamin K-dependent coagulation.' },
-            { category: 'Hemostasis Essentials', term: 'Tranexamic acid', def: 'Antifibrinolytic to prevent clot breakdown; best for mucosal bleeding, menorrhagia, dental bleeding, trauma (early), postpartum hemorrhage protocols; goal: keep clots from lysing too quickly.' },
-            { category: 'Hemostasis Essentials', term: 'Hydroxyurea', def: 'Increase HbF and reduce sickling; cytoreduction for PV; best for sickle cell disease (fewer VOC/ACS) and polycythemia vera (lower thrombosis via cell counts); goal: HbF up or counts down.' },
+            { category: 'Hemostasis Essentials', term: 'Desmopressin (DDAVP)', def: 'Boosts endogenous vWF + factor VIII; best for vWD type 1 and mild hemophilia A; use for minor bleeding/procedural prophylaxis; <br><br>Goal: rapid temporary factor/adhesion boost.' },
+            { category: 'Hemostasis Essentials', term: 'Protamine', def: 'Heparin reversal; best for unfractionated heparin; partial reversal for LMWH; <br><br>Goal: neutralize heparin immediately.' },
+            { category: 'Hemostasis Essentials', term: 'Vitamin K', def: 'Reverse warfarin by restoring factor production; targets II, VII, IX, X (+ C, S); timing hours (new synthesis); major bleed: IV vitamin K + PCC (FFP if PCC unavailable); <br><br>Goal: restore vitamin K-dependent coagulation.' },
+            { category: 'Hemostasis Essentials', term: 'Tranexamic acid', def: 'Antifibrinolytic to prevent clot breakdown; best for mucosal bleeding, menorrhagia, dental bleeding, trauma (early), postpartum hemorrhage protocols; <br><br>Goal: keep clots from lysing too quickly.' },
+            { category: 'Hemostasis Essentials', term: 'Hydroxyurea', def: 'Utilized to increase HbF and reduce sickling; cytoreduction for PV; best for sickle cell disease (fewer VOC/ACS) and polycythemia vera (lower thrombosis via cell counts); <br><br>Goal: HbF up or counts down.' },
 
             // --- FOUNDATIONS: LABS ---
-            { category: 'Foundations: Labs', term: 'Hemoglobin (Hb/Hgb)', def: 'Direct measure of O2-carrying protein. Low = Anemia, High = Polycythemia.' },
-            { category: 'Foundations: Labs', term: 'Hematocrit (Hct)', def: 'Volume % of RBCs. Low = Anemia/Hemodilution. High = Polycythemia/Dehydration.' },
-            { category: 'Foundations: Labs', term: 'Red Blood Cell Count (RBC)', def: 'Number of red cells. High count with low MCV suggests Thalassemia Trait.' },
-            { category: 'Foundations: Labs', term: 'Mean Corpuscular Volume (MCV)', def: 'Avg RBC size. Microcytic (<80), Normocytic (80-100), Macrocytic (>100).' },
-            { category: 'Foundations: Labs', term: 'Mean Corpuscular Hemoglobin (MCH)', def: 'Avg Hb weight per RBC. Low = Hypochromia (Pale cells).' },
-            { category: 'Foundations: Labs', term: 'Mean Corpuscular Hemoglobin Concentration (MCHC)', def: 'Avg Hb concentration. High = Hereditary Spherocytosis (Hyperchromic).' },
-            { category: 'Foundations: Labs', term: 'Red Cell Distribution Width (RDW)', def: 'Measures anisocytosis. High in Iron Deficiency/Megaloblastic. Normal in Thalassemia Trait.' },
-            
-            { category: 'Foundations: Labs', term: 'Reticulocyte Count', def: '% of immature RBCs with residual RNA. Measures marrow output.' },
-            { category: 'Foundations: Labs', term: 'Reticulocyte Index (RI)', def: '>2 = Hyperproliferative (Hemolysis/Blood Loss). <2 = Hypoproliferative (Production problem).' },
-
-            { category: 'Foundations: Labs', term: 'Serum Ferritin', def: 'Stored iron. Low = Iron Deficiency (Diagnostic). High = Chronic Disease/Sideroblastic.' },
-            { category: 'Foundations: Labs', term: 'Serum Iron', def: 'Circulating iron. Low in IDA/ACD. High in Sideroblastic.' },
-            { category: 'Foundations: Labs', term: 'Total Iron Binding Capacity (TIBC)', def: 'Measure of Transferrin. High in Iron Deficiency. Low in Chronic Disease.' },
-            { category: 'Foundations: Labs', term: 'Transferrin Saturation', def: '% binding sites occupied. Low in IDA. High in Sideroblastic.' },
-            { category: 'Foundations: Labs', term: 'Soluble Transferrin Receptor (sTfR)', def: 'High in Iron Deficiency (cells hungry for iron). Normal in ACD.' },
-            { category: 'Foundations: Labs', term: 'Zinc Protoporphyrin (ZPP)', def: 'Zinc used instead of iron in heme. High in IDA and Lead Poisoning.' },
-
-            { category: 'Foundations: Labs', term: 'Serum B12 (Cobalamin)', def: 'Low in Pernicious Anemia, dietary deficiency.' },
-            { category: 'Foundations: Labs', term: 'Serum Folate', def: 'Low in dietary deficiency, alcoholism.' },
-            { category: 'Foundations: Labs', term: 'Methylmalonic Acid (MMA)', def: 'High in B12 Deficiency. Normal in Folate Deficiency. Differentiates the two.' },
-            { category: 'Foundations: Labs', term: 'Homocysteine', def: 'High in BOTH B12 and Folate deficiencies.' },
-            { category: 'Foundations: Labs', term: 'Serum Copper', def: 'Low levels mimic B12 deficiency (Macrocytic + Neuro symptoms).' },
-            { category: 'Foundations: Labs', term: 'Anti-Intrinsic Factor / Parietal Cell Abs', def: 'Positive = Pernicious Anemia.' },
-
-            { category: 'Foundations: Labs', term: 'Serum Haptoglobin', def: 'Binds free Hb. Decreased in Hemolysis.' },
-            { category: 'Foundations: Labs', term: 'Lactate Dehydrogenase (LDH)', def: 'Intracellular enzyme. Increased in Hemolysis and cell turnover.' },
-            { category: 'Foundations: Labs', term: 'Indirect Bilirubin', def: 'Unconjugated. Increased in Hemolysis.' },
-            { category: 'Foundations: Labs', term: 'Direct Antiglobulin Test (Coombs)', def: 'Detects Abs/Complement on RBCs. Positive in Autoimmune Hemolysis.' },
-            { category: 'Foundations: Labs', term: 'Osmotic Fragility Test', def: 'RBC lysis in hypotonic saline. Increased in Hereditary Spherocytosis.' },
-            { category: 'Foundations: Labs', term: 'G6PD Assay', def: 'Enzyme activity. Low in G6PD deficiency (Check after acute episode).' },
-            { category: 'Foundations: Labs', term: 'Hemoglobin Electrophoresis', def: 'Separates Hb types. Diagnoses Thalassemia and Sickle Cell.' },
-            { category: 'Foundations: Labs', term: 'Carboxyhemoglobin', def: 'Measures Hemoglobin bound to Carbon Monoxide. Diagnosis of CO poisoning.' },
-            { category: 'Foundations: Labs', term: 'Flow Cytometry (CD55/59)', def: 'Detects GPI anchors. Absent in PNH.' },
-
-            { category: 'Foundations: Labs', term: 'ABO/Rh Typing', def: 'Forward (Antigens) and Back (Antibodies) type for compatibility.' },
-            { category: 'Foundations: Labs', term: 'Antibody Screen', def: 'Detects alloantibodies. Prevents Delayed Hemolytic Reactions.' },
-            { category: 'Foundations: Labs', term: 'HLA Antibody Testing', def: 'Tested in female donors (pregnancy history) to prevent TRALI.' },
-            { category: 'Foundations: Labs', term: 'BNP (B-type Natriuretic Peptide)', def: 'Heart strain marker. High in TACO (Overload), Low in TRALI.' },
-            { category: 'Foundations: Labs', term: 'PT (Prothrombin Time)', def: 'Extrinsic pathway. Monitor Warfarin. Prolonged = need Plasma (FFP)?' },
-            { category: 'Foundations: Labs', term: 'aPTT (Activated Partial Thromboplastin Time)', def: 'Measures Intrinsic (XII, XI, IX, VIII) + Common. Heparin monitoring.' },
-            { category: 'Foundations: Labs', term: 'Mixing Study', def: 'Corrects = Factor Deficiency. No Correction = Inhibitor.' },
-            { category: 'Foundations: Labs', term: 'Fibrinogen Level', def: 'Low (<100) is indication for Cryoprecipitate transfusion.' },
-            { category: 'Foundations: Labs', term: 'D-Dimer', def: 'Fibrin degradation product. Sensitive for DIC, DVT, PE.' },
-            { category: 'Foundations: Labs', term: 'Bleeding Time / PFA (Platelet Function Assay)', def: 'Measures Platelet function (Primary Hemostasis).' },
-            { category: 'Foundations: Labs', term: 'Ristocetin Cofactor Assay', def: 'Tests vWF function. Agglutinates platelets if vWF and GpIb are normal.' },
-            { category: 'Foundations: Labs', term: 'Platelet Bacterial Culture', def: 'Prevent sepsis. Platelets are stored at room temp (high risk).' },
-
-            { category: 'Foundations: Labs', term: 'Parvovirus B19 PCR', def: 'Positive in PRCA / Aplastic Crisis. &quot;Giant Pronormoblasts&quot;.' },
-            { category: 'Foundations: Labs', term: 'Bone Marrow Biopsy', def: 'Fatty (Aplastic), Ringed Sideroblasts (Sideroblastic), Giant Pronormoblasts (Parvo), Absent Iron (IDA).' },
-            { category: 'Foundations: Labs', term: 'Lead Level', def: 'High in Lead Poisoning (Acquired Sideroblastic Anemia).' },
-            { category: 'Foundations: Labs', term: 'HIV Serology', def: 'Detects HIV antibodies. Causes pancytopenia/immune dysregulation.' },
-            { category: 'Foundations: Labs', term: 'Hepatitis Serologies', def: 'Hep B/C antigens/antibodies. Associated with Aplastic Anemia.' },
-            { category: 'Foundations: Labs', term: 'EBV Serology', def: 'Detects EBV antibodies. Associated with Aplastic Anemia.' },
-
+            { category: 'Foundations: Labs', term: 'Hemoglobin (Hb/Hgb) ', def: 'Measures direct hemoglobin concentration (O2-carrying protein)<br><br>Low = anemia. High = polycythemia.' },
+            { category: 'Foundations: Labs', term: 'Hematocrit (Hct) ', def: 'Measures volume % of blood made up by RBCs<br><br>Low = anemia/hemodilution. High = polycythemia/dehydration.' },
+            { category: 'Foundations: Labs', term: 'Red Blood Cell Count (RBC) ', def: 'Measures number of RBCs<br><br>High count with low MCV suggests thalassemia trait.' },
+            { category: 'Foundations: Labs', term: 'Mean Corpuscular Volume (MCV) ', def: 'Measures average RBC size<br><br>Microcytic (<80), Normocytic (80–100), Macrocytic (>100).' },
+            { category: 'Foundations: Labs', term: 'Mean Corpuscular Hemoglobin (MCH) ', def: 'Measures average hemoglobin mass per RBC<br><br>Low = hypochromia (pale cells).' },
+            { category: 'Foundations: Labs', term: 'Mean Corpuscular Hemoglobin Concentration (MCHC) ', def: 'Measures average hemoglobin concentration within RBCs<br><br>High = hereditary spherocytosis (hyperchromic).' },
+            { category: 'Foundations: Labs', term: 'Red Cell Distribution Width (RDW) ', def: 'Measures anisocytosis (variation in RBC size)<br><br>High in iron deficiency/megaloblastic. Often normal in thalassemia trait.' },
+            { category: 'Foundations: Labs', term: 'Reticulocyte Count ', def: 'Measures % of immature RBCs with residual RNA, reflecting marrow output/response.' },
+            { category: 'Foundations: Labs', term: 'Reticulocyte Index (RI) ', def: 'Evaluates marrow response corrected for degree of anemia<br><br>>2 = hyperproliferative (hemolysis/blood loss). <2 = hypoproliferative (production problem).' },
+            { category: 'Foundations: Labs', term: 'Serum Ferritin ', def: 'Measures stored iron (iron reserves)<br><br>Low = iron deficiency (diagnostic). High = chronic disease/sideroblastic.' },
+            { category: 'Foundations: Labs', term: 'Serum Iron ', def: 'Measures circulating iron bound to transferrin<br><br>Low in IDA/ACD. High in sideroblastic.' },
+            { category: 'Foundations: Labs', term: 'Total Iron Binding Capacity (TIBC) ', def: 'Measures total transferrin binding capacity (indirect transferrin level)<br><br>High in iron deficiency. Low in chronic disease.' },
+            { category: 'Foundations: Labs', term: 'Transferrin Saturation ', def: 'Measures % transferrin binding sites occupied by iron<br><br>Low in IDA. Can be high in sideroblastic/iron overload.' },
+            { category: 'Foundations: Labs', term: 'Soluble Transferrin Receptor (sTfR) ', def: 'Measures cellular iron demand via transferrin receptor shedding<br><br>High in iron deficiency. Normal in ACD.' },
+            { category: 'Foundations: Labs', term: 'Zinc Protoporphyrin (ZPP) ', def: 'Measures zinc incorporation into protoporphyrin when iron is unavailable for heme synthesis<br><br>High in IDA and lead poisoning.' },
+            { category: 'Foundations: Labs', term: 'Serum B12 (Cobalamin) ', def: 'Measures circulating vitamin B12 level<br><br>Low in pernicious anemia, dietary deficiency.' },
+            { category: 'Foundations: Labs', term: 'Serum Folate ', def: 'Measures folate level (body folate status)<br><br>Low in dietary deficiency, alcoholism.' },
+            { category: 'Foundations: Labs', term: 'Methylmalonic Acid (MMA) ', def: 'Measures functional B12 deficiency (elevated when B12 deficient)<br><br>Normal in folate deficiency.' },
+            { category: 'Foundations: Labs', term: 'Homocysteine ', def: 'Measures homocysteine elevation from impaired methylation<br><br>High in BOTH B12 and folate deficiencies.' },
+            { category: 'Foundations: Labs', term: 'Serum Copper ', def: 'Measures copper level (deficiency can mimic B12 deficiency with macrocytosis + neuro symptoms).' },
+            { category: 'Foundations: Labs', term: 'Anti-Intrinsic Factor / Parietal Cell Abs ', def: 'Detects autoimmune antibodies causing pernicious anemia (B12 malabsorption)<br><br>Positive supports pernicious anemia.' },
+            { category: 'Foundations: Labs', term: 'Serum Haptoglobin ', def: 'Measures free hemoglobin-binding capacity<br><br>Decreased in intravascular hemolysis.' },
+            { category: 'Foundations: Labs', term: 'Lactate Dehydrogenase (LDH) ', def: 'Measures cell breakdown/turnover marker<br><br>Increased in hemolysis and high cell turnover.' },
+            { category: 'Foundations: Labs', term: 'Indirect Bilirubin ', def: 'Measures unconjugated bilirubin (heme breakdown)<br><br>Increased in hemolysis.' },
+            { category: 'Foundations: Labs', term: 'Direct Antiglobulin Test (Coombs) ', def: 'Detects IgG and/or complement bound to RBCs<br><br>Positive in autoimmune hemolysis.' },
+            { category: 'Foundations: Labs', term: 'Osmotic Fragility Test ', def: 'Measures RBC susceptibility to lysis in hypotonic saline<br><br>Increased in hereditary spherocytosis.' },
+            { category: 'Foundations: Labs', term: 'G6PD Assay ', def: 'Measures G6PD enzyme activity<br><br>Low in G6PD deficiency (best checked after acute episode resolves).' },
+            { category: 'Foundations: Labs', term: 'Hemoglobin Electrophoresis ', def: 'Separates and identifies hemoglobin variants/types<br><br>Diagnoses thalassemias and sickle cell.' },
+            { category: 'Foundations: Labs', term: 'Carboxyhemoglobin ', def: 'Measures hemoglobin bound to carbon monoxide<br><br>Elevated in CO poisoning.' },
+            { category: 'Foundations: Labs', term: 'Flow Cytometry (CD55/59) ', def: 'Evaluates RBCs for GPI-anchored proteins (CD55/CD59)<br><br>Absent/reduced in PNH.' },
+            { category: 'Foundations: Labs', term: 'ABO/Rh Typing ', def: 'Determines blood type (ABO and Rh antigens) for transfusion compatibility.' },
+            { category: 'Foundations: Labs', term: 'Antibody Screen ', def: 'Detects unexpected RBC alloantibodies (prevents delayed hemolytic transfusion reactions).' },
+            { category: 'Foundations: Labs', term: 'HLA Antibody Testing ', def: 'Detects anti-HLA antibodies (risk for platelet refractoriness, helps prevent TRALI).' },
+            { category: 'Foundations: Labs', term: 'BNP (B-type Natriuretic Peptide) ', def: 'Measures cardiac wall stretch/strain<br><br>High in TACO/heart failure, typically not high in TRALI.' },
+            { category: 'Foundations: Labs', term: 'PT (Prothrombin Time) ', def: 'Measures extrinsic + common coagulation pathway (VII, X, V, II, fibrinogen)<br><br>Prolonged in warfarin use, liver disease, DIC.' },
+            { category: 'Foundations: Labs', term: 'aPTT (Activated Partial Thromboplastin Time) ', def: 'Measures intrinsic + common pathway (XII, XI, IX, VIII, X, V, II, fibrinogen)<br><br>Used for heparin monitoring.' },
+            { category: 'Foundations: Labs', term: 'Mixing Study ', def: 'Evaluates prolonged PT/aPTT to distinguish factor deficiency (correction) vs inhibitor (no correction).' },
+            { category: 'Foundations: Labs', term: 'Fibrinogen Level ', def: 'Measures clotting factor I level<br><br>Low in DIC and severe liver disease; low levels may require cryoprecipitate.' },
+            { category: 'Foundations: Labs', term: 'D-Dimer ', def: 'Measures fibrin degradation products<br><br>Elevated with clot breakdown (DVT/PE) and DIC.' },
+            { category: 'Foundations: Labs', term: 'Bleeding Time / PFA (Platelet Function Assay) ', def: 'Evaluates platelet function/primary hemostasis (platelet adhesion/aggregation).' },
+            { category: 'Foundations: Labs', term: 'Ristocetin Cofactor Assay ', def: 'Measures vWF activity (platelet agglutination via GPIb)<br><br>Low in von Willebrand disease.' },
+            { category: 'Foundations: Labs', term: 'Platelet Bacterial Culture ', def: 'Detects bacterial contamination in platelet products (prevents transfusion-related sepsis risk).' },
+            { category: 'Foundations: Labs', term: 'Parvovirus B19 PCR ', def: 'Detects active parvovirus infection (aplastic crisis, pure red cell aplasia; giant pronormoblasts).' },
+            { category: 'Foundations: Labs', term: 'Bone Marrow Biopsy ', def: 'Evaluates marrow architecture/cellularity and abnormal infiltrates<br><br>Findings: fatty marrow (aplastic), ringed sideroblasts (sideroblastic), giant pronormoblasts (parvo), absent iron stores (IDA).' },
+            { category: 'Foundations: Labs', term: 'Lead Level ', def: 'Measures blood lead concentration<br><br>High in lead poisoning (can cause microcytic anemia).' },
+            { category: 'Foundations: Labs', term: 'HIV Serology ', def: 'Detects HIV infection (can cause cytopenias/immune dysregulation).' },
+            { category: 'Foundations: Labs', term: 'Hepatitis Serologies ', def: 'Detects hepatitis B/C infection or immunity (can be associated with aplastic anemia).' },
+            { category: 'Foundations: Labs', term: 'EBV Serology ', def: 'Detects EBV infection status (can be associated with aplastic anemia).' },
 
             // --- PHARMACOLOGY ---
             { category: 'Pharmacology', term: 'Warfarin', def: 'Vit K Antagonist. Teratogenic. Skin necrosis risk. Monitor INR.' },
@@ -470,25 +463,25 @@ const FULL_DATA = [
 
             // --- FOUNDATIONS: RBC MORPHOLOGY (NEWLY ADDED) ---
             { category: 'Foundations: RBC Morphology', term: 'Normal Morphology', def: 'Biconcave disc, Normocytic (normal size), Normochromic (normal color). Flexible.' },
-            { category: 'Foundations: RBC Morphology', term: 'Microcytosis', def: 'Small cells (MCV < 80 fL), often Hypochromic. Seen in Iron Deficiency, Thalassemia, ACD.' },
-            { category: 'Foundations: RBC Morphology', term: 'Macrocytosis', def: 'Large cells (MCV > 100 fL). Seen in B12/Folate deficiency (DNA maturation defect), Alcoholism, Liver disease.' },
-            { category: 'Foundations: RBC Morphology', term: 'Polychromasia', def: 'Bluish-gray tint (residual RNA), often larger. Indicates Reticulocytosis (marrow response).' },
-            { category: 'Foundations: RBC Morphology', term: 'Hypochromia', def: 'Increased central pallor (>1/3 diameter). &quot;Onion ring&quot; look. Iron Deficiency, Thalassemia.' },
-            { category: 'Foundations: RBC Morphology', term: 'Spherocytes', def: 'Spherical, no central pallor. Hereditary Spherocytosis (membrane defect) or Autoimmune Hemolysis (macrophage bite).' },
-            { category: 'Foundations: RBC Morphology', term: 'Target Cells (Codocytes)', def: 'Bullseye appearance (membrane excess). Thalassemia, Liver Disease, HbC, Asplenia.' },
-            { category: 'Foundations: RBC Morphology', term: 'Schistocytes', def: 'Fragmented/Helmet cells. Mechanical damage (MAHA: TTP, HUS, DIC) or mechanical valves.' },
-            { category: 'Foundations: RBC Morphology', term: 'Echinocytes (Burr Cells)', def: 'Regular, short spikes. Uremia (Renal Failure), Liver Disease, Artifact.' },
-            { category: 'Foundations: RBC Morphology', term: 'Acanthocytes (Spur Cells)', def: 'Irregular, long spikes. Severe Liver Disease, Abetalipoproteinemia (Lipid imbalance).' },
-            { category: 'Foundations: RBC Morphology', term: 'Teardrop Cells (Dacrocytes)', def: 'Teardrop shape. Bone Marrow Infiltration (Myelofibrosis), Thalassemia.' },
-            { category: 'Foundations: RBC Morphology', term: 'Sickle Cells (Drepanocytes)', def: 'Crescent/Sickle shape. Sickle Cell Disease (HbS polymerization under low O2).' },
-            { category: 'Foundations: RBC Morphology', term: 'Stomatocytes', def: 'Slit-like &quot;fish mouth&quot; central pallor. Hereditary Stomatocytosis, Alcoholism, Liver Disease.' },
-            { category: 'Foundations: RBC Morphology', term: 'Bite Cells', def: 'Semicircular bite removed. G6PD Deficiency (Macrophage pits Heinz bodies).' },
-            { category: 'Foundations: RBC Morphology', term: 'Howell-Jolly Bodies', def: 'Small, round, blue/purple nuclear remnant. Seen in Splenectomy or functional asplenia.' },
-            { category: 'Foundations: RBC Morphology', term: 'Basophilic Stippling', def: 'Fine blue granules (ribosomes/RNA) throughout cell. Lead Poisoning, Thalassemia, Alcohol.' },
-            { category: 'Foundations: RBC Morphology', term: 'Rouleaux Formation', def: 'RBCs stacked like coins. Multiple Myeloma, chronic inflammation (Excess proteins neutralize charge).' },
-            { category: 'Foundations: RBC Morphology', term: 'Agglutination', def: 'Clumping of RBCs into irregular masses. Cold Agglutinin Disease (IgM antibodies).' },
-            { category: 'Foundations: RBC Morphology', term: 'Heinz Bodies', def: 'Denatured hemoglobin (requires supravital stain). G6PD Deficiency.' },
-            { category: 'Foundations: RBC Morphology', term: 'Pappenheimer Bodies', def: 'Iron granules (Perls stain). Sideroblastic anemia, Post-splenectomy.' }
+            { category: 'Foundations: RBC Morphology', term: 'Microcytosis', def: 'Small cells (MCV < 80 fL), often Hypochromic.<br><br>Associated with: Iron Deficiency, Thalassemia, ACD.' },
+            { category: 'Foundations: RBC Morphology', term: 'Macrocytosis', def: 'Large cells (MCV > 100 fL).<br><br>Associated with: B12/Folate deficiency (DNA maturation defect), Alcoholism, Liver disease.' },
+            { category: 'Foundations: RBC Morphology', term: 'Polychromasia', def: 'Bluish-gray tint (residual RNA), often larger.<br><br>Associated with: Reticulocytosis (marrow response).' },
+            { category: 'Foundations: RBC Morphology', term: 'Hypochromia', def: 'Increased central pallor (>1/3 diameter). &quot;Onion ring&quot; look.<br><br>Associated with: Iron Deficiency, Thalassemia.' },
+            { category: 'Foundations: RBC Morphology', term: 'Spherocytes', def: 'Spherical, no central pallor.<br><br>Associated with: Hereditary Spherocytosis (membrane defect) or Autoimmune Hemolysis (macrophage bite).' },
+            { category: 'Foundations: RBC Morphology', term: 'Target Cells (Codocytes)', def: 'Bullseye appearance (membrane excess).<br><br>Associated with: Thalassemia, Liver Disease, HbC, Asplenia.' },
+            { category: 'Foundations: RBC Morphology', term: 'Schistocytes', def: 'Fragmented/Helmet cells.<br><br>Associated with: Mechanical damage (MAHA: TTP, HUS, DIC) or mechanical valves.' },
+            { category: 'Foundations: RBC Morphology', term: 'Echinocytes (Burr Cells)', def: 'Regular, short spikes.<br><br>Associated with: Uremia (Renal Failure), Liver Disease, Artifact.' },
+            { category: 'Foundations: RBC Morphology', term: 'Acanthocytes (Spur Cells)', def: 'Irregular, long spikes.<br><br>Associated with: Severe Liver Disease, Abetalipoproteinemia (Lipid imbalance).' },
+            { category: 'Foundations: RBC Morphology', term: 'Teardrop Cells (Dacrocytes)', def: 'Teardrop shape.<br><br>Associated with: Bone Marrow Infiltration (Myelofibrosis), Thalassemia.' },
+            { category: 'Foundations: RBC Morphology', term: 'Sickle Cells (Drepanocytes)', def: 'Crescent/Sickle shape.<br><br>Associated with: Sickle Cell Disease (HbS polymerization under low O2).' },
+            { category: 'Foundations: RBC Morphology', term: 'Stomatocytes', def: 'Slit-like &quot;fish mouth&quot; central pallor.<br><br>Associated with: Hereditary Stomatocytosis, Alcoholism, Liver Disease.' },
+            { category: 'Foundations: RBC Morphology', term: 'Bite Cells', def: 'Semicircular bite removed.<br><br>Associated with: G6PD Deficiency (Macrophage pits Heinz bodies).' },
+            { category: 'Foundations: RBC Morphology', term: 'Howell-Jolly Bodies', def: 'Small, round, blue/purple nuclear remnant.<br><br>Associated with: Splenectomy or functional asplenia.' },
+            { category: 'Foundations: RBC Morphology', term: 'Basophilic Stippling', def: 'Fine blue granules (ribosomes/RNA) throughout cell.<br><br>Associated with: Lead Poisoning, Thalassemia, Alcohol.' },
+            { category: 'Foundations: RBC Morphology', term: 'Rouleaux Formation', def: 'RBCs stacked like coins.<br><br>Associated with: Multiple Myeloma, chronic inflammation (Excess proteins neutralize charge).' },
+            { category: 'Foundations: RBC Morphology', term: 'Agglutination', def: 'Clumping of RBCs into irregular masses.<br><br>Associated with: Cold Agglutinin Disease (IgM antibodies).' },
+            { category: 'Foundations: RBC Morphology', term: 'Heinz Bodies', def: 'Denatured hemoglobin (requires supravital stain).<br><br>Associated with: G6PD Deficiency.' },
+            { category: 'Foundations: RBC Morphology', term: 'Pappenheimer Bodies', def: 'Iron granules (Perls stain).<br><br>Associated with: Sideroblastic anemia, Post-splenectomy.' }
         ];
 
 const IMAGE_BANK_DATA = [
@@ -1981,10 +1974,10 @@ function renderBoard() {
              mainContent.classList.add('px-4', 'max-w-6xl', 'mx-auto'); 
             
             const isDisorderDeck = isDisorderMatchCategory(selectedCategory);
-            const leftHeader = isDisorderDeck ? 'Disorders' : 'Terms / Disease';
+            const leftHeader = isDisorderDeck ? 'Disorders' : 'Term / Intervention';
             const rightHeader = isDisorderDeck
               ? (disorderMatchMode === 'etiology' ? 'Etiology' : 'Labs / Clinical')
-              : 'Mechanism / Findings';
+              : 'Indication / Pattern';
             const matchModeControls = isDisorderDeck ? `
                 <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
                     <div class="text-xs font-bold text-slate-500 uppercase tracking-wider">Match to</div>
@@ -2454,7 +2447,7 @@ function startMorphMatch() {
   morphSelectedTerm = null;
   morphSelectedImage = null;
   morphWrongPair = null;
-  morphTermOrder = shuffleArray([...morphPairs]);
+  morphTermOrder = [...morphPairs].sort((a, b) => String(a.label || '').localeCompare(String(b.label || ''), undefined, { sensitivity: 'base' }));
   morphImageOrder = shuffleArray([...morphPairs]);
   updateUI();
 }
