@@ -128,7 +128,7 @@
               Combined
             </span>
           </div>
-          <div class="text-xs text-slate-500 font-semibold truncate">Decks • Flowchart • Images • Morphology Match • Drag/Drop • Mechanisms • Quizzes • Index</div>
+          <div class="text-xs text-slate-500 font-semibold truncate">Decks • Flowchart • Images • Morphology Match • Mechanisms • Quizzes • Index</div>
         </div>
       </div>
 
@@ -377,6 +377,23 @@ const FULL_DATA = [
             { category: 'Coagulation & Platelets', term: 'Factor V Leiden', etiology: 'Factor V mutation resistant to APC cleavage.', findings: 'Hypercoagulability (DVT/PE), normal PT/PTT.', def: 'Hypercoagulability (DVT/PE), normal PT/PTT.' },
             { category: 'Coagulation & Platelets', term: 'Antiphospholipid Syndrome (APS)', etiology: 'Antiphospholipid antibodies (lupus anticoagulant, anticardiolipin).', findings: 'Thrombosis + recurrent miscarriages, prolonged PTT (paradoxical).', def: 'Thrombosis + recurrent miscarriages, prolonged PTT (paradoxical).' },
             { category: 'Coagulation & Platelets', term: 'Heparin Induced Thrombocytopenia (HIT)', etiology: 'IgG against PF4-heparin complex.', findings: 'Platelet drop 5-10 days after heparin, thrombosis; positive PF4 antibody.', def: 'Platelet drop 5-10 days after heparin, thrombosis; positive PF4 antibody.' },
+
+            // --- HEMOSTASIS ESSENTIALS (MATCHING MODULE) ---
+            { category: 'Hemostasis Essentials', term: 'Packed RBCs', def: 'Use for symptomatic anemia or acute blood loss; trigger Hgb <7 g/dL (often higher if ischemia/CAD/ongoing hemorrhage); goal: improve oxygen delivery, not clotting.' },
+            { category: 'Hemostasis Essentials', term: 'Platelets', def: 'Use for bleeding risk from thrombocytopenia; trigger <10k/uL prophylaxis, <50k/uL active bleeding/procedure, <100k/uL neurosurgery/eye; goal: fix platelet number.' },
+            { category: 'Hemostasis Essentials', term: 'Fresh Frozen Plasma (FFP)', def: 'Use for multiple clotting factor replacement; trigger elevated PT/INR and/or PTT with bleeding (liver disease, DIC, massive transfusion); also for warfarin major bleed if PCC unavailable; goal: replace missing factors.' },
+            { category: 'Hemostasis Essentials', term: 'Cryoprecipitate', def: 'Use for low fibrinogen replacement; trigger fibrinogen <100-150 mg/dL (DIC, massive hemorrhage, postpartum hemorrhage); contains fibrinogen, VIII, vWF, XIII; goal: restore fibrinogen for stable clot formation.' },
+            { category: 'Hemostasis Essentials', term: 'Granulocytes', def: 'Use for severe neutropenia with life-threatening infection; consider profound neutropenia with serious infection not responding to antimicrobials; goal: temporary neutrophil boost.' },
+            { category: 'Hemostasis Essentials', term: 'Increased PT, normal PTT', def: 'Extrinsic pathway abnormality; points to warfarin (VII drops early), factor VII deficiency, early vitamin K deficiency; clue: PT only.' },
+            { category: 'Hemostasis Essentials', term: 'Increased PTT, normal PT', def: 'Intrinsic pathway abnormality; points to hemophilia A (VIII), hemophilia B (IX), or heparin effect; clue: PTT only.' },
+            { category: 'Hemostasis Essentials', term: 'Increased PT and PTT', def: 'Global/common pathway deficiency; points to DIC, severe liver failure, massive transfusion (dilutional), severe vitamin K deficiency; clue: everything prolonged.' },
+            { category: 'Hemostasis Essentials', term: 'Normal PT/PTT, increased bleeding time', def: 'Primary hemostasis defect; points to vWD, uremia, aspirin/NSAIDs, inherited platelet dysfunction (Glanzmann, Bernard-Soulier); clue: factors fine, bleeding persists.' },
+            { category: 'Hemostasis Essentials', term: 'Increased PTT that does not correct', def: 'Inhibitor present; points to lupus anticoagulant or factor VIII inhibitor; mixing rule: corrects = deficiency, no correction = inhibitor.' },
+            { category: 'Hemostasis Essentials', term: 'Desmopressin (DDAVP)', def: 'Boosts endogenous vWF + factor VIII; best for vWD type 1 and mild hemophilia A; use for minor bleeding/procedural prophylaxis; goal: rapid temporary factor/adhesion boost.' },
+            { category: 'Hemostasis Essentials', term: 'Protamine', def: 'Heparin reversal; best for unfractionated heparin; partial reversal for LMWH; goal: neutralize heparin immediately.' },
+            { category: 'Hemostasis Essentials', term: 'Vitamin K', def: 'Reverse warfarin by restoring factor production; targets II, VII, IX, X (+ C, S); timing hours (new synthesis); major bleed: IV vitamin K + PCC (FFP if PCC unavailable); goal: restore vitamin K-dependent coagulation.' },
+            { category: 'Hemostasis Essentials', term: 'Tranexamic acid', def: 'Antifibrinolytic to prevent clot breakdown; best for mucosal bleeding, menorrhagia, dental bleeding, trauma (early), postpartum hemorrhage protocols; goal: keep clots from lysing too quickly.' },
+            { category: 'Hemostasis Essentials', term: 'Hydroxyurea', def: 'Increase HbF and reduce sickling; cytoreduction for PV; best for sickle cell disease (fewer VOC/ACS) and polycythemia vera (lower thrombosis via cell counts); goal: HbF up or counts down.' },
 
             // --- FOUNDATIONS: LABS ---
             { category: 'Foundations: Labs', term: 'Hemoglobin (Hb/Hgb)', def: 'Direct measure of O2-carrying protein. Low = Anemia, High = Polycythemia.' },
@@ -704,48 +721,6 @@ const CLAUDE_FULL_DATA = [
             { category: 'Coagulation', term: 'Factor V Leiden', etiology: 'Factor V mutation resistant to APC cleavage.', findings: 'Hypercoagulability (DVT/PE), normal PT/PTT.', def: 'Hypercoagulability (DVT/PE), normal PT/PTT.' },
         ];
 
-const CLAUDE_DRAG_DROP_GAMES = {
-            transfusion: {
-                title: 'Transfusion Medicine',
-                subtitle: 'Match blood products to clinical indications',
-                icon: ICONS.Droplet,
-                color: 'from-red-500 to-rose-600',
-                pairs: [
-                    { item: 'Packed RBCs', match: 'Symptomatic anemia (Hgb <7 g/dL)' },
-                    { item: 'Platelets', match: 'Thrombocytopenia <10k or bleeding' },
-                    { item: 'Fresh Frozen Plasma (FFP)', match: 'Coagulopathy with ↑PT/PTT' },
-                    { item: 'Cryoprecipitate', match: 'Fibrinogen <100 mg/dL or vWD' },
-                    { item: 'Granulocytes', match: 'Severe neutropenia with infection' },
-                ]
-            },
-            hemostasis: {
-                title: 'Hemostasis Disorders',
-                subtitle: 'Match lab findings to diseases',
-                icon: ICONS.Activity,
-                color: 'from-blue-500 to-indigo-600',
-                pairs: [
-                    { item: '↑PT, Normal PTT', match: 'Factor VII deficiency / Warfarin' },
-                    { item: '↑PTT, Normal PT', match: 'Hemophilia A/B' },
-                    { item: '↑PT, ↑PTT', match: 'DIC / Liver disease' },
-                    { item: 'Normal PT/PTT, ↑Bleeding time', match: 'Platelet disorder (vWD, ITP)' },
-                    { item: '↑PTT (doesn\'t correct)', match: 'Lupus anticoagulant / Inhibitor' },
-                ]
-            },
-            pharmacology: {
-                title: 'Pharmacology',
-                subtitle: 'Match drugs to indications',
-                icon: ICONS.Pill,
-                color: 'from-emerald-500 to-teal-600',
-                pairs: [
-                    { item: 'Desmopressin (DDAVP)', match: 'vWD, Hemophilia A (mild)' },
-                    { item: 'Protamine', match: 'Heparin reversal' },
-                    { item: 'Vitamin K', match: 'Warfarin reversal' },
-                    { item: 'Tranexamic acid', match: 'Antifibrinolytic (bleeding)' },
-                    { item: 'Hydroxyurea', match: 'Sickle cell (↑HbF), Polycythemia vera' },
-                ]
-            }
-        };
-
 const CLAUDE_MECHANISM_GAMES = {
             drugs: {
                 title: 'Drug Mechanisms',
@@ -1007,27 +982,6 @@ const DISEASE_TABLE_INDEX = [
 
 const CLAUDE_DISEASE_INDEX = DISEASE_TABLE_INDEX;
 
-const COPILOT_MATCH_MODULES = {
-    'Transfusion Medicine': [
-        { id: 'm-tx-1', left: 'Platelets', right: 'Thrombocytopenia with bleeding / platelet dysfunction' },
-        { id: 'm-tx-2', left: 'Cryoprecipitate', right: 'Low fibrinogen (e.g., DIC), factor XIII deficiency' },
-        { id: 'm-tx-3', left: 'Fresh Frozen Plasma (FFP)', right: 'Coagulation factor replacement, warfarin reversal with bleeding' },
-        { id: 'm-tx-4', left: 'Packed RBCs', right: 'Symptomatic anemia, acute blood loss' }
-    ],
-    'Hemostasis': [
-        { id: 'm-hs-1', left: '↑ PT only', right: 'Vitamin K deficiency, Warfarin' },
-        { id: 'm-hs-2', left: '↑ aPTT only', right: 'Hemophilia A or B (intrinsic pathway)' },
-        { id: 'm-hs-3', left: '↑ PT & ↑ aPTT', right: 'DIC, Liver failure' },
-        { id: 'm-hs-4', left: 'Normal PT/aPTT, abnormal bleeding time', right: 'von Willebrand disease, platelet dysfunction' }
-    ],
-    'Pharmacology': [
-        { id: 'm-ph-1', left: 'Desmopressin (DDAVP)', right: 'vWD (type 1), mild Hemophilia A (releases vWF)' },
-        { id: 'm-ph-2', left: 'Vitamin K (phytonadione)', right: 'Warfarin reversal, newborns' },
-        { id: 'm-ph-3', left: 'Protamine sulfate', right: 'Heparin reversal' },
-        { id: 'm-ph-4', left: 'Tranexamic acid', right: 'Anti-fibrinolytic, mucosal bleeding' }
-    ]
-};
-
 const COPILOT_MECHANISM_SORTERS = {
     'Drugs→Mechanism': [
         { id: 's-dr-1', item: 'Warfarin', target: 'Inhibits VKOR (vitamin K epoxide reductase)' },
@@ -1069,77 +1023,6 @@ try {
 } catch (e) {
   console.warn('Claude FULL_DATA import failed:', e);
 }
-
-// Build unified Drag & Drop game registry
-const DRAGDROP_GAMES = (() => {
-  const out = {};
-
-  // Helper to create a consistent game object
-  const ensureGame = (key, base = {}) => {
-    if (!out[key]) {
-      out[key] = {
-        id: key,
-        title: base.title || key,
-        subtitle: base.subtitle || '',
-        icon: base.icon || ICONS.Layers,
-        // color is used as Tailwind gradient classes: "from-x to-y"
-        color: base.color || 'from-slate-600 to-slate-700',
-        pairs: []
-      };
-    }
-    return out[key];
-  };
-
-  // Claude games
-  try {
-    Object.entries(CLAUDE_DRAG_DROP_GAMES || {}).forEach(([key, g]) => {
-      const game = ensureGame(key, g || {});
-      const pairs = (g && Array.isArray(g.pairs)) ? g.pairs : [];
-      pairs.forEach((p, i) => {
-        game.pairs.push({
-          id: `claude-${key}-${i}`,
-          item: p.item,
-          match: p.match,
-          source: 'claude'
-        });
-      });
-    });
-  } catch (e) {
-    console.warn('Claude drag-drop games import failed:', e);
-  }
-
-  // Copilot matching modules (map into the same three buckets when possible)
-  try {
-    const NAME_TO_KEY = {
-      'Transfusion Matching': 'transfusion',
-      'Hemostasis': 'hemostasis',
-      'Pharmacology': 'pharmacology'
-    };
-
-    Object.entries(COPILOT_MATCH_MODULES || {}).forEach(([name, arr]) => {
-      const key = NAME_TO_KEY[name] || slugify(name);
-      const game = ensureGame(key, {
-        title: out[key]?.title || name,
-        subtitle: out[key]?.subtitle || 'Drag & drop matching (imported module)',
-        icon: out[key]?.icon || ICONS.Layers,
-        color: out[key]?.color || 'from-indigo-600 to-purple-600'
-      });
-
-      (arr || []).forEach((p, i) => {
-        game.pairs.push({
-          id: `copilot-${key}-${p.id || i}`,
-          item: p.left,
-          match: p.right,
-          source: 'copilot'
-        });
-      });
-    });
-  } catch (e) {
-    console.warn('Copilot matching modules import failed:', e);
-  }
-
-  return out;
-})();
 
 // Build unified Mechanism Sorter registry
 const MECHANISM_GAMES = (() => {
@@ -1475,11 +1358,6 @@ let lastMouseY = 0;
 let heldItem = null;
 let placedItems = {}; // { nodeId: term }
 
-// ----- Drag & Drop Practice State -----
-let ddSelectedGame = null; // key in DRAGDROP_GAMES
-let ddPairs = []; // [{id,item,match}]
-let ddMatched = new Set();
-
 // ----- Mechanism Sorter State -----
 let mechSelectedGame = null; // key in MECHANISM_GAMES
 let mechPairs = [];
@@ -1667,7 +1545,7 @@ function updateHeaderControls() {
     return;
   }
 
-  if (gameState === 'imagebank' || gameState === 'morphmatch' || gameState === 'index' || gameState === 'dragdrop' || gameState === 'mechanism' || gameState === 'playing' || gameState === 'game-end' || gameState === 'quiz') {
+  if (gameState === 'imagebank' || gameState === 'morphmatch' || gameState === 'index' || gameState === 'mechanism' || gameState === 'playing' || gameState === 'game-end' || gameState === 'quiz') {
     gameStats.classList.remove('hidden');
   }
 
@@ -1687,9 +1565,6 @@ function updateStats() {
   switch (gameState) {
     case 'playing':
       progressText = `${matchedIds.length} / ${deck.length}`;
-      break;
-    case 'dragdrop':
-      progressText = ddSelectedGame ? `${ddMatched.size} / ${ddPairs.length}` : 'Select game';
       break;
     case 'mechanism':
       progressText = mechSelectedGame ? `${mechMatched.size} / ${mechPairs.length}` : 'Select puzzle';
@@ -1731,8 +1606,6 @@ function updateUI() {
       renderImageBank(); break;
     case 'morphmatch':
       renderMorphMatch(); break;
-    case 'dragdrop':
-      renderDragDrop(); break;
     case 'mechanism':
       renderMechanism(); break;
     case 'quiz':
@@ -1752,7 +1625,6 @@ function goToMenu() {
   stopQuizTimer();
   gameState = 'menu';
   // Reset per-module selection states (non-destructive)
-  ddSelectedGame = null;
   mechSelectedGame = null;
   diState.detailIdx = null;
   morphPairs = [];
@@ -1826,13 +1698,12 @@ function renderMenu() {
           </div>
           <h2 class="text-4xl font-extrabold text-slate-900 leading-tight">Heme-Lymph Match</h2>
           <p class="text-slate-600 mt-3 max-w-2xl">
-            Matching decks, diagnostic flowchart, image bank, morphology matching, drag-and-drop practice, mechanism sorters, adaptive quizzes, and a searchable disease index.
+            Matching decks, diagnostic flowchart, image bank, morphology matching, mechanism sorters, adaptive quizzes, and a searchable disease index.
           </p>
           <div class="mt-4 flex flex-wrap gap-2 text-xs font-bold text-slate-600">
             <span class="px-3 py-1 rounded-full bg-white border border-slate-200">${FULL_DATA.length} cards</span>
             <span class="px-3 py-1 rounded-full bg-white border border-slate-200">${IMAGE_BANK_DATA.length} images</span>
             <span class="px-3 py-1 rounded-full bg-white border border-slate-200">${MORPH_MATCH_DATA.length} morphology images</span>
-            <span class="px-3 py-1 rounded-full bg-white border border-slate-200">${Object.keys(DRAGDROP_GAMES).length} drag-drop sets</span>
             <span class="px-3 py-1 rounded-full bg-white border border-slate-200">${Object.keys(MECHANISM_GAMES).length} mechanism sets</span>
             <span class="px-3 py-1 rounded-full bg-white border border-slate-200">${QUIZ_BANK.length} quiz questions</span>
             <span class="px-3 py-1 rounded-full bg-white border border-slate-200">${DISEASE_BANK.length} index entries</span>
@@ -1856,12 +1727,6 @@ function renderMenu() {
             <div class="p-3 rounded-xl bg-amber-100 text-amber-700 w-fit mb-3 group-hover:scale-110 transition-transform">${ICONS.Microscope}</div>
             <div class="font-bold text-slate-800">Morphology Matching (Images)</div>
             <div class="text-xs font-semibold text-slate-500 mt-1">Match labels to unlabeled images</div>
-          </button>
-
-          <button onclick="startDragDropMenu()" class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all text-left group">
-            <div class="p-3 rounded-xl bg-purple-100 text-purple-700 w-fit mb-3 group-hover:scale-110 transition-transform">${ICONS.Layers}</div>
-            <div class="font-bold text-slate-800">Drag & Drop</div>
-            <div class="text-xs font-semibold text-slate-500 mt-1">Match pairs</div>
           </button>
 
           <button onclick="startMechanismMenu()" class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all text-left group">
@@ -1942,6 +1807,7 @@ function renderCategoryGroups(renderHidden) {
     ]},
     { title: "Hemostasis & Thrombosis", items: [
       { id: 'Coagulation & Platelets', label: 'Coagulation & Platelet Disorders', icon: 'ShieldAlert', color: 'bg-blue-600' },
+      { id: 'Hemostasis Essentials', label: 'Hemostasis Essentials (Matching)', icon: 'Activity', color: 'bg-indigo-600' },
       { id: 'Foundations: Labs', label: 'Lab Diagnostics', icon: 'FlaskConical', color: 'bg-cyan-600' },
     ]},
     { title: "Others", items: [
@@ -2785,206 +2651,6 @@ function renderMorphMatch() {
 
   updateStats();
 }
-
-
-// ===== DRAG & DROP PRACTICE =====
-function startDragDropMenu() {
-  stopQuizTimer();
-  gameState = 'dragdrop';
-  score = 0;
-  mistakes = 0;
-  ddSelectedGame = null;
-  ddPairs = [];
-  ddMatched = new Set();
-  updateUI();
-}
-
-function startDragDropGame(gameKey) {
-  stopQuizTimer();
-  const g = DRAGDROP_GAMES[gameKey];
-  if (!g) return;
-  gameState = 'dragdrop';
-  score = 0;
-  mistakes = 0;
-  ddSelectedGame = gameKey;
-  ddPairs = (g.pairs || []).map(p => ({ ...p }));
-  ddMatched = new Set();
-  shuffleArray(ddPairs);
-  updateUI();
-}
-
-function ddHandleDragStart(ev) {
-  const el = ev.currentTarget;
-  const id = el.dataset.pairId;
-  if (!id) return;
-  ev.dataTransfer.setData('text/plain', id);
-  ev.dataTransfer.effectAllowed = 'move';
-  el.classList.add('dragging');
-}
-
-function ddHandleDragEnd(ev) {
-  ev.currentTarget.classList.remove('dragging');
-}
-
-function ddHandleDragOver(ev) {
-  ev.preventDefault();
-  ev.currentTarget.classList.add('drag-over');
-  ev.dataTransfer.dropEffect = 'move';
-}
-
-function ddHandleDragLeave(ev) {
-  ev.currentTarget.classList.remove('drag-over');
-}
-
-function ddHandleDrop(ev) {
-  ev.preventDefault();
-  const zone = ev.currentTarget;
-  zone.classList.remove('drag-over');
-
-  const expectedId = zone.dataset.pairId;
-  const draggedId = ev.dataTransfer.getData('text/plain');
-
-  if (!expectedId || !draggedId) return;
-
-  if (ddMatched.has(expectedId)) return;
-
-  if (draggedId === expectedId) {
-    ddMatched.add(expectedId);
-    score += 100;
-    checkAchievements();
-    updateStats();
-    renderDragDrop();
-  } else {
-    mistakes += 1;
-    updateStats();
-    zone.classList.add('animate-shake');
-    setTimeout(() => zone.classList.remove('animate-shake'), 450);
-  }
-}
-
-function renderDragDrop() {
-  mainContent.className = 'w-full flex-grow relative overflow-y-auto bg-gradient-to-br from-slate-50 to-purple-50 px-4 py-8';
-
-  if (!ddSelectedGame) {
-    const cards = Object.values(DRAGDROP_GAMES);
-    mainContent.innerHTML = `
-      <div class="max-w-6xl mx-auto animate-fadeIn">
-        <div class="flex items-center justify-between gap-4 mb-6">
-          <div>
-            <h2 class="text-3xl font-extrabold text-slate-900">Drag & Drop Practice</h2>
-            <div class="text-sm text-slate-600 mt-1">Choose a set to match items to targets.</div>
-          </div>
-          <button onclick="goToMenu()" class="px-4 py-2 rounded-xl border border-slate-200 bg-white shadow-sm font-bold text-slate-700 hover:bg-slate-50">Back</button>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-          ${cards.map(g => `
-            <button onclick="startDragDropGame('${escapeJs(g.id)}')" class="p-5 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all text-left group">
-              <div class="p-3 rounded-xl bg-gradient-to-br ${g.color} text-white w-fit mb-3 group-hover:scale-110 transition-transform">${g.icon}</div>
-              <div class="font-extrabold text-slate-900">${escapeHtml(g.title)}</div>
-              <div class="text-sm text-slate-600 mt-1">${escapeHtml(g.subtitle || '')}</div>
-              <div class="text-xs font-bold text-slate-500 mt-3">${(g.pairs || []).length} pairs</div>
-            </button>
-          `).join('')}
-        </div>
-      </div>
-    `;
-    updateStats();
-    return;
-  }
-
-  const g = DRAGDROP_GAMES[ddSelectedGame];
-  const items = ddPairs.filter(p => !ddMatched.has(p.id)).map(p => ({ id: p.id, text: p.item }));
-  const zones = ddPairs.map(p => ({ id: p.id, text: p.match }));
-
-  // Shuffle presentation order each render for robustness but keep stable enough:
-  shuffleArray(items);
-  shuffleArray(zones);
-
-  // Completion screen
-  if (ddMatched.size === ddPairs.length && ddPairs.length > 0) {
-    showAchievement('✅', 'Set Complete!', `${g.title} completed.`, `dd_${ddSelectedGame}_complete`);
-    mainContent.innerHTML = `
-      <div class="max-w-3xl mx-auto animate-popIn">
-        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-8 text-center">
-          <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-emerald-100 text-emerald-700 mb-4">
-            ${ICONS.CheckCircle}
-          </div>
-          <h2 class="text-3xl font-extrabold text-slate-900 mb-2">Completed</h2>
-          <div class="text-slate-600 mb-6">${escapeHtml(g.title)}</div>
-
-          <div class="grid grid-cols-2 gap-3 max-w-sm mx-auto mb-6">
-            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
-              <div class="text-xs font-bold text-slate-500 uppercase">Score</div>
-              <div class="text-2xl font-extrabold text-blue-600">${score}</div>
-            </div>
-            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
-              <div class="text-xs font-bold text-slate-500 uppercase">Mistakes</div>
-              <div class="text-2xl font-extrabold ${mistakes === 0 ? 'text-emerald-600' : 'text-rose-600'}">${mistakes}</div>
-            </div>
-          </div>
-
-          <div class="flex flex-col sm:flex-row gap-3 justify-center">
-            <button onclick="startDragDropGame('${escapeJs(ddSelectedGame)}')" class="px-5 py-3 rounded-xl bg-slate-900 text-white font-bold hover:bg-slate-800">Replay</button>
-            <button onclick="startDragDropMenu()" class="px-5 py-3 rounded-xl border border-slate-200 bg-white font-bold text-slate-700 hover:bg-slate-50">Choose another</button>
-          </div>
-        </div>
-      </div>
-    `;
-    updateStats();
-    return;
-  }
-
-  mainContent.innerHTML = `
-    <div class="max-w-7xl mx-auto animate-fadeIn">
-      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
-        <div>
-          <h2 class="text-3xl font-extrabold text-slate-900">${escapeHtml(g.title)}</h2>
-          <div class="text-sm text-slate-600 mt-1">${escapeHtml(g.subtitle || '')}</div>
-        </div>
-        <div class="flex gap-3">
-          <button onclick="startDragDropGame('${escapeJs(ddSelectedGame)}')" class="px-4 py-2 rounded-xl bg-slate-900 text-white font-bold hover:bg-slate-800">Restart</button>
-          <button onclick="startDragDropMenu()" class="px-4 py-2 rounded-xl border border-slate-200 bg-white shadow-sm font-bold text-slate-700 hover:bg-slate-50">Back</button>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
-          <h3 class="font-extrabold text-slate-900 mb-4">Items</h3>
-          <div class="space-y-3">
-            ${items.length ? items.map(it => `
-              <div class="draggable-item" draggable="true" data-pair-id="${escapeHtml(it.id)}"
-                   ondragstart="ddHandleDragStart(event)" ondragend="ddHandleDragEnd(event)">
-                ${escapeHtml(it.text)}
-              </div>
-            `).join('') : `<div class="text-slate-500 text-sm">All items placed.</div>`}
-          </div>
-        </div>
-
-        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
-          <h3 class="font-extrabold text-slate-900 mb-4">Targets</h3>
-          <div class="space-y-3">
-            ${zones.map(z => {
-              const placed = ddMatched.has(z.id) ? ddPairs.find(p => p.id === z.id)?.item : null;
-              return `
-                <div class="drop-zone" data-pair-id="${escapeHtml(z.id)}"
-                     ondragover="ddHandleDragOver(event)" ondragleave="ddHandleDragLeave(event)" ondrop="ddHandleDrop(event)">
-                  <div class="text-sm font-bold text-slate-700 mb-2">${escapeHtml(z.text)}</div>
-                  <div class="min-h-[42px]">
-                    ${placed ? `<div class="placed-item">${escapeHtml(placed)}</div>` : `<div class="text-xs text-slate-400">Drop item here</div>`}
-                  </div>
-                </div>
-              `;
-            }).join('')}
-          </div>
-        </div>
-      </div>
-    </div>
-  `;
-
-  updateStats();
-}
-
 
 
 // ===== MECHANISM SORTERS =====

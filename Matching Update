@@ -1,0 +1,164 @@
+### Hemostasis Essentials (Matching Game Format)
+
+**Term ➝ Answer Card (scannable + one-best-match)**
+
+---
+
+## 1) Packed RBCs
+
+**Use for:** Symptomatic anemia / acute blood loss
+**Trigger:** Hgb **<7 g/dL** (often higher if ischemia/CAD/ongoing hemorrhage)
+**Goal:** Improve **oxygen delivery** (not clotting)
+
+---
+
+## 2) Platelets
+
+**Use for:** Thrombocytopenia causing bleeding risk
+**Trigger:**
+
+* **<10k/µL** = prophylaxis
+* **<50k/µL** = active bleeding / procedure
+* **<100k/µL** = neurosurgery/eye (high risk)
+  **Goal:** Fix **platelet number**
+
+---
+
+## 3) Fresh Frozen Plasma (FFP)
+
+**Use for:** **Multiple clotting factor replacement** (global coagulopathy)
+**Trigger:** **PT/INR and/or PTT elevated + bleeding** (liver disease, DIC, massive transfusion)
+**Also:** Warfarin major bleed **if PCC unavailable**
+**Goal:** Replace **missing clotting factors**
+
+---
+
+## 4) Cryoprecipitate
+
+**Use for:** **Low fibrinogen** replacement
+**Trigger:** Fibrinogen **<100–150 mg/dL** (DIC, massive hemorrhage, postpartum hemorrhage)
+**Contains:** **Fibrinogen, VIII, vWF, XIII**
+**Goal:** Restore **fibrinogen → stable clot formation**
+
+---
+
+## 5) Tranexamic Acid (TXA)
+
+**Use for:** **Antifibrinolytic** (prevents clot breakdown)
+**Best for:** Mucosal bleeding, menorrhagia, dental bleeding, trauma (early), postpartum hemorrhage protocols
+**Goal:** Keep clots from being **lysed too quickly**
+
+---
+
+## 6) Desmopressin (DDAVP)
+
+**Use for:** Boost endogenous **vWF + Factor VIII**
+**Best for:** **vWD (type 1)**, **mild Hemophilia A**
+**Use case:** Minor bleeding / procedural prophylaxis
+**Goal:** Rapid **temporary factor/adhesion boost**
+
+---
+
+## 7) Vitamin K
+
+**Use for:** Reverse **warfarin** by restoring factor production
+**Targets:** Factors **II, VII, IX, X** (+ proteins **C, S**)
+**Timing:** **Hours** (requires new synthesis)
+**Major bleed:** **IV vitamin K + PCC** (FFP if PCC unavailable)
+**Goal:** Restore vitamin K-dependent **coagulation capacity**
+
+---
+
+## 8) Protamine
+
+**Use for:** **Heparin reversal**
+**Best for:** **Unfractionated heparin**
+**Note:** **Partial reversal** for LMWH (enoxaparin)
+**Goal:** Neutralize **heparin immediately**
+
+---
+
+## 9) Increased PT, normal PTT
+
+**Pattern:** **Extrinsic pathway** abnormality
+**Points to:**
+
+* **Warfarin** (Factor VII drops early)
+* **Factor VII deficiency**
+* Early **vitamin K deficiency**
+  **Key clue:** “PT only” → **VII/warfarin**
+
+---
+
+## 10) Increased PTT, normal PT
+
+**Pattern:** **Intrinsic pathway** abnormality
+**Points to:**
+
+* **Hemophilia A (VIII deficiency)**
+* **Hemophilia B (IX deficiency)**
+* **Heparin effect** (context dependent)
+  **Key clue:** “PTT only” → **hemophilia/heparin**
+
+---
+
+## 11) Increased PT and Increased PTT
+
+**Pattern:** **Global/common pathway** factor deficiency
+**Points to:**
+
+* **DIC** (consumption)
+* **Severe liver failure** (low synthesis)
+* **Massive transfusion** (dilutional)
+* Severe vitamin K deficiency (less common)
+  **Key clue:** “everything prolonged” → **system-wide factor depletion**
+
+---
+
+## 12) Normal PT/PTT + Increased Bleeding Time
+
+**Pattern:** **Primary hemostasis defect** (platelet function / vWF)
+**Points to:**
+
+* **vWD** (adhesion defect, PTT may be mildly ↑ sometimes)
+* **Uremia**
+* **Aspirin/NSAIDs**
+* Inherited platelet dysfunction (Glanzmann, Bernard-Soulier)
+  **Key clue:** “factors fine, bleeding still happening” → **platelet/vWF problem**
+
+---
+
+## 13) Increased PTT that does NOT correct (mixing study fails)
+
+**Pattern:** **Inhibitor present** (not simple deficiency)
+**Points to:**
+
+* **Lupus anticoagulant** (thrombotic clinically; prolonged PTT in lab)
+* **Factor VIII inhibitor** (acquired hemophilia)
+  **Mixing rule:**
+* **Corrects** = factor deficiency
+* **Does not correct** = inhibitor
+  **Key clue:** “mixing fails” → **inhibitor**
+
+---
+
+## 14) Hydroxyurea
+
+**Use for:** Increase **HbF** + reduce sickling; cytoreduction for PV
+**Best for:**
+
+* **Sickle cell disease** (↓ VOC, ↓ acute chest)
+* **Polycythemia vera** (↓ thrombosis via ↓ cell counts)
+  **Goal:** HbF up (SCD) / counts down (PV)
+
+---
+
+## 15) Granulocytes
+
+**Use for:** Rare support in **severe neutropenia + life-threatening infection**
+**Consider when:**
+
+* Profound neutropenia (very low ANC)
+* Serious infection
+* Not responding to antimicrobials (specialty-dependent)
+  **Goal:** Temporary **neutrophil boost** in extreme cases
