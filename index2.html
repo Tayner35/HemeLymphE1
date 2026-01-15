@@ -180,6 +180,269 @@ const DISEASE_INDEX = [
     { name: 'Plasmodium falciparum', mechanism: 'Parasitic infection of RBCs', type: 'Infection', smear: ['Ring forms'], associations: ['Travel history','Fevers'], labs: {} }
 ];
 
+const ANEMIA_FLOWCHART = {
+    initial: [
+        {
+            title: 'Step 1: Confirm anemia',
+            bullets: [
+                'Low Hb/Hct for age and sex',
+                'Assess symptoms and trend over time'
+            ],
+            labs: [
+                'CBC with indices',
+                'Reticulocyte count',
+                'Peripheral smear'
+            ],
+            exam: [
+                'Bleeding signs, nutrition, chronic illness'
+            ]
+        },
+        {
+            title: 'Step 2: Classify by MCV and retic',
+            bullets: [
+                'Microcytic: MCV < 80 fL',
+                'Normocytic: MCV 80-100 fL',
+                'Macrocytic: MCV > 100 fL'
+            ],
+            metrics: [
+                'RDW (high in IDA, normal in thal trait)',
+                'Retic index (RPI) > 2 suggests hemolysis or bleeding'
+            ]
+        }
+    ],
+    micro: [
+        {
+            title: 'Iron deficiency anemia',
+            sub: 'Microcytic, hypochromic',
+            labs: [
+                'Ferritin low',
+                'Iron low',
+                'TIBC high',
+                'Transferrin saturation low'
+            ],
+            smear: [
+                'Microcytosis, hypochromia, pencil cells'
+            ],
+            exam: [
+                'Pica, koilonychia, glossitis'
+            ],
+            notes: [
+                'Evaluate bleeding source and diet'
+            ]
+        },
+        {
+            title: 'Thalassemia trait',
+            labs: [
+                'RBC count normal or high',
+                'MCV very low',
+                'Mentzer index < 13',
+                'Ferritin normal'
+            ],
+            smear: [
+                'Target cells, basophilic stippling'
+            ],
+            exam: [
+                'Often asymptomatic or mild anemia'
+            ],
+            tests: [
+                'Hemoglobin electrophoresis'
+            ]
+        },
+        {
+            title: 'Anemia of chronic disease',
+            labs: [
+                'Ferritin normal or high',
+                'Iron low',
+                'TIBC low'
+            ],
+            smear: [
+                'Normocytic or microcytic'
+            ],
+            exam: [
+                'Chronic infection, inflammation, or malignancy'
+            ]
+        },
+        {
+            title: 'Sideroblastic anemia / lead',
+            labs: [
+                'Iron high',
+                'Ferritin high',
+                'TIBC normal or low',
+                'Lead level or B6 low'
+            ],
+            smear: [
+                'Basophilic stippling',
+                'Ring sideroblasts on marrow'
+            ],
+            exam: [
+                'Neuropathy or abdominal pain with lead'
+            ],
+            notes: [
+                'Consider drugs, alcohol, or MDS'
+            ]
+        }
+    ],
+    normo: [
+        {
+            title: 'Check retic index',
+            bullets: [
+                'Retic high: blood loss or hemolysis',
+                'Retic low: hypoproliferative'
+            ]
+        },
+        {
+            title: 'Hypoproliferative causes',
+            labs: [
+                'EPO low in CKD',
+                'Ferritin high in ACD',
+                'Pancytopenia in aplastic anemia'
+            ],
+            smear: [
+                'Often normal morphology'
+            ],
+            exam: [
+                'Chronic disease, renal failure, marrow failure'
+            ],
+            notes: [
+                'Consider marrow biopsy if unclear'
+            ]
+        },
+        {
+            title: 'Acute blood loss',
+            labs: [
+                'Hb/Hct drop after bleeding',
+                'Retic rises after 3-5 days'
+            ],
+            exam: [
+                'Hypotension, tachycardia, overt bleeding'
+            ]
+        }
+    ],
+    macro: [
+        {
+            title: 'Megaloblastic anemia',
+            labs: [
+                'B12 low or folate low',
+                'Homocysteine high',
+                'MMA high in B12'
+            ],
+            smear: [
+                'Macro-ovalocytes',
+                'Hypersegmented neutrophils'
+            ],
+            exam: [
+                'Glossitis',
+                'Neuro deficits in B12 deficiency'
+            ]
+        },
+        {
+            title: 'Non-megaloblastic macrocytosis',
+            labs: [
+                'LFTs high in liver disease',
+                'TSH high in hypothyroid',
+                'Retic high in hemolysis'
+            ],
+            smear: [
+                'Round macrocytes'
+            ],
+            exam: [
+                'Alcohol use, liver disease, hypothyroid'
+            ]
+        },
+        {
+            title: 'Medications / marrow',
+            labs: [
+                'Drug exposure: hydroxyurea, AZT, MTX',
+                'MDS may show pancytopenia'
+            ],
+            smear: [
+                'Dysplastic cells'
+            ],
+            notes: [
+                'Consider bone marrow biopsy'
+            ]
+        }
+    ],
+    hemolysis: [
+        {
+            title: 'Hemolysis labs',
+            labs: [
+                'LDH high',
+                'Indirect bilirubin high',
+                'Haptoglobin low',
+                'Retic high'
+            ],
+            tests: [
+                'Direct antiglobulin test (Coombs)'
+            ]
+        },
+        {
+            title: 'Immune hemolysis',
+            labs: [
+                'DAT positive'
+            ],
+            smear: [
+                'Spherocytes in warm AIHA',
+                'Agglutination in cold AIHA'
+            ],
+            exam: [
+                'Jaundice, splenomegaly'
+            ],
+            notes: [
+                'Warm IgG vs cold IgM'
+            ]
+        },
+        {
+            title: 'MAHA',
+            labs: [
+                'Platelets low',
+                'PT/PTT may be high in DIC'
+            ],
+            smear: [
+                'Schistocytes'
+            ],
+            exam: [
+                'Neuro or renal findings'
+            ],
+            notes: [
+                'TTP, HUS, DIC, HELLP, mechanical valves'
+            ]
+        },
+        {
+            title: 'Intrinsic RBC defects',
+            smear: [
+                'Spherocytes (HS)',
+                'Bite cells (G6PD)',
+                'Sickle cells',
+                'Target cells'
+            ],
+            labs: [
+                'G6PD assay',
+                'Osmotic fragility',
+                'Hb electrophoresis'
+            ],
+            exam: [
+                'Family history, jaundice, gallstones'
+            ]
+        },
+        {
+            title: 'Infections and other',
+            smear: [
+                'Ring forms (malaria)',
+                'Maltese cross (babesia)'
+            ],
+            tests: [
+                'Parasite testing',
+                'Flow cytometry for PNH'
+            ],
+            notes: [
+                'Consider travel or dark urine'
+            ]
+        }
+    ]
+};
+
+
 /* ---------------------------
    STATE
    --------------------------- */
@@ -188,6 +451,7 @@ let leaderboardKey = 'heme_leaderboard_v1';
 let currentMatching = { module: null, left: [], right: [], placed: {} };
 let mechanismState = { puzzle: null, items: [], placed: {} };
 let quizState = { difficulty: 1, timer: 30, score: 0, current: null, remaining: [], timerInterval: null };
+let flowZoom = 1;
 
 /* ---------------------------
    DOM refs
@@ -223,6 +487,7 @@ function updateUI(){
         else if(gameState==='mechanism'){ gameStats.classList.add('hidden'); flowchartControls.classList.add('hidden'); renderMechanismSorter(); }
         else if(gameState==='quiz'){ gameStats.classList.remove('hidden'); flowchartControls.classList.add('hidden'); renderQuiz(); }
         else if(gameState==='index'){ gameStats.classList.add('hidden'); flowchartControls.classList.add('hidden'); renderDiseaseIndex(); }
+        else if(gameState==='flowchart'){ gameStats.classList.add('hidden'); flowchartControls.classList.remove('hidden'); renderFlowchart(); }
     }
 }
 
@@ -258,6 +523,12 @@ function renderMenu(){
                 <div><h3 class="font-bold">Searchable Disease Index</h3><div class="text-xs text-slate-400">Filter by smear, etiology, labs</div></div></div>
             </button>
 
+
+            <button onclick="startFlowchart()" class="p-4 bg-white rounded-xl border hover:shadow col-span-2 md:col-span-1">
+                <div class="flex items-center gap-3"><div class="p-3 rounded bg-cyan-600 text-white">${ICONS.Activity}</div>
+                <div><h3 class="font-bold">Anemia Flowchart</h3><div class="text-xs text-slate-400">Stepwise diagnosis with labs and smear</div></div></div>
+            </button>
+
             <button onclick="startImageBank()" class="p-4 bg-white rounded-xl border hover:shadow col-span-2 md:col-span-1">
                 <div class="flex items-center gap-3"><div class="p-3 rounded bg-emerald-600 text-white">${ICONS.Image}</div>
                 <div><h3 class="font-bold">Pathology Image Bank</h3><div class="text-xs text-slate-400">Curated slides</div></div></div>
@@ -274,6 +545,99 @@ function renderMenu(){
         </div>
     </div>
     `;
+}
+
+
+/* ---------------------------
+   ANEMIA FLOWCHART
+   --------------------------- */
+function startFlowchart(){ gameState='flowchart'; updateUI(); }
+
+function renderFlowCard(card){
+    const list = (items) => items && items.length
+        ? `<ul class="list-disc pl-5 space-y-1 text-sm text-slate-700">${items.map(i => `<li>${escapeHtml(i)}</li>`).join('')}</ul>`
+        : '';
+    const section = (label, items) => items && items.length
+        ? `<div class="mt-3"><div class="text-[11px] font-bold uppercase tracking-wider text-slate-500">${label}</div>${list(items)}</div>`
+        : '';
+
+    return `
+        <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+            <div class="font-bold text-slate-900">${escapeHtml(card.title)}</div>
+            ${card.sub ? `<div class="text-xs text-slate-500 mt-1">${escapeHtml(card.sub)}</div>` : ''}
+            ${card.bullets ? `<div class="mt-2">${list(card.bullets)}</div>` : ''}
+            ${section('Labs', card.labs)}
+            ${section('Smear', card.smear)}
+            ${section('Exam', card.exam)}
+            ${section('Metrics', card.metrics)}
+            ${section('Tests', card.tests)}
+            ${section('Notes', card.notes)}
+        </div>
+    `;
+}
+
+function renderFlowchart(){
+    const initial = ANEMIA_FLOWCHART.initial.map(renderFlowCard).join('');
+    const micro = ANEMIA_FLOWCHART.micro.map(renderFlowCard).join('');
+    const normo = ANEMIA_FLOWCHART.normo.map(renderFlowCard).join('');
+    const macro = ANEMIA_FLOWCHART.macro.map(renderFlowCard).join('');
+    const hemolysis = ANEMIA_FLOWCHART.hemolysis.map(renderFlowCard).join('');
+
+    mainContent.innerHTML = `
+        <div class="max-w-7xl mx-auto px-6 py-6">
+            <div class="flex items-start justify-between gap-4 mb-6">
+                <div>
+                    <h2 class="text-2xl font-bold">Anemia Diagnostic Flowchart</h2>
+                    <div class="text-sm text-slate-500 mt-1">Stepwise approach using labs, morphology, and exam findings.</div>
+                </div>
+                <button onclick="goToMenu()" class="px-3 py-2 bg-white rounded border">Back</button>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm overflow-auto">
+                <div id="flowchart-content" style="transform: scale(${flowZoom}); transform-origin: top left; min-width: 980px;">
+                    <div class="mb-6">
+                        <div class="text-sm font-bold uppercase tracking-wider text-slate-500 mb-3">Initial Evaluation</div>
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">${initial}</div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="text-sm font-bold uppercase tracking-wider text-slate-500 mb-3">MCV Branches</div>
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                            <div>
+                                <div class="text-sm font-bold text-cyan-700 mb-2">Microcytic</div>
+                                <div class="space-y-4">${micro}</div>
+                            </div>
+                            <div>
+                                <div class="text-sm font-bold text-emerald-700 mb-2">Normocytic</div>
+                                <div class="space-y-4">${normo}</div>
+                            </div>
+                            <div>
+                                <div class="text-sm font-bold text-indigo-700 mb-2">Macrocytic</div>
+                                <div class="space-y-4">${macro}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="text-sm font-bold uppercase tracking-wider text-slate-500 mb-3">Hemolysis Workup (for retic high or hemolysis suspected)</div>
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">${hemolysis}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function adjustZoom(delta){
+    flowZoom = Math.max(0.6, Math.min(1.6, flowZoom + delta));
+    const el = document.getElementById('flowchart-content');
+    if(el) el.style.transform = `scale(${flowZoom})`;
+}
+
+function resetZoom(){
+    flowZoom = 1;
+    const el = document.getElementById('flowchart-content');
+    if(el) el.style.transform = `scale(${flowZoom})`;
 }
 
 /* ---------------------------
