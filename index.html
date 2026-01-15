@@ -200,7 +200,7 @@
         </div>
         <div class="p-6">
           <h3 id="modal-title" class="text-2xl font-extrabold text-slate-900 mb-2"></h3>
-          <p id="modal-desc" class="text-slate-700"></p>
+          <div id="modal-desc" class="text-slate-700"></div>
         </div>
       </div>
     </div>
@@ -282,6 +282,50 @@ function escapeJs(str) {
     .replaceAll('"', '\\"')
     .replaceAll('\n', '\\n')
     .replaceAll('\r', '\\r');
+}
+
+
+function formatConditionList(conditions) {
+  const items = Array.isArray(conditions)
+    ? conditions.filter(Boolean).map(item => String(item))
+    : (conditions ? [String(conditions)] : []);
+
+  if (!items.length) {
+    return '<div class="text-slate-500">-</div>';
+  }
+  if (items.length === 1) {
+    return `<div>${escapeHtml(items[0])}</div>`;
+  }
+  return `<ul class="list-disc pl-5 space-y-1">${items.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul>`;
+}
+
+function buildImageModalDescription(meta, fallbackDesc) {
+  if (!meta || (!meta.appearance && !meta.mechanism && !meta.conditions)) {
+    return fallbackDesc
+      ? `<p class="text-slate-700">${escapeHtml(fallbackDesc)}</p>`
+      : '<div class="text-slate-500">-</div>';
+  }
+
+  const appearanceText = meta.appearance || fallbackDesc || '-';
+  const conditionsHtml = formatConditionList(meta.conditions);
+  const mechanismText = meta.mechanism || '-';
+
+  return `
+    <div class="rounded-xl border border-slate-200 bg-slate-50 overflow-hidden text-sm">
+      <div class="p-4">
+        <div class="text-xs font-extrabold uppercase tracking-wider text-slate-500 mb-1">Appearance</div>
+        <div class="text-slate-700">${escapeHtml(appearanceText)}</div>
+      </div>
+      <div class="border-t border-slate-200 p-4">
+        <div class="text-xs font-extrabold uppercase tracking-wider text-slate-500 mb-1">Diseases / Disorders</div>
+        <div class="text-slate-700">${conditionsHtml}</div>
+      </div>
+      <div class="border-t border-slate-200 p-4">
+        <div class="text-xs font-extrabold uppercase tracking-wider text-slate-500 mb-1">Mechanism</div>
+        <div class="text-slate-700">${escapeHtml(mechanismText)}</div>
+      </div>
+    </div>
+  `;
 }
 
 function slugify(str) {
@@ -484,6 +528,8 @@ const FULL_DATA = [
             { category: 'Foundations: RBC Morphology', term: 'Pappenheimer Bodies', def: 'Iron granules (Perls stain).<br><br>Associated with: Sideroblastic anemia, Post-splenectomy.' }
         ];
 
+const PLAIN_MORPH_BASE = 'https://tayner35.github.io/HemeLymphE1-Images/Morphology_Plain_Images/';
+
 const IMAGE_BANK_DATA = [
              // --- RBC Morphology ---
             { id: 'img_rbc_01', src: 'https://tayner35.github.io/HemeLymphE1-Images/RBC_Morphology/Slide1.jpeg', title: 'Normal Erythrocyte', desc: 'Biconcave disc-shaped red blood cell optimized for gas exchange and deformability.' },
@@ -529,6 +575,34 @@ const IMAGE_BANK_DATA = [
             { id: 'img_rbc_41', src: 'https://tayner35.github.io/HemeLymphE1-Images/RBC_Morphology/Slide41.jpeg', title: 'Normoblasts (Nucleated RBCs) in Hemolysis', desc: 'Nucleated RBCs in peripheral blood reflect marked erythropoietic stress, as in brisk hemolysis or severe hypoxia.' },
             { id: 'img_rbc_42', src: 'https://tayner35.github.io/HemeLymphE1-Images/RBC_Morphology/Slide42.jpeg', title: 'Hemolytic Disease of the Newborn', desc: 'Numerous nucleated RBCs indicating severe neonatal hemolysis with increased marrow output/extramedullary hematopoiesis.' },
             { id: 'img_rbc_43', src: 'https://tayner35.github.io/HemeLymphE1-Images/RBC_Morphology/Slide43.jpeg', title: 'Rouleaux Formation (Plasma Cell Myeloma)', desc: 'Stack-of-coins RBC aggregation due to increased plasma proteins (immunoglobulins) reducing zeta potential, classically in multiple myeloma.' },
+
+            // --- Morphology: Plain Images ---
+            { id: 'img_plain_acanthocytes', src: `${PLAIN_MORPH_BASE}Acanthocytes.png`, title: 'Acanthocytes (Spur Cells)', desc: 'Irregular, thorny RBCs with uneven spicules.', appearance: 'RBCs with irregular, variably spaced spicules of different lengths.', conditions: ['Severe liver disease', 'Abetalipoproteinemia'], mechanism: 'Altered membrane lipid composition (excess cholesterol) produces spicules.' },
+            { id: 'img_plain_anisocytosis', src: `${PLAIN_MORPH_BASE}Anisocytosis.png`, title: 'Anisocytosis', desc: 'Marked variation in RBC size.', appearance: 'RBC population with noticeable size variability.', conditions: ['Iron deficiency anemia', 'Megaloblastic anemia', 'Thalassemia trait'], mechanism: 'Disordered erythropoiesis creates mixed cell sizes.' },
+            { id: 'img_plain_banana_gametocytes', src: `${PLAIN_MORPH_BASE}Banana-shaped%20Gametocytes.png`, title: 'Banana-shaped Gametocytes', desc: 'Crescent gametocytes within RBCs.', appearance: 'Elongated, curved gametocytes inside infected RBCs.', conditions: ['Plasmodium falciparum malaria'], mechanism: 'P. falciparum gametocyte maturation elongates and distorts the host RBC.' },
+            { id: 'img_plain_band_forms', src: `${PLAIN_MORPH_BASE}Band%20Forms.png`, title: 'Band Forms (P. malariae)', desc: 'Band-shaped trophozoites across RBCs.', appearance: 'Band-like parasite stretching across the RBC cytoplasm.', conditions: ['Plasmodium malariae malaria'], mechanism: 'Trophozoite stage of P. malariae grows in a band form within the RBC.' },
+            { id: 'img_plain_barr_body', src: `${PLAIN_MORPH_BASE}Barr%20Body.png`, title: 'Barr Body', desc: 'Drumstick nuclear appendage in neutrophils.', appearance: 'Small drumstick-like nuclear appendage on a neutrophil nucleus.', conditions: [], mechanism: 'X chromosome inactivation condenses into a Barr body.' },
+            { id: 'img_plain_basophilic_stippling', src: `${PLAIN_MORPH_BASE}Basophilic%20Stipling.png`, title: 'Basophilic Stippling', desc: 'Blue granules dispersed through RBCs.', appearance: 'Fine or coarse blue cytoplasmic granules throughout RBCs.', conditions: ['Lead poisoning', 'Thalassemia', 'Sideroblastic anemia', 'Alcohol use'], mechanism: 'Aggregated ribosomal RNA from impaired heme synthesis or ribosome degradation.' },
+            { id: 'img_plain_dacrocytes', src: `${PLAIN_MORPH_BASE}Dacrocytes.png`, title: 'Dacrocytes (Teardrop Cells)', desc: 'Teardrop-shaped RBCs.', appearance: 'RBCs tapered at one end, giving a teardrop shape.', conditions: ['Myelofibrosis / marrow infiltration', 'Thalassemia'], mechanism: 'Mechanical distortion as cells traverse fibrotic or infiltrated marrow.' },
+            { id: 'img_plain_echinocytes', src: `${PLAIN_MORPH_BASE}Echinocytes.png`, title: 'Echinocytes (Burr Cells)', desc: 'RBCs with short, uniform projections.', appearance: 'Evenly spaced, short surface projections on RBCs.', conditions: ['Uremia / chronic kidney disease', 'Pyruvate kinase deficiency', 'Liver disease'], mechanism: 'ATP depletion or membrane lipid changes cause crenation; can be artifactual.' },
+            { id: 'img_plain_elliptocytes', src: `${PLAIN_MORPH_BASE}Elliptocytes.png`, title: 'Elliptocytes (Pencil Cells)', desc: 'Elongated oval RBCs.', appearance: 'Elliptical or pencil-shaped RBCs.', conditions: ['Hereditary elliptocytosis'], mechanism: 'Membrane skeleton defects lead to elongated cells.' },
+            { id: 'img_plain_heinz_bodies', src: `${PLAIN_MORPH_BASE}Heinz%20Bodies.png`, title: 'Heinz Bodies', desc: 'Denatured hemoglobin inclusions.', appearance: 'Dark intracellular inclusions seen on supravital stain.', conditions: ['G6PD deficiency'], mechanism: 'Oxidative stress denatures hemoglobin, forming precipitates.' },
+            { id: 'img_plain_howell_jolly', src: `${PLAIN_MORPH_BASE}Howell-Jolly%20Bodies.png`, title: 'Howell-Jolly Bodies', desc: 'Single nuclear DNA remnant in RBCs.', appearance: 'Round, dark basophilic inclusion within an RBC.', conditions: ['Post-splenectomy', 'Functional asplenia'], mechanism: 'Failure of splenic filtration allows nuclear remnants to persist.' },
+            { id: 'img_plain_hypersegmented', src: `${PLAIN_MORPH_BASE}Hypersegmented%20Neutrophils.png`, title: 'Hypersegmented Neutrophils', desc: 'Neutrophils with six or more lobes.', appearance: 'Neutrophils with excessively segmented nuclei.', conditions: ['Vitamin B12 deficiency', 'Folate deficiency'], mechanism: 'Impaired DNA synthesis delays nuclear maturation.' },
+            { id: 'img_plain_large_platelets', src: `${PLAIN_MORPH_BASE}Large%20Platelets.png`, title: 'Large Platelets', desc: 'Oversized platelets in peripheral smear.', appearance: 'Platelets comparable in size to RBCs or larger.', conditions: ['Immune thrombocytopenia (ITP)'], mechanism: 'Increased platelet turnover releases young, larger platelets.' },
+            { id: 'img_plain_macrocytic', src: `${PLAIN_MORPH_BASE}Macrocytic.png`, title: 'Macrocytosis (Macrocytic RBCs)', desc: 'RBCs larger than normal.', appearance: 'Enlarged RBCs with increased MCV, often oval.', conditions: ['Vitamin B12 deficiency', 'Folate deficiency', 'Alcoholism', 'Liver disease', 'Copper deficiency', 'Diamond-Blackfan anemia'], mechanism: 'Impaired DNA synthesis or membrane lipid changes lead to oversized cells.' },
+            { id: 'img_plain_microcytic', src: `${PLAIN_MORPH_BASE}Microcytic.png`, title: 'Microcytosis (Microcytic RBCs)', desc: 'Small RBCs with increased central pallor.', appearance: 'RBCs smaller than normal, often hypochromic.', conditions: ['Iron deficiency anemia', 'Thalassemia', 'Anemia of chronic disease', 'Lead poisoning', 'Sideroblastic anemia', 'Copper deficiency'], mechanism: 'Reduced hemoglobin synthesis results in extra cell divisions and smaller cells.' },
+            { id: 'img_plain_nucleated_rbcs', src: `${PLAIN_MORPH_BASE}Nucleated%20RBCs.png`, title: 'Nucleated RBCs', desc: 'Immature RBCs with nuclei in peripheral blood.', appearance: 'RBC precursors retain nuclei on smear.', conditions: ['Thalassemia major', 'Hemolytic disease of the newborn', 'Severe hemolysis or hypoxia'], mechanism: 'Marrow stress or extramedullary hematopoiesis releases immature RBCs.' },
+            { id: 'img_plain_pappenheimer', src: `${PLAIN_MORPH_BASE}Pappenheimer%20Bodies.png`, title: 'Pappenheimer Bodies', desc: 'Iron-containing granules in RBCs.', appearance: 'Small, irregular basophilic granules in RBCs.', conditions: ['Sideroblastic anemia', 'Post-splenectomy'], mechanism: 'Excess iron persists as granules; spleen normally removes them.' },
+            { id: 'img_plain_ring_forms', src: `${PLAIN_MORPH_BASE}Ring%20Forms.png`, title: 'Ring Forms (Malaria)', desc: 'Ring-shaped intraerythrocytic parasites.', appearance: 'Delicate ring-shaped trophozoites within RBCs.', conditions: ['Plasmodium falciparum malaria'], mechanism: 'Early intraerythrocytic stage of malaria parasites forms a ring.' },
+            { id: 'img_plain_rouleaux', src: `${PLAIN_MORPH_BASE}Rouleaux%20Formations.png`, title: 'Rouleaux Formation', desc: 'Stack-of-coins RBC aggregation.', appearance: 'RBCs aligned in linear stacks.', conditions: ['Multiple myeloma', 'Chronic inflammation'], mechanism: 'Elevated plasma proteins reduce zeta potential, promoting stacking.' },
+            { id: 'img_plain_schistocytes', src: `${PLAIN_MORPH_BASE}Schistocytes.png`, title: 'Schistocytes', desc: 'Fragmented RBCs (helmet cells).', appearance: 'Irregular RBC fragments with sharp edges.', conditions: ['Thrombotic thrombocytopenic purpura (TTP)', 'Hemolytic uremic syndrome (HUS)', 'Disseminated intravascular coagulation (DIC)', 'HELLP syndrome', 'Mechanical heart valves'], mechanism: 'Shearing of RBCs by fibrin strands or prosthetic surfaces.' },
+            { id: 'img_plain_schuffner', src: `${PLAIN_MORPH_BASE}Sch%E2%80%99fner%20Dots.png`, title: 'Schuffner Dots', desc: 'Fine stippling in infected RBCs.', appearance: 'Fine red granules in enlarged infected RBCs.', conditions: ['Plasmodium vivax malaria', 'Plasmodium ovale malaria'], mechanism: 'Parasite-induced membrane changes create stippling.' },
+            { id: 'img_plain_sickle_cells', src: `${PLAIN_MORPH_BASE}Sickle%20Cells.png`, title: 'Sickle Cells', desc: 'Crescent-shaped RBCs.', appearance: 'Elongated, curved RBCs with pointed ends.', conditions: ['Sickle cell disease'], mechanism: 'Deoxygenated HbS polymerizes, distorting the RBC membrane.' },
+            { id: 'img_plain_spherocytes', src: `${PLAIN_MORPH_BASE}Spherocytes.png`, title: 'Spherocytes', desc: 'Round, dense RBCs without central pallor.', appearance: 'Small, spherical RBCs lacking central pallor.', conditions: ['Hereditary spherocytosis', 'Warm autoimmune hemolytic anemia'], mechanism: 'Membrane loss reduces surface area-to-volume ratio.' },
+            { id: 'img_plain_stomatocytes', src: `${PLAIN_MORPH_BASE}Stromatocytes.png`, title: 'Stomatocytes', desc: 'RBCs with slit-like central pallor.', appearance: 'Cup-shaped RBCs with a fish-mouth central slit.', conditions: ['Hereditary stomatocytosis', 'Alcoholism', 'Liver disease'], mechanism: 'Membrane cation leak or lipid changes increase cell hydration.' },
+            { id: 'img_plain_target_cells', src: `${PLAIN_MORPH_BASE}Target%20Cells.png`, title: 'Target Cells', desc: 'Bullseye RBCs with central hemoglobin.', appearance: 'Central hemoglobinized area with surrounding pallor and outer rim.', conditions: ['Thalassemia', 'Liver disease', 'Hemoglobin C disease', 'Asplenia', 'Sickle cell disease'], mechanism: 'Excess membrane surface area or altered hemoglobin creates a target appearance.' },
+
             // --- Module 11: Hemopoiesis ---
             { id: 'img_ls11_01', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_11_Hemopoesis/LS11-01.jpg', title: 'Bone marrow section', desc: 'Histological section of hematopoietic bone marrow filled with nucleated precursors of erythroid and myeloid lineages.' },
             { id: 'img_ls11_02', src: 'https://tayner35.github.io/HemeLymphE1-Images/Mod_11_Hemopoesis/LS11-02.jpg', title: 'Yellow bone marrow', desc: 'Section showing adipose-rich yellow marrow with large unilocular fat cells separated by thin vascular septa.' },
@@ -2313,10 +2387,10 @@ function renderFlowchart() {
 
 
 // ===== IMAGE MODAL =====
-function openImageModal(src, title, desc) {
+function openImageModal(src, title, desc, meta) {
   modalImg.src = src;
   modalTitle.textContent = title || '';
-  modalDesc.textContent = desc || '';
+  modalDesc.innerHTML = buildImageModalDescription(meta, desc);
   imageModal.classList.remove('hidden');
   imageModal.classList.add('flex');
 }
@@ -2324,6 +2398,7 @@ function closeImageModal() {
   imageModal.classList.add('hidden');
   imageModal.classList.remove('flex');
   modalImg.src = '';
+  modalDesc.innerHTML = '';
 }
 imageModal.addEventListener('click', (e) => {
   if (e.target === imageModal) closeImageModal();
@@ -2376,7 +2451,7 @@ function openImageByIndex(idx) {
   const i = Number(idx);
   const img = IMAGE_BANK_DATA[i];
   if (!img) return;
-  openImageModal(img.src, img.title, img.desc);
+  openImageModal(img.src, img.title, img.desc, img);
 }
 
 function renderImageBank() {
@@ -2386,7 +2461,8 @@ function renderImageBank() {
   const filtered = IMAGE_BANK_DATA.map((img, idx) => ({ img, idx }))
     .filter(({ img }) => {
       if (!q) return true;
-      const hay = `${img.title} ${img.desc}`.toLowerCase();
+      const conditions = Array.isArray(img.conditions) ? img.conditions.join(' ') : (img.conditions || '');
+      const hay = `${img.title || ''} ${img.desc || ''} ${img.appearance || ''} ${conditions} ${img.mechanism || ''}`.toLowerCase();
       return hay.includes(q);
     });
 
