@@ -422,6 +422,22 @@ const FULL_DATA = [
             { category: 'Coagulation & Platelets', term: 'Antiphospholipid Syndrome (APS)', etiology: 'Antiphospholipid antibodies (lupus anticoagulant, anticardiolipin).', findings: 'Thrombosis + recurrent miscarriages, prolonged PTT (paradoxical).', def: 'Thrombosis + recurrent miscarriages, prolonged PTT (paradoxical).' },
             { category: 'Coagulation & Platelets', term: 'Heparin Induced Thrombocytopenia (HIT)', etiology: 'IgG against PF4-heparin complex.', findings: 'Platelet drop 5-10 days after heparin, thrombosis; positive PF4 antibody.', def: 'Platelet drop 5-10 days after heparin, thrombosis; positive PF4 antibody.' },
 
+            // --- THROMBOLITIC DISORDERS ---
+            { category: 'Thrombolitic Disorders', term: 'Thrombocytopenia', etiology: '-Platelet production (marrow failure, chemo, B12/folate)<br>-Destruction (immune, DIC/TTP/HUS)<br>-Splenic sequestration<br>-Dilutional (massive transfusion)', findings: '- Platelet count < 150,000/æL.<br>- Possible pseudothrombocytopenia from EDTA clumping.<br><br>- Petechiae and purpura.<br>- Mucocutaneous bleeding.', def: 'Low circulating platelet count.' },
+            { category: 'Thrombolitic Disorders', term: 'Immune Thrombocytopenia (ITP)', etiology: '-IgG autoantibodies against platelet GPIIb/IIIa<br>-Splenic destruction', findings: '- Low platelet count.<br>- Increased Mean Platelet Volume (MPV).<br><br>- Epistaxis and gingival bleeding.<br>- Menorrhagia.', def: 'Immune-mediated platelet destruction.' },
+            { category: 'Thrombolitic Disorders', term: 'von Willebrand Disease (vWD)', etiology: '-Quantitative or qualitative defect in vWF (usually inherited AD)<br>-Impaired platelet adhesion<br>-Factor VIII stabilization', findings: '- Decreased vWF:Ag (antigen) in Type 1 and 3.<br>- Low Ristocetin cofactor activity.<br>- Normal or prolonged aPTT.<br><br>- Heavy menstrual bleeding.<br>- Bleeding after dental or surgical procedures.', def: 'Defective platelet-vessel wall adhesion.' },
+            { category: 'Thrombolitic Disorders', term: 'Bernard-Soulier Syndrome', etiology: '-AR defect of platelet GPIb<br>-Impaired adhesion to vWF (macrothrombocytopenia)', findings: '- Large platelets on peripheral smear.<br>- Non-response to Ristocetin in aggregation studies.<br><br>- Variable mucosal bleeding tendency.<br>- Prolonged bleeding from cuts.', def: 'GpIb receptor deficiency/dysfunction.' },
+            { category: 'Thrombolitic Disorders', term: 'Glanzmann Thrombasthenia', etiology: '-AR defect of platelet GPIIb/IIIa<br>-Impaired platelet aggregation (no fibrinogen bridging)', findings: '- Normal platelet count.<br>- No aggregation with any agonist except Ristocetin.<br><br>- Severe mucocutaneous bleeding.<br>- Epistaxis and menorrhagia.', def: 'GpIIb/IIIa aggregation receptor deficiency.' },
+            { category: 'Thrombolitic Disorders', term: 'Hemophilia A & B', etiology: '-X-linked recessive deficiency of factor VIII (A) or factor IX (B)<br>-Intrinsic pathway defect', findings: '- Prolonged aPTT that corrects with mixing study.<br>- Low activity of Factor VIII (A) or Factor IX (B).<br><br>- Hemarthrosis (bleeding into joints).<br>- Deep tissue muscle hematomas.', def: 'Inherited coagulation factor deficiency.' },
+            { category: 'Thrombolitic Disorders', term: 'Factor XIII Deficiency', etiology: '-AR deficiency of factor XIII<br>-Impaired fibrin cross-linking (delayed bleeding, poor wound healing)', findings: '- Normal PT and aPTT screening tests.<br>- Decreased Factor XIII activity.<br><br>- Delayed wound hemorrhage (clot forms but fails).<br>- Umbilical stump bleeding in neonates.', def: 'Defective fibrin clot stabilization.' },
+            { category: 'Thrombolitic Disorders', term: 'Vitamin K Deficiency', etiology: '-Decreased gamma-carboxylation of factors II, VII, IX, X<br>-Proteins C/S (malabsorption, antibiotics, newborns)', findings: '- Prolonged PT/INR and aPTT.<br>- Low Factors II, VII, IX, and X.<br><br>- Spontaneous bruising.<br>- Deep tissue or mucosal hemorrhage.', def: 'Impaired clotting factor synthesis.' },
+            { category: 'Thrombolitic Disorders', term: 'Liver Disease', etiology: '-Decreased synthesis of clotting factors (and thrombopoietin)<br>-Impaired clearance of anticoagulants<br>-Often thrombocytopenia from hypersplenism', findings: '- Prolonged PT/INR and aPTT.<br>- Thrombocytopenia if splenomegaly is present.<br><br>- Oozing from puncture sites.<br>- Severe internal hemorrhaging.', def: 'Decreased synthesis of multiple factors.' },
+            { category: 'Thrombolitic Disorders', term: 'Factor V Leiden', etiology: '-Inherited APC resistance due to factor V mutation<br>-Hypercoagulability (venous thrombosis)', findings: '- Resistance of Factor V to Protein C inactivation.<br>- Detected by modified APC-PT assay.<br><br>- Recurrent Venous Thromboembolism (VTE).<br>- Deep Vein Thrombosis (DVT).', def: 'Activated Protein C resistance.' },
+            { category: 'Thrombolitic Disorders', term: 'Antiphospholipid Syndrome', etiology: '-Autoimmune antibodies (lupus anticoagulant, anticardiolipin, anti-α2GPI)<br>-Hypercoagulability<br>-Pregnancy morbidity', findings: '- Prolonged aPTT that does not correct with mixing.<br>- Positive DRVVT test.<br><br>- Recurrent arterial/venous thrombosis.<br>- Repeated miscarriages.', def: 'Autoantibodies causing pathological clotting.' },
+            { category: 'Thrombolitic Disorders', term: 'Disseminated Intravascular Coagulation (DIC)', etiology: '-Systemic coagulation activation (sepsis, trauma, malignancy, obstetric catastrophe)<br>-Consumption of platelets/factors<br>-Microthrombi<br>-Bleeding', findings: '- Prolonged PT/aPTT, Low fibrinogen.<br>- High D-dimer and schistocytes on smear.<br><br>- Simultaneous bleeding and clotting.<br>- Organ failure and hypovolemic shock.', def: 'Systemic activation and consumption.' },
+            { category: 'Thrombolitic Disorders', term: 'HIT Syndrome', etiology: '-IgG against heparin-PF4 complex<br>-Platelet activation<br>-Thrombosis with thrombocytopenia', findings: '- 50% decline in platelet count during therapy.<br>- Positive Heparin-PF4 antibody assay.<br><br>- Paradoxical thrombosis 5-10 days after heparin.<br>- Skin necrosis at injection sites.', def: 'Heparin-PF4 antibody-mediated activation.' },
+            { category: 'Thrombolitic Disorders', term: 'TTP / HUS', etiology: '-Thrombotic microangiopathy from platelet microthrombi<br>-ADAMTS13 deficiency (usually acquired autoantibody) OR endothelial injury, classically Shiga-toxin (EHEC) or complement-mediated (atypical HUS)', findings: '- Thrombocytopenia and schistocytes.<br>- Normal PT/aPTT and fibrinogen.<br><br>- Neurologic symptoms (altered mental status).<br>- Fever and renal dysfunction.', def: 'Platelet-rich microthrombi in vasculature.' },
+
             // --- HEMOSTASIS ESSENTIALS (MATCHING MODULE) ---
             { category: 'Hemostasis Essentials', term: 'Packed RBCs', def: 'Use for symptomatic anemia or acute blood loss; trigger Hgb <7 g/dL (often higher if ischemia/CAD/ongoing hemorrhage); <br><br>Goal: improve oxygen delivery, not clotting.' },
             { category: 'Hemostasis Essentials', term: 'Platelets', def: 'Use for bleeding risk from thrombocytopenia; trigger <10k/uL prophylaxis, <50k/uL active bleeding/procedure, <100k/uL neurosurgery/eye; <br><br>Goal: fix platelet number.' },
@@ -1341,6 +1357,8 @@ const LS_KEYS = {
   leaderboardCopilot: 'heme_leaderboard_v1'
 };
 
+const THROMBOLITIC_CATEGORY = 'Thrombolitic Disorders';
+
 const DISORDER_MATCH_CATEGORIES = new Set([
   'Heme Synthesis',
   'Anemias: Hypoproliferative',
@@ -1350,12 +1368,18 @@ const DISORDER_MATCH_CATEGORIES = new Set([
   'Coagulation & Platelets',
   'Module: Parasites',
   'Anemias',
-  'Coagulation'
+  'Coagulation',
+  THROMBOLITIC_CATEGORY
 ]);
 
 const DISORDER_MATCH_MODES = [
   { id: 'etiology', label: 'Etiology' },
   { id: 'findings', label: 'Labs / Clinical' }
+];
+
+const THROMBOLITIC_MATCH_MODES = [
+  { id: 'etiology', label: 'Etiology' },
+  { id: 'findings', label: 'Lab/Clinical Findings' }
 ];
 
 const RBC_MORPHOLOGY_CATEGORY = 'Foundations: RBC Morphology';
@@ -1883,6 +1907,7 @@ function renderCategoryGroups(renderHidden) {
     ]},
     { title: "Hemostasis & Thrombosis", items: [
       { id: 'Coagulation & Platelets', label: 'Coagulation & Platelet Disorders', icon: 'ShieldAlert', color: 'bg-blue-600' },
+      { id: 'Thrombolitic Disorders', label: 'Thrombolitic Disorders', icon: 'ShieldAlert', color: 'bg-teal-600' },
       { id: 'Hemostasis Essentials', label: 'Hemostasis Essentials (Matching)', icon: 'Activity', color: 'bg-indigo-600' },
       { id: 'Foundations: Labs', label: 'Lab Diagnostics', icon: 'FlaskConical', color: 'bg-cyan-600' },
     ]},
@@ -2084,18 +2109,20 @@ function renderBoard() {
              mainContent.classList.add('px-4', 'max-w-6xl', 'mx-auto'); 
             
             const isDisorderDeck = isDisorderMatchCategory(selectedCategory);
+            const isThromboliticDeck = selectedCategory === THROMBOLITIC_CATEGORY;
             const isRbcDeck = isRbcMorphologyCategory(selectedCategory);
+            const disorderModes = isThromboliticDeck ? THROMBOLITIC_MATCH_MODES : DISORDER_MATCH_MODES;
             const leftHeader = isDisorderDeck
               ? 'Disorders'
               : (isRbcDeck ? 'Morphology Term' : 'Term / Intervention');
             const rightHeader = isDisorderDeck
-              ? (disorderMatchMode === 'etiology' ? 'Etiology' : 'Labs / Clinical')
+              ? (disorderMatchMode === 'etiology' ? 'Etiology' : (isThromboliticDeck ? 'Lab/Clinical Findings' : 'Labs / Clinical'))
               : (isRbcDeck ? (rbcMatchMode === 'appearance' ? 'Appearance' : 'Associated Conditions') : 'Indication / Pattern');
             const matchModeControls = isDisorderDeck ? `
                 <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
                     <div class="text-xs font-bold text-slate-500 uppercase tracking-wider">Match to</div>
                     <div class="flex flex-wrap gap-2">
-                        ${DISORDER_MATCH_MODES.map(mode => `
+                        ${disorderModes.map(mode => `
                             <button onclick="setDisorderMatchMode('${mode.id}')"
                                 class="px-3 py-1.5 rounded-full text-xs font-bold border transition-colors ${disorderMatchMode === mode.id ? 'bg-slate-900 text-white border-slate-900' : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400'}">
                                 ${mode.label}
