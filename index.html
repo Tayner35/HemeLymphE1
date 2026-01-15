@@ -1357,6 +1357,13 @@ const DISORDER_MATCH_MODES = [
   { id: 'findings', label: 'Labs / Clinical' }
 ];
 
+const RBC_MORPHOLOGY_CATEGORY = 'Foundations: RBC Morphology';
+
+const RBC_MATCH_MODES = [
+  { id: 'appearance', label: 'Appearance' },
+  { id: 'associated', label: 'Associated Conditions' }
+];
+
 // ===== DOM REFS =====
 const mainContent = document.getElementById('main-content');
 const gameStats = document.getElementById('game-stats');
@@ -1399,6 +1406,7 @@ let selectedRight = null;
 let matchedIds = [];
 let wrongPair = null;
 let disorderMatchMode = 'findings';
+let rbcMatchMode = 'appearance';
 
 // ----- Image Bank -----
 let isQuizMode = false;
@@ -1951,7 +1959,28 @@ function isDisorderMatchCategory(catId) {
   return DISORDER_MATCH_CATEGORIES.has(catId);
 }
 
+function isRbcMorphologyCategory(catId) {
+  return catId === RBC_MORPHOLOGY_CATEGORY;
+}
+
+function splitRbcDefinition(def) {
+  const parts = String(def || '').split(/<br\s*\/?>\s*<br\s*\/?>/i);
+  const appearance = (parts[0] || '').trim();
+  const associated = parts.slice(1).join('<br><br>').trim();
+  return { appearance, associated };
+}
+
 function getMatchText(item) {
+  if (isRbcMorphologyCategory(selectedCategory)) {
+    const { appearance, associated } = splitRbcDefinition(item.def || '');
+    if (rbcMatchMode === 'associated') {
+      if (item.term === 'Normal Morphology') {
+        return 'Normal appearance; no associated conditions';
+      }
+      return associated || '';
+    }
+    return appearance || item.def || '';
+  }
   if (isDisorderMatchCategory(selectedCategory) && (item.etiology || item.findings)) {
     return disorderMatchMode === 'etiology'
       ? (item.etiology || item.def || '')
@@ -1963,6 +1992,12 @@ function getMatchText(item) {
 function setDisorderMatchMode(mode) {
   if (mode === disorderMatchMode) return;
   disorderMatchMode = mode;
+  if (selectedCategory) startGame(selectedCategory);
+}
+
+function setRbcMatchMode(mode) {
+  if (mode === rbcMatchMode) return;
+  rbcMatchMode = mode;
   if (selectedCategory) startGame(selectedCategory);
 }
 
@@ -1992,7 +2027,7 @@ function startGame(catId) {
             score = 0;
             mistakes = 0;
             matchedIds = [];
-            leftCol = [...deck].sort(() => 0.5 - Math.random());
+            leftCol = [...deck].sort((a, b) => String(a.term || '').localeCompare(String(b.term || ''), undefined, { sensitivity: 'base' }));
             rightCol = [...deck].sort(() => 0.5 - Math.random());
             selectedLeft = null;
             selectedRight = null;
@@ -2048,10 +2083,13 @@ function renderBoard() {
              mainContent.classList.add('px-4', 'max-w-6xl', 'mx-auto'); 
             
             const isDisorderDeck = isDisorderMatchCategory(selectedCategory);
-            const leftHeader = isDisorderDeck ? 'Disorders' : 'Term / Intervention';
+            const isRbcDeck = isRbcMorphologyCategory(selectedCategory);
+            const leftHeader = isDisorderDeck
+              ? 'Disorders'
+              : (isRbcDeck ? 'Morphology Term' : 'Term / Intervention');
             const rightHeader = isDisorderDeck
               ? (disorderMatchMode === 'etiology' ? 'Etiology' : 'Labs / Clinical')
-              : 'Indication / Pattern';
+              : (isRbcDeck ? (rbcMatchMode === 'appearance' ? 'Appearance' : 'Associated Conditions') : 'Indication / Pattern');
             const matchModeControls = isDisorderDeck ? `
                 <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
                     <div class="text-xs font-bold text-slate-500 uppercase tracking-wider">Match to</div>
@@ -2064,7 +2102,19 @@ function renderBoard() {
                         `).join('')}
                     </div>
                 </div>
-            ` : '';
+            ` : (isRbcDeck ? `
+                <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                    <div class="text-xs font-bold text-slate-500 uppercase tracking-wider">Match to</div>
+                    <div class="flex flex-wrap gap-2">
+                        ${RBC_MATCH_MODES.map(mode => `
+                            <button onclick="setRbcMatchMode('${mode.id}')"
+                                class="px-3 py-1.5 rounded-full text-xs font-bold border transition-colors ${rbcMatchMode === mode.id ? 'bg-slate-900 text-white border-slate-900' : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400'}">
+                                ${mode.label}
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            ` : '');
              
             let html = `
                 <div class="animate-fadeIn pb-12">
